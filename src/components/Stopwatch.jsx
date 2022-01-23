@@ -1,62 +1,76 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Plus from "../images/plus.svg";
 import Minus from "../images/minus.svg";
+import Play from "../images/play.svg";
 
 const Stopwatch = () => {
   const [time, setTime] = useState(0);
-  const [isPressed, setIsPressed] = useState(false);
-  const [speed, setSpeed] = useState(300);
+  const isPressed = useRef(false);
+  const speed = useRef(300);
 
   const onIncrease = () => {
-    setIsPressed(true);
+    isPressed.current = true;
     repeatCount(1);
   };
 
   const offPress = () => {
-    setIsPressed(false);
-    setSpeed(300);
+    isPressed.current = false;
+    speed.current = 300;
   };
 
   const onDecrease = () => {
-    setIsPressed(true);
+    isPressed.current = true;
     repeatCount(-1);
   };
 
   const repeatCount = (cnt) => {
     console.log("ww");
-    console.log("상태", isPressed, cnt);
-    if (isPressed) {
-      if (time > 0) setTime(time + cnt);
-      if (speed > 100) setSpeed(speed - 10);
+    console.log("상태", isPressed, cnt, time);
+    if (isPressed.current) {
+      if (speed.current > 50) speed.current -= 10;
+      setTime((prev) => prev + cnt);
       setTimeout(() => {
         repeatCount(cnt);
         console.log("w2w");
-      }, 300);
+      }, speed.current);
     }
   };
 
   return (
-    <div css={watchContainer}>
-      <img
-        src={Plus}
-        alt="더하기"
-        onMouseDown={onIncrease}
-        onMouseUp={offPress}
-      ></img>
-      <input type="text" value={time}></input>
-      <img
-        src={Minus}
-        alt="빼기"
-        onMouseDown={onDecrease}
-        onMouseUp={offPress}
-      ></img>
-    </div>
+    <>
+      <div css={watchContainer}>
+        <img
+          src={Plus}
+          alt="더하기"
+          onMouseDown={onIncrease}
+          onMouseUp={offPress}
+          onMouseLeave={offPress}
+        ></img>
+        <input type="text" value={time}></input>
+        <img
+          src={Minus}
+          alt="빼기"
+          onMouseDown={onDecrease}
+          onMouseUp={offPress}
+          onMouseLeave={offPress}
+        ></img>
+      </div>
+      <div css={playContainer}>
+        <img src={Play} alt="시작"></img>
+      </div>
+    </>
   );
 };
 
 const watchContainer = css`
+  display: flex;
+  justify-content: center;
+`;
+
+const playContainer = css`
+  margin-top: 1rem;
   display: flex;
   justify-content: center;
 `;
