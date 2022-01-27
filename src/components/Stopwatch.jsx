@@ -1,11 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { ReactComponent as Plus } from "../images/plus.svg";
 import { ReactComponent as Minus } from "../images/minus.svg";
 import { ReactComponent as Play } from "../images/play.svg";
 import { ReactComponent as Pause } from "../images/pause.svg";
 import { ReactComponent as Stop } from "../images/stop.svg";
+
+let nowTime = 0;
 
 const Stopwatch = () => {
   const [time, setTime] = useState(0);
@@ -35,10 +37,12 @@ const Stopwatch = () => {
     if (isPressed.current) {
       if (speed.current > 30) speed.current -= 10;
       setTime((prev) => {
-        if (!(prev === 0 && cnt === -1)) return prev + cnt;
+        if (!(prev === 0 && cnt === -1)) {
+          nowTime = prev + cnt;
+          return prev + cnt;
+        }
         return 0;
       });
-      console.log(time);
       timeout.current = setTimeout(() => {
         repeatCount(cnt);
       }, speed.current);
@@ -48,19 +52,25 @@ const Stopwatch = () => {
   const inputChange = (e) => {
     const originalValue = e.target.value;
     const onlyNumber = originalValue.replace(/[^0-9]/g, "");
-    if (!onlyNumber) setTime(0);
-    else setTime(+onlyNumber);
+    if (!onlyNumber) {
+      nowTime = 0;
+      setTime(0);
+    } else {
+      nowTime = +onlyNumber;
+      setTime(+onlyNumber);
+    }
   };
 
   const timePlay = () => {
     if (status.current === "play") clearInterval(playInterval.current);
     else status.current = "play";
     playInterval.current = setInterval(() => {
-      console.log(time);
-
+      --nowTime;
       setTime((prev) => {
-        if (prev !== 0) return --prev;
-        else {
+        if (prev !== 0) {
+          console.log(nowTime);
+          return --prev;
+        } else {
           clearInterval(playInterval.current);
           clearTimeout(timeout.current);
           return 0;
@@ -81,7 +91,7 @@ const Stopwatch = () => {
   };
 
   return (
-    <>
+    <div css={totalContainer({ nowTime })}>
       <div css={watchContainer}>
         <Plus
           alt="더하기"
@@ -104,9 +114,20 @@ const Stopwatch = () => {
         <Pause onClick={timePause} className="pause" />
         <Stop alt="정지" onClick={timeReset} className="stop" />
       </div>
-    </>
+    </div>
   );
 };
+
+const totalContainer = (props) => css`
+  padding: 2rem;
+  background-color: ${props.nowTime === 3
+    ? "#ffd3d3"
+    : props.nowTime === 2
+    ? "#ff9b9b"
+    : props.nowTime === 1
+    ? "#ff5e5e"
+    : "white"};
+`;
 
 const watchContainer = css`
   display: flex;
