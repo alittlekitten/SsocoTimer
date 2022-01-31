@@ -6,6 +6,7 @@
 - React의 기본적인 동작 방식을 익히고 있습니다.
 - CSS in JS 중에서도 Emotion을 사용하고 있습니다.
 - 클릭을 유지하면 점점 빠르게 count가 변동합니다.
+- 전역에서 관리가 필요한 상태를 처리하기 위해 Redux를 사용합니다.
 
 <br />
 
@@ -16,6 +17,7 @@
   <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/>
   <img src="https://img.shields.io/badge/Create React App-09D3AC?style=flat-square&logo=Create React App&logoColor=white"/>
   <img src="https://img.shields.io/badge/Emotion-C865B9?style=flat-square&logo=Emotion&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Redux-764ABC?style=flat-square&logo=Redux&logoColor=white"/>
 </div>
 
 <br />
@@ -40,6 +42,20 @@
 ### `22.01.27`
 
 - [x] 시간 3초남았을 때부터 네이비즘처럼 색변화
+
+### `22.01.31`
+
+- [x] 중간에 데이터를 수정하게 된다면 재생이 일시정지로 바뀌게 설정
+- [x] 현재 상태가 play라면 play 버튼의 색상이 빨간색으로 변해있도록 설정
+- [x] 타이머와 스톱워치 탭으로 구분하기
+- [x] Redux 적용
+
+### `22.02.01`
+
+- [] 시, 분, 초로 나누기
+- [] 타이머 랩타임 기능 만들기
+- [] 스톱워치로 0.001초까지 구분하기
+- [] 스톱워치 랩타임 기능 만들기
 
 <br />
 
@@ -80,3 +96,4 @@
 
 ![Honeycam 2022-01-25 03-44-43](https://user-images.githubusercontent.com/14370441/150844648-a5d95396-1f4a-42a1-b11d-5c3f8a2b6304.gif)
 ![Honeycam 2022-01-28 04-20-06](https://user-images.githubusercontent.com/14370441/151429636-543529b3-052f-474f-ab2e-ae49b78f07d7.gif)
+![Honeycam 2022-02-01 04-44-01](https://user-images.githubusercontent.com/14370441/151861680-30f19156-b347-4106-b5bd-e7c2ffd1af7c.gif)
