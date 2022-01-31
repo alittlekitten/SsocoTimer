@@ -10,6 +10,7 @@ import { ReactComponent as Lap } from "../images/lap.svg";
 
 const Timer = () => {
   const [time, setTime] = useState(0); // 시간
+  const [lap, setLap] = useState([]); // 랩
   const [status, setStatus] = useState("stop");
   const isPressed = useRef(false); // 마우스 눌렸는지 여부
   const speed = useRef(300); // 마우스를 꾹 눌렀을 때 증감 스피드
@@ -65,8 +66,13 @@ const Timer = () => {
   // 타이머 상태에 따른 동작
 
   const timePlay = () => {
-    if (status === "play") clearInterval(playInterval.current);
-    else setStatus("play");
+    if (status === "play") {
+      clearInterval(playInterval.current);
+      console.log(1);
+    } else {
+      console.log(2);
+      setStatus("play");
+    }
     playInterval.current = setInterval(() => {
       setTime((prev) => {
         if (prev !== 0) --prev;
@@ -80,7 +86,9 @@ const Timer = () => {
     }, 1000);
   };
 
-  const timeLap = () => {};
+  const timeLap = () => {
+    if (status === "play") setLap((prev) => [...prev, time]);
+  };
 
   const timePause = () => {
     setStatus("pause");
@@ -89,6 +97,7 @@ const Timer = () => {
 
   const timeReset = () => {
     setStatus("stop");
+    setLap([]);
     clearInterval(playInterval.current);
     setTime(0);
   };
@@ -117,6 +126,12 @@ const Timer = () => {
         <Lap onClick={timeLap} className="lap" />
         <Pause onClick={timePause} className="pause" />
         <Stop alt="정지" onClick={timeReset} className="stop" />
+      </div>
+      <div css={lapContainer}>
+        <h3>-- lap --</h3>
+        {lap.map((elem) => (
+          <p>{elem}</p>
+        ))}
       </div>
     </div>
   );
@@ -151,7 +166,7 @@ const playContainer = (props) => css`
   display: flex;
   justify-content: center;
 
-  & :not(:first-child) {
+  & :not(:first-of-type) {
     margin-left: 1rem;
   }
 
@@ -181,6 +196,19 @@ const playContainer = (props) => css`
     width: 52px;
     height: 52px;
     fill: red;
+  }
+`;
+
+const lapContainer = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0rem;
+  font-family: "HSYuji-Regular";
+
+  p {
+    margin: 0px;
   }
 `;
 
