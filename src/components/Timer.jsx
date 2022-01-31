@@ -6,6 +6,7 @@ import { ReactComponent as Minus } from "../images/minus.svg";
 import { ReactComponent as Play } from "../images/play.svg";
 import { ReactComponent as Pause } from "../images/pause.svg";
 import { ReactComponent as Stop } from "../images/stop.svg";
+import { ReactComponent as Lap } from "../images/lap.svg";
 
 const Timer = () => {
   const [time, setTime] = useState(0); // 시간
@@ -79,6 +80,8 @@ const Timer = () => {
     }, 1000);
   };
 
+  const timeLap = () => {};
+
   const timePause = () => {
     setStatus("pause");
     clearInterval(playInterval.current);
@@ -111,6 +114,7 @@ const Timer = () => {
       </div>
       <div css={playContainer({ status })}>
         <Play onClick={timePlay} className="play" />
+        <Lap onClick={timeLap} className="lap" />
         <Pause onClick={timePause} className="pause" />
         <Stop alt="정지" onClick={timeReset} className="stop" />
       </div>
@@ -147,6 +151,10 @@ const playContainer = (props) => css`
   display: flex;
   justify-content: center;
 
+  & :not(:first-child) {
+    margin-left: 1rem;
+  }
+
   .play {
     fill: ${props.status === "play" ? "red" : "black"};
   }
@@ -157,8 +165,10 @@ const playContainer = (props) => css`
     fill: red;
   }
 
-  .pause {
-    margin: 0 1rem;
+  .lap:hover {
+    width: 52px;
+    height: 52px;
+    fill: red;
   }
 
   .pause:hover {
