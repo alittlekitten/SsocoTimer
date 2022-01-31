@@ -119,12 +119,12 @@ const Stopwatch = () => {
 };
 
 const totalContainer = (props) => css`
-  padding: 2rem;
-  background-color: ${props.nowTime === 3
+  padding: 1.5rem;
+  background-color: ${props.time === 3
     ? "#ffd3d3"
-    : props.nowTime === 2
+    : props.time === 2
     ? "#ff9b9b"
-    : props.nowTime === 1
+    : props.time === 1
     ? "#ff5e5e"
     : "white"};
 `;
@@ -142,10 +142,20 @@ const watchContainer = css`
   }
 `;
 
-const playContainer = css`
-  margin-top: 1rem;
+const playContainer = (props) => css`
+  height: 100px;
+  width: 300px;
   display: flex;
   justify-content: center;
+  align-items: center;
+
+  & :not(:first-of-type) {
+    margin-left: 1rem;
+  }
+
+  .play {
+    fill: ${props.status === "play" ? "red" : "black"};
+  }
 
   .play:hover {
     width: 52px;
@@ -153,8 +163,10 @@ const playContainer = css`
     fill: red;
   }
 
-  .pause {
-    margin: 0 1rem;
+  .lap:hover {
+    width: 52px;
+    height: 52px;
+    fill: red;
   }
 
   .pause:hover {

@@ -66,13 +66,8 @@ const Timer = () => {
   // 타이머 상태에 따른 동작
 
   const timePlay = () => {
-    if (status === "play") {
-      clearInterval(playInterval.current);
-      console.log(1);
-    } else {
-      console.log(2);
-      setStatus("play");
-    }
+    if (status === "play") clearInterval(playInterval.current);
+    else setStatus("play");
     playInterval.current = setInterval(() => {
       setTime((prev) => {
         if (prev !== 0) --prev;
@@ -138,7 +133,7 @@ const Timer = () => {
 };
 
 const totalContainer = (props) => css`
-  padding: 2rem;
+  padding: 1.5rem;
   background-color: ${props.time === 3
     ? "#ffd3d3"
     : props.time === 2
@@ -162,9 +157,11 @@ const watchContainer = css`
 `;
 
 const playContainer = (props) => css`
-  margin-top: 1rem;
+  height: 100px;
+  width: 300px;
   display: flex;
   justify-content: center;
+  align-items: center;
 
   & :not(:first-of-type) {
     margin-left: 1rem;
@@ -206,6 +203,10 @@ const lapContainer = css`
   align-items: center;
   margin-top: 0rem;
   font-family: "HSYuji-Regular";
+
+  h3 {
+    margin-top: 0px;
+  }
 
   p {
     margin: 0px;
