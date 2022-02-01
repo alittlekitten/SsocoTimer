@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { ReactComponent as Plus } from "../images/plus.svg";
 import { ReactComponent as Minus } from "../images/minus.svg";
 import { ReactComponent as Play } from "../images/play.svg";
@@ -14,7 +14,6 @@ const Timer = () => {
   const [hour, setHour] = useState(0);
   const [lap, setLap] = useState([]); // 랩
   const [status, setStatus] = useState("stop");
-  const isPressed = useRef(false); // 마우스 눌렸는지 여부
   const speed = useRef(300); // 마우스를 꾹 눌렀을 때 증감 스피드
   const timeout = useRef(null); // 증감 스피드를 조절 및 재귀적 사용을 위한 setTimeout 변수
   const playTimeout = useRef(null); // 재생버튼을 눌렀을 때 발생하는 Interval을 담기 위한 변수
@@ -22,36 +21,56 @@ const Timer = () => {
   // 마우스 클릭할 때 동작들
 
   const onIncrease = () => {
-    isPressed.current = true;
-    repeatCount(1);
-    timePause();
+    setStatus("increase");
+    increase();
   };
+
+  const increase = useCallback(() => {
+    // hour, minute, second가 바뀔 때만 함수가 재생성되도록 useCallback 사용
+    if (speed.current > 30) speed.current -= 10;
+    if (second < 59) setSecond(second + 1);
+    else {
+      if (minute < 59) {
+        setSecond(0);
+        setMinute(minute + 1);
+      } else {
+        setSecond(0);
+        setMinute(0);
+        setHour(hour + 1);
+      }
+    }
+  }, [hour, minute, second]);
 
   const onDecrease = () => {
-    isPressed.current = true;
-    repeatCount(-1);
-    timePause();
+    setStatus("decrease");
+    decrease();
   };
+
+  const decrease = useCallback(() => {
+    // hour, minute, second가 바뀔 때만 함수가 재생성되도록 useCallback 사용
+    if (speed.current > 30) speed.current -= 10;
+    if (second > 0) {
+      if (hour === 0 && minute === 0 && second === 1) {
+        setStatus("stop");
+        clearTimeout(playTimeout.current);
+      }
+      setSecond(second - 1);
+    } else {
+      if (minute > 0) {
+        setSecond(59);
+        setMinute(minute - 1);
+      } else {
+        setSecond(59);
+        setMinute(59);
+        setHour(hour - 1);
+      }
+    }
+  }, [hour, minute, second]);
 
   const offPress = () => {
-    isPressed.current = false;
+    setStatus("pause");
     speed.current = 300;
     clearTimeout(timeout.current);
-  };
-
-  const repeatCount = (cnt) => {
-    if (isPressed.current) {
-      if (speed.current > 30) speed.current -= 10;
-      setSecond((prev) => {
-        if (!(prev === 0 && cnt === -1)) {
-          return prev + cnt;
-        }
-        return 0;
-      });
-      timeout.current = setTimeout(() => {
-        repeatCount(cnt);
-      }, speed.current);
-    }
   };
 
   const secondChange = (e) => {
@@ -143,6 +162,18 @@ const Timer = () => {
 
     return () => clearTimeout(playTimeout.current);
   }, [hour, minute, second, status]);
+
+  useEffect(() => {
+    if (status === "increase") {
+      timeout.current = setTimeout(() => {
+        increase();
+      }, speed.current);
+    } else if (status === "decrease") {
+      timeout.current = setTimeout(() => {
+        decrease();
+      }, speed.current);
+    }
+  }, [increase, decrease, status]);
 
   return (
     <div css={totalContainer({ hour, minute, second })}>
