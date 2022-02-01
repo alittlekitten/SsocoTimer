@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ReactComponent as Plus } from "../images/plus.svg";
 import { ReactComponent as Minus } from "../images/minus.svg";
 import { ReactComponent as Play } from "../images/play.svg";
@@ -9,13 +9,15 @@ import { ReactComponent as Stop } from "../images/stop.svg";
 import { ReactComponent as Lap } from "../images/lap.svg";
 
 const Timer = () => {
-  const [time, setTime] = useState(0); // 시간
+  const [second, setSecond] = useState(0); // 초
+  const [minute, setMinute] = useState(0); //
+  const [hour, setHour] = useState(0);
   const [lap, setLap] = useState([]); // 랩
   const [status, setStatus] = useState("stop");
   const isPressed = useRef(false); // 마우스 눌렸는지 여부
   const speed = useRef(300); // 마우스를 꾹 눌렀을 때 증감 스피드
   const timeout = useRef(null); // 증감 스피드를 조절 및 재귀적 사용을 위한 setTimeout 변수
-  const playInterval = useRef(null); // 재생버튼을 눌렀을 때 발생하는 Interval을 담기 위한 변수
+  const playTimeout = useRef(null); // 재생버튼을 눌렀을 때 발생하는 Interval을 담기 위한 변수
 
   // 마우스 클릭할 때 동작들
 
@@ -40,7 +42,7 @@ const Timer = () => {
   const repeatCount = (cnt) => {
     if (isPressed.current) {
       if (speed.current > 30) speed.current -= 10;
-      setTime((prev) => {
+      setSecond((prev) => {
         if (!(prev === 0 && cnt === -1)) {
           return prev + cnt;
         }
@@ -52,13 +54,41 @@ const Timer = () => {
     }
   };
 
-  const inputChange = (e) => {
+  const secondChange = (e) => {
     const originalValue = e.target.value;
     const onlyNumber = originalValue.replace(/[^0-9]/g, "");
     if (!onlyNumber) {
-      setTime(0);
+      setSecond(0);
+    } else if (+onlyNumber > 59) {
+      // 60 넘어가면 초기화
+      setSecond(0);
     } else {
-      setTime(+onlyNumber);
+      setSecond(+onlyNumber);
+    }
+    timePause();
+  };
+
+  const minuteChange = (e) => {
+    const originalValue = e.target.value;
+    const onlyNumber = originalValue.replace(/[^0-9]/g, "");
+    if (!onlyNumber) {
+      setMinute(0);
+    } else if (+onlyNumber > 59) {
+      // 60 넘어가면 초기화
+      setMinute(0);
+    } else {
+      setMinute(+onlyNumber);
+    }
+    timePause();
+  };
+
+  const hourChange = (e) => {
+    const originalValue = e.target.value;
+    const onlyNumber = originalValue.replace(/[^0-9]/g, "");
+    if (!onlyNumber) {
+      setHour(0);
+    } else {
+      setHour(+onlyNumber);
     }
     timePause();
   };
@@ -66,39 +96,56 @@ const Timer = () => {
   // 타이머 상태에 따른 동작
 
   const timePlay = () => {
-    if (status === "play") clearInterval(playInterval.current);
-    else setStatus("play");
-    playInterval.current = setInterval(() => {
-      setTime((prev) => {
-        if (prev !== 0) --prev;
-        if (prev === 0) {
-          setStatus("stop");
-          clearInterval(playInterval.current);
-          clearTimeout(timeout.current);
-        }
-        return prev;
-      });
-    }, 1000);
+    if (second !== 0) setStatus("play"); // 문자열은 기본형 데이터라 play를 play로 바꿔도 변화 X
   };
 
   const timeLap = () => {
-    if (status === "play") setLap((prev) => [...prev, time]);
+    if (status === "play")
+      setLap((prev) => [...prev, { hour, minute, second }]);
   };
 
   const timePause = () => {
     setStatus("pause");
-    clearInterval(playInterval.current);
+    clearInterval(playTimeout.current);
   };
 
   const timeReset = () => {
     setStatus("stop");
     setLap([]);
-    clearInterval(playInterval.current);
-    setTime(0);
+    clearInterval(playTimeout.current);
+    setSecond(0);
+    setMinute(0);
+    setHour(0);
   };
 
+  useEffect(() => {
+    // play 눌렀을 때의 로직
+    if (status === "play") {
+      playTimeout.current = setTimeout(() => {
+        if (second > 0) {
+          if (hour === 0 && minute === 0 && second === 1) {
+            setStatus("stop");
+            clearTimeout(playTimeout.current);
+          }
+          setSecond(second - 1);
+        } else {
+          if (minute > 0) {
+            setMinute(minute - 1);
+            setSecond(59);
+          } else if (hour > 0) {
+            setHour(hour - 1);
+            setMinute(59);
+            setSecond(59);
+          }
+        }
+      }, 1000);
+    }
+
+    return () => clearTimeout(playTimeout.current);
+  }, [hour, minute, second, status]);
+
   return (
-    <div css={totalContainer({ time })}>
+    <div css={totalContainer({ hour, minute, second })}>
       <div css={watchContainer}>
         <Plus
           alt="더하기"
@@ -107,7 +154,11 @@ const Timer = () => {
           onMouseLeave={offPress}
           className="plus"
         />
-        <input type="text" value={time} onChange={inputChange}></input>
+        <input type="text" value={hour} onChange={hourChange}></input>
+        <span>&nbsp;:&nbsp;</span>
+        <input type="text" value={minute} onChange={minuteChange}></input>
+        <span>&nbsp;:&nbsp;</span>
+        <input type="text" value={second} onChange={secondChange}></input>
         <Minus
           alt="빼기"
           onMouseDown={onDecrease}
@@ -124,8 +175,10 @@ const Timer = () => {
       </div>
       <div css={lapContainer}>
         <h3>-- lap --</h3>
-        {lap.map((elem) => (
-          <p>{elem}</p>
+        {lap.map((elem, index) => (
+          <p key={index}>
+            {elem.hour} : {elem.minute} : {elem.second}
+          </p>
         ))}
       </div>
     </div>
@@ -134,11 +187,13 @@ const Timer = () => {
 
 const totalContainer = (props) => css`
   padding: 1.5rem;
-  background-color: ${props.time === 3
+  background-color: ${props.hour === 0 &&
+  props.minute === 0 &&
+  props.second === 3
     ? "#ffd3d3"
-    : props.time === 2
+    : props.hour === 0 && props.minute === 0 && props.second === 2
     ? "#ff9b9b"
-    : props.time === 1
+    : props.hour === 0 && props.minute === 0 && props.second === 1
     ? "#ff5e5e"
     : "white"};
 `;
@@ -146,6 +201,10 @@ const totalContainer = (props) => css`
 const watchContainer = css`
   display: flex;
   justify-content: center;
+
+  input {
+    width: 50px;
+  }
 
   .plus:hover {
     fill: #bcfcff;
