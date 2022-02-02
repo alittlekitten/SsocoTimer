@@ -123,6 +123,7 @@ const watchContainer = css`
     font-family: "HSYuji-Regular";
     font-weight: 600;
     font-size: 2rem;
+    white-space: nowrap; // 다음줄로 안넘어가게
   }
 `;
 

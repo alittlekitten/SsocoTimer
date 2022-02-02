@@ -46,6 +46,8 @@ const Buttons = (props) => css`
     cursor: pointer;
 
     transition: 0.25s;
+
+    white-space: nowrap; // 다음줄로 안넘어가게
   }
 
   .timer {
