@@ -4,6 +4,8 @@
 
 **최신 릴리즈 버전 : `ver 0.2.0`**
 
+![Honeycam 2022-02-03 02-33-35](https://user-images.githubusercontent.com/14370441/152206600-60ad7dd7-a6f5-40ae-a649-3fb82dd46214.gif)
+
 - React와 CRA를 이용해서 간단한 스탑워치를 만들어보는 연습용 레포지토리입니다.
 - React의 기본적인 동작 방식을 익히고 있습니다.
 - CSS in JS 중에서도 Emotion을 사용하고 있습니다.
