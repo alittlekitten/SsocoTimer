@@ -9,14 +9,17 @@ import { ReactComponent as Stop } from "../images/stop.svg";
 import { ReactComponent as Lap } from "../images/lap.svg";
 
 const Timer = () => {
+  const [ms, setMs] = useState(0); // 밀리초 (정밀도 1/1000)
   const [second, setSecond] = useState(0); // 초
-  const [minute, setMinute] = useState(0); //
-  const [hour, setHour] = useState(0);
+  const [minute, setMinute] = useState(0); // 분
+  const [hour, setHour] = useState(0); // 초
   const [lap, setLap] = useState([]); // 랩
   const [status, setStatus] = useState("stop");
   const speed = useRef(300); // 마우스를 꾹 눌렀을 때 증감 스피드
   const timeout = useRef(null); // 증감 스피드를 조절 및 재귀적 사용을 위한 setTimeout 변수
   const playTimeout = useRef(null); // 재생버튼을 눌렀을 때 발생하는 Interval을 담기 위한 변수
+  const startTime = useRef(null); // 시작 시간을 담은 ref요소
+  const setTime = useRef(null); // play 눌렀을 때 설정된 시간을 담은 ref 요소
 
   // 마우스 클릭할 때 동작들
 
@@ -78,6 +81,7 @@ const Timer = () => {
   };
 
   const secondChange = (e) => {
+    timePause();
     const originalValue = e.target.value;
     const onlyNumber = originalValue.replace(/[^0-9]/g, "");
     if (!onlyNumber) {
@@ -88,10 +92,10 @@ const Timer = () => {
     } else {
       setSecond(+onlyNumber);
     }
-    timePause();
   };
 
   const minuteChange = (e) => {
+    timePause();
     const originalValue = e.target.value;
     const onlyNumber = originalValue.replace(/[^0-9]/g, "");
     if (!onlyNumber) {
@@ -102,10 +106,10 @@ const Timer = () => {
     } else {
       setMinute(+onlyNumber);
     }
-    timePause();
   };
 
   const hourChange = (e) => {
+    timePause();
     const originalValue = e.target.value;
     const onlyNumber = originalValue.replace(/[^0-9]/g, "");
     if (!onlyNumber) {
@@ -116,12 +120,19 @@ const Timer = () => {
     } else {
       setHour(+onlyNumber);
     }
-    timePause();
   };
 
   // 타이머 상태에 따른 동작
 
   const timePlay = () => {
+    // 최초 시작
+    if (startTime.current === null && status !== "play") {
+      startTime.current = Date.now();
+      setTime.current = new Date(
+        second * 1000 + minute * 1000 * 60 + hour * 1000 * 60 * 60
+      );
+    }
+
     if (!(hour === 0 && minute === 0 && second === 0)) setStatus("play"); // 문자열은 기본형 데이터라 play를 play로 바꿔도 변화 X
   };
 
@@ -132,43 +143,57 @@ const Timer = () => {
 
   const timePause = () => {
     setStatus("pause");
-    clearInterval(playTimeout.current);
+    if (status === "play") {
+      clearInterval(playTimeout.current);
+      startTime.current = null;
+      setTime.current = null;
+    }
   };
 
   const timeReset = () => {
     setStatus("stop");
     setLap([]);
     clearInterval(playTimeout.current);
+    setMs(0);
     setSecond(0);
     setMinute(0);
     setHour(0);
+    startTime.current = null;
+    setTime.current = null;
   };
 
   useEffect(() => {
+    const cal = new Date(
+      setTime.current - (Date.now() - startTime.current) + 999
+    ); // 시작할 때 해당 시간에 1초를 부여하고 0이 되면 딱 끝나도록 하기 위해 999를 더해줌
     // play 눌렀을 때의 로직
     if (status === "play") {
-      playTimeout.current = setTimeout(() => {
-        if (second > 0) {
-          if (hour === 0 && minute === 0 && second === 1) {
-            setStatus("stop");
-            clearTimeout(playTimeout.current);
-          }
-          setSecond(second - 1);
-        } else {
-          if (minute > 0) {
-            setMinute(minute - 1);
-            setSecond(59);
-          } else if (hour > 0) {
-            setHour(hour - 1);
-            setMinute(59);
-            setSecond(59);
-          }
-        }
-      }, 1000);
+      if (hour === 0 && minute === 0 && second === 0) {
+        clearTimeout(playTimeout.current);
+        setStatus("stop");
+        startTime.current = null;
+        setTime.current = null;
+      } else {
+        playTimeout.current = setTimeout(() => {
+          setMs(cal.getUTCMilliseconds());
+          setSecond(cal.getUTCSeconds());
+          setMinute(cal.getUTCMinutes());
+          setHour(cal.getUTCHours());
+        }, 1);
+      }
+    }
+    if (
+      status === "pause" ||
+      status === "stop" ||
+      status === "increase" ||
+      status === "decrease"
+    ) {
+      startTime.current = null;
+      setTime.current = null;
     }
 
     return () => clearTimeout(playTimeout.current);
-  }, [hour, minute, second, status]);
+  }, [hour, minute, second, ms, status]);
 
   useEffect(() => {
     if (status === "increase") {
@@ -260,6 +285,7 @@ const totalContainer = (props) => css`
 const watchContainer = css`
   display: flex;
   justify-content: center;
+  line-height: 50px;
 
   input {
     width: 70px;
