@@ -176,7 +176,7 @@ const Timer = () => {
   }, [increase, decrease, status]);
 
   return (
-    <div css={totalContainer({ hour, minute, second })}>
+    <div css={totalContainer({ status, hour, minute, second })}>
       <div css={watchContainer}>
         <Plus
           alt="더하기"
@@ -185,11 +185,23 @@ const Timer = () => {
           onMouseLeave={offPress}
           className="plus"
         />
-        <input type="text" value={hour} onChange={hourChange}></input>
+        <input
+          type="text"
+          value={hour >= 10 ? hour : "0" + hour}
+          onChange={hourChange}
+        ></input>
         <span>&nbsp;:&nbsp;</span>
-        <input type="text" value={minute} onChange={minuteChange}></input>
+        <input
+          type="text"
+          value={minute >= 10 ? minute : "0" + minute}
+          onChange={minuteChange}
+        ></input>
         <span>&nbsp;:&nbsp;</span>
-        <input type="text" value={second} onChange={secondChange}></input>
+        <input
+          type="text"
+          value={second >= 10 ? second : "0" + second}
+          onChange={secondChange}
+        ></input>
         <Minus
           alt="빼기"
           onMouseDown={onDecrease}
@@ -208,7 +220,9 @@ const Timer = () => {
         <h3>-- lap --</h3>
         {lap.map((elem, index) => (
           <p key={index}>
-            {elem.hour} : {elem.minute} : {elem.second}
+            {elem.hour >= 10 ? elem.hour : "0" + elem.hour} :{" "}
+            {elem.minute >= 10 ? elem.minute : "0" + elem.minute} :{" "}
+            {elem.second >= 10 ? elem.second : "0" + elem.second}
           </p>
         ))}
       </div>
@@ -218,13 +232,20 @@ const Timer = () => {
 
 const totalContainer = (props) => css`
   padding: 1.5rem;
-  background-color: ${props.hour === 0 &&
+  background-color: ${props.status === "play" &&
+  props.hour === 0 &&
   props.minute === 0 &&
   props.second === 3
     ? "#ffd3d3"
-    : props.hour === 0 && props.minute === 0 && props.second === 2
+    : props.status === "play" &&
+      props.hour === 0 &&
+      props.minute === 0 &&
+      props.second === 2
     ? "#ff9b9b"
-    : props.hour === 0 && props.minute === 0 && props.second === 1
+    : props.status === "play" &&
+      props.hour === 0 &&
+      props.minute === 0 &&
+      props.second === 1
     ? "#ff5e5e"
     : "white"};
 `;
@@ -235,6 +256,15 @@ const watchContainer = css`
 
   input {
     width: 50px;
+    font-family: "HSYuji-Regular";
+    font-weight: 600;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  span {
+    font-weight: 600;
+    font-size: 2rem;
   }
 
   .plus:hover {
@@ -248,7 +278,6 @@ const watchContainer = css`
 
 const playContainer = (props) => css`
   height: 100px;
-  width: 300px;
   display: flex;
   justify-content: center;
   align-items: center;
