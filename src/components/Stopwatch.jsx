@@ -35,9 +35,11 @@ const Timer = () => {
   };
 
   const timePause = () => {
+    if (status === "play") {
+      clearInterval(playTimeout.current);
+      pauseTime.current = Date.now();
+    }
     setStatus("pause");
-    clearInterval(playTimeout.current);
-    pauseTime.current = Date.now();
   };
 
   const timeReset = () => {
