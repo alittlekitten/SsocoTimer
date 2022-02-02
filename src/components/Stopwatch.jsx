@@ -1,150 +1,109 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { useState, useRef } from "react";
-import { ReactComponent as Plus } from "../images/plus.svg";
-import { ReactComponent as Minus } from "../images/minus.svg";
+import { useState, useRef, useEffect } from "react";
 import { ReactComponent as Play } from "../images/play.svg";
 import { ReactComponent as Pause } from "../images/pause.svg";
 import { ReactComponent as Stop } from "../images/stop.svg";
+import { ReactComponent as Lap } from "../images/lap.svg";
 
-let nowTime = 0;
+const Timer = () => {
+  const [second, setSecond] = useState(0); // 초
+  const [minute, setMinute] = useState(0); // 분
+  const [hour, setHour] = useState(0); // 시
+  const [lap, setLap] = useState([]); // 랩
+  const [status, setStatus] = useState("stop");
+  const playTimeout = useRef(null); // 재생버튼을 눌렀을 때 발생하는 Interval을 담기 위한 변수
 
-const Stopwatch = () => {
-  const [time, setTime] = useState(0);
-  const isPressed = useRef(false);
-  const speed = useRef(300);
-  const timeout = useRef(null);
-  const playInterval = useRef(null);
-  const status = useRef("stop");
-
-  const onIncrease = () => {
-    isPressed.current = true;
-    repeatCount(1);
-  };
-
-  const onDecrease = () => {
-    isPressed.current = true;
-    repeatCount(-1);
-  };
-
-  const offPress = () => {
-    isPressed.current = false;
-    speed.current = 300;
-    clearTimeout(timeout.current);
-  };
-
-  const repeatCount = (cnt) => {
-    if (isPressed.current) {
-      if (speed.current > 30) speed.current -= 10;
-      setTime((prev) => {
-        if (!(prev === 0 && cnt === -1)) {
-          nowTime = prev + cnt;
-          return prev + cnt;
-        }
-        return 0;
-      });
-      timeout.current = setTimeout(() => {
-        repeatCount(cnt);
-      }, speed.current);
-    }
-  };
-
-  const inputChange = (e) => {
-    const originalValue = e.target.value;
-    const onlyNumber = originalValue.replace(/[^0-9]/g, "");
-    if (!onlyNumber) {
-      nowTime = 0;
-      setTime(0);
-    } else {
-      nowTime = +onlyNumber;
-      setTime(+onlyNumber);
-    }
-  };
+  // 타이머 상태에 따른 동작
 
   const timePlay = () => {
-    if (status.current === "play") clearInterval(playInterval.current);
-    else status.current = "play";
-    playInterval.current = setInterval(() => {
-      --nowTime;
-      setTime((prev) => {
-        if (prev !== 0) {
-          console.log(nowTime);
-          return --prev;
-        } else {
-          clearInterval(playInterval.current);
-          clearTimeout(timeout.current);
-          return 0;
-        }
-      });
-    }, 1000);
+    setStatus("play");
+  };
+
+  const timeLap = () => {
+    if (status === "play")
+      setLap((prev) => [...prev, { hour, minute, second }]);
   };
 
   const timePause = () => {
-    status.current = "pause";
-    clearInterval(playInterval.current);
+    setStatus("pause");
+    clearInterval(playTimeout.current);
   };
 
   const timeReset = () => {
-    status.current = "stop";
-    clearInterval(playInterval.current);
-    setTime(0);
+    setStatus("stop");
+    setLap([]);
+    clearInterval(playTimeout.current);
+    setSecond(0);
+    setMinute(0);
+    setHour(0);
   };
 
+  useEffect(() => {
+    // play 눌렀을 때의 로직
+    if (status === "play") {
+      playTimeout.current = setTimeout(() => {
+        if (second === 59 && minute === 59) {
+          setHour(hour + 1);
+          setMinute(0);
+          setSecond(0);
+        } else if (second === 59) {
+          setMinute(minute + 1);
+          setSecond(0);
+        } else {
+          setSecond(second + 1);
+        }
+      }, 1000);
+    }
+
+    return () => clearTimeout(playTimeout.current);
+  }, [hour, minute, second, status]);
+
   return (
-    <div css={totalContainer({ nowTime })}>
+    <div css={totalContainer}>
       <div css={watchContainer}>
-        <Plus
-          alt="더하기"
-          onMouseDown={onIncrease}
-          onMouseUp={offPress}
-          onMouseLeave={offPress}
-          className="plus"
-        />
-        <input type="text" value={time || 0} onChange={inputChange}></input>
-        <Minus
-          alt="빼기"
-          onMouseDown={onDecrease}
-          onMouseUp={offPress}
-          onMouseLeave={offPress}
-          className="minus"
-        />
+        <p>
+          {hour >= 10 ? hour : "0" + hour} :{" "}
+          {minute >= 10 ? minute : "0" + minute} :{" "}
+          {second >= 10 ? second : "0" + second}
+        </p>
       </div>
-      <div css={playContainer}>
+      <div css={playContainer({ status })}>
         <Play onClick={timePlay} className="play" />
+        <Lap onClick={timeLap} className="lap" />
         <Pause onClick={timePause} className="pause" />
         <Stop alt="정지" onClick={timeReset} className="stop" />
+      </div>
+      <div css={lapContainer}>
+        <h3>-- lap --</h3>
+        {lap.map((elem, index) => (
+          <p key={index}>
+            {elem.hour} : {elem.minute} : {elem.second}
+          </p>
+        ))}
       </div>
     </div>
   );
 };
 
-const totalContainer = (props) => css`
+const totalContainer = css`
   padding: 1.5rem;
-  background-color: ${props.time === 3
-    ? "#ffd3d3"
-    : props.time === 2
-    ? "#ff9b9b"
-    : props.time === 1
-    ? "#ff5e5e"
-    : "white"};
 `;
 
 const watchContainer = css`
   display: flex;
   justify-content: center;
 
-  .plus:hover {
-    fill: #bcfcff;
-  }
-
-  .minus:hover {
-    fill: #ffc4c4;
+  p {
+    margin: 0;
+    font-family: "HSYuji-Regular";
+    font-weight: 600;
+    font-size: 2rem;
   }
 `;
 
 const playContainer = (props) => css`
   height: 100px;
-  width: 300px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -182,4 +141,21 @@ const playContainer = (props) => css`
   }
 `;
 
-export default Stopwatch;
+const lapContainer = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0rem;
+  font-family: "HSYuji-Regular";
+
+  h3 {
+    margin-top: 0px;
+  }
+
+  p {
+    margin: 0px;
+  }
+`;
+
+export default Timer;
