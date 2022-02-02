@@ -128,7 +128,21 @@
 
 ## 🎞 움짤
 
-![Honeycam 2022-01-25 03-44-43](https://user-images.githubusercontent.com/14370441/150844648-a5d95396-1f4a-42a1-b11d-5c3f8a2b6304.gif)
-![Honeycam 2022-01-28 04-20-06](https://user-images.githubusercontent.com/14370441/151429636-543529b3-052f-474f-ab2e-ae49b78f07d7.gif)
-![Honeycam 2022-02-01 04-44-01](https://user-images.githubusercontent.com/14370441/151861680-30f19156-b347-4106-b5bd-e7c2ffd1af7c.gif)
+### ver 0.2.0
+![Honeycam 2022-02-03 02-33-35](https://user-images.githubusercontent.com/14370441/152206600-60ad7dd7-a6f5-40ae-a649-3fb82dd46214.gif)
+
+### ver 0.1.1
 ![Honeycam 2022-02-02 07-47-45](https://user-images.githubusercontent.com/14370441/152064440-ef007f4b-bed2-4321-a698-e338b24de2bd.gif)
+
+### ver 0.1.0
+![Honeycam 2022-02-01 04-44-01](https://user-images.githubusercontent.com/14370441/151861680-30f19156-b347-4106-b5bd-e7c2ffd1af7c.gif)
+
+### ver 0.0.1
+![Honeycam 2022-01-28 04-20-06](https://user-images.githubusercontent.com/14370441/151429636-543529b3-052f-474f-ab2e-ae49b78f07d7.gif)
+
+### ver 0.0.0
+![Honeycam 2022-01-25 03-44-43](https://user-images.githubusercontent.com/14370441/150844648-a5d95396-1f4a-42a1-b11d-5c3f8a2b6304.gif)
+
+
+
+
