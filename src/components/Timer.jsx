@@ -30,7 +30,11 @@ const Timer = () => {
     if (speed.current > 30) speed.current -= 10;
     if (second < 59) setSecond(second + 1);
     else {
-      if (minute < 59) {
+      // 1000시간 미만으로만 설정 가능하도록 고정
+      if (hour === 999 && minute === 59 && second === 59) {
+        setStatus("stop");
+        clearTimeout(playTimeout.current);
+      } else if (minute < 59) {
         setSecond(0);
         setMinute(minute + 1);
       } else {
@@ -105,6 +109,9 @@ const Timer = () => {
     const originalValue = e.target.value;
     const onlyNumber = originalValue.replace(/[^0-9]/g, "");
     if (!onlyNumber) {
+      setHour(0);
+    } else if (+onlyNumber > 999) {
+      // 999시간 넘어가면 0으로 초기화
       setHour(0);
     } else {
       setHour(+onlyNumber);
@@ -255,7 +262,7 @@ const watchContainer = css`
   justify-content: center;
 
   input {
-    width: 50px;
+    width: 70px;
     font-family: "HSYuji-Regular";
     font-weight: 600;
     font-size: 2rem;
