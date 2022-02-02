@@ -20,11 +20,13 @@ const Timer = () => {
   // 타이머 상태에 따른 동작
 
   const timePlay = () => {
-    setStatus("play");
     // 최초 시작
-    if (startTime.current === null) startTime.current = Date.now();
+    if (startTime.current === null && status !== "play")
+      startTime.current = Date.now();
     // pause후 시작
-    else startTime.current += Date.now() - pauseTime.current;
+    else if (status === "pause")
+      startTime.current += Date.now() - pauseTime.current;
+    setStatus("play");
   };
 
   const timeLap = () => {
