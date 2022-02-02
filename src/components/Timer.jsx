@@ -115,7 +115,7 @@ const Timer = () => {
   // 타이머 상태에 따른 동작
 
   const timePlay = () => {
-    if (second !== 0) setStatus("play"); // 문자열은 기본형 데이터라 play를 play로 바꿔도 변화 X
+    if (!(hour === 0 && minute === 0 && second === 0)) setStatus("play"); // 문자열은 기본형 데이터라 play를 play로 바꿔도 변화 X
   };
 
   const timeLap = () => {
