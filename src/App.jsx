@@ -14,7 +14,7 @@ const App = () => {
   return (
     <div css={PageContainer}>
       <Nav />
-      <div>
+      <div css={MainContainer}>
         <Header />
         {tap === "Timer" && <Timer />}
         {tap === "Stopwatch" && <Stopwatch />}
@@ -29,6 +29,10 @@ const PageContainer = css`
   top: 10%;
   transform: translate(-50%);
   display: flex;
+`;
+
+const MainContainer = css`
+  width: 450px;
 `;
 
 export default App;

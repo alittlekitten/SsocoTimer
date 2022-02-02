@@ -14,8 +14,8 @@ const Timer = () => {
   const [lap, setLap] = useState([]); // 랩
   const [status, setStatus] = useState("stop");
   const playTimeout = useRef(null); // 재생버튼을 눌렀을 때 발생하는 Interval을 담기 위한 변수
-  const startTime = useRef(null);
-  const pauseTime = useRef(null);
+  const startTime = useRef(null); // 시작 시간을 담은 ref요소
+  const pauseTime = useRef(null); // 잠시 멈춘 시간을 담은 ref요소
 
   // 타이머 상태에 따른 동작
 
@@ -57,12 +57,6 @@ const Timer = () => {
   useEffect(() => {
     // play 눌렀을 때의 로직
     const now = new Date(Date.now() - startTime.current);
-    console.log(
-      now.getUTCHours(),
-      now.getUTCMinutes(),
-      now.getUTCSeconds(),
-      now.getUTCMilliseconds()
-    );
     if (status === "play") {
       playTimeout.current = setTimeout(() => {
         setHour(now.getUTCHours());
@@ -79,10 +73,14 @@ const Timer = () => {
     <div css={totalContainer}>
       <div css={watchContainer}>
         <p>
-          {hour >= 10 ? hour : "0" + hour} :{" "}
-          {minute >= 10 ? minute : "0" + minute} :{" "}
-          {second >= 10 ? second : "0" + second} :{" "}
-          {ms >= 100 ? ms : ms >= 10 ? "0" + ms : "00" + ms}
+          <span className="hour">{hour >= 10 ? hour : "0" + hour}</span> :{" "}
+          <span className="minute">{minute >= 10 ? minute : "0" + minute}</span>{" "}
+          :{" "}
+          <span className="second">{second >= 10 ? second : "0" + second}</span>{" "}
+          :{" "}
+          <span className="ms">
+            {ms >= 100 ? ms : ms >= 10 ? "0" + ms : "00" + ms}
+          </span>
         </p>
       </div>
       <div css={playContainer({ status })}>
@@ -124,6 +122,22 @@ const watchContainer = css`
     font-weight: 600;
     font-size: 2rem;
     white-space: nowrap; // 다음줄로 안넘어가게
+    line-height: 50px;
+    vertical-align: middle;
+
+    .hour,
+    .minute,
+    .second {
+      display: inline-block;
+      text-align: center;
+      width: 40px;
+    }
+
+    .ms {
+      display: inline-block;
+      text-align: center;
+      width: 60px;
+    }
   }
 `;
 
