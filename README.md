@@ -1,8 +1,11 @@
 ## ⏳ ReactStopwatch
 
+**👉 배포 페이지 : https://alittlekitten.github.io/reactStopwatch/**
+
 **최신 업데이트 날짜 : `2022.02.03`**
 
 **최신 릴리즈 버전 : `ver 0.2.0`**
+
 
 ![Honeycam 2022-02-03 02-33-35](https://user-images.githubusercontent.com/14370441/152206600-60ad7dd7-a6f5-40ae-a649-3fb82dd46214.gif)
 
