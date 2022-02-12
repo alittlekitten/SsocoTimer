@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/reactStopwatch/static/css/main.9da86248.css",
+    "main.js": "/reactStopwatch/static/js/main.f2f8f0be.js",
+    "static/js/787.7a64d1b3.chunk.js": "/reactStopwatch/static/js/787.7a64d1b3.chunk.js",
+    "static/media/lap.svg": "/reactStopwatch/static/media/lap.833fddd568fed194f4155c98d0baa924.svg",
+    "static/media/play.svg": "/reactStopwatch/static/media/play.ab40a1b50d0ea956ddb9ea4705bb4cb4.svg",
+    "static/media/pause.svg": "/reactStopwatch/static/media/pause.fa101559b0402e388f63fc3fab952796.svg",
+    "index.html": "/reactStopwatch/index.html",
+    "static/media/stop.svg": "/reactStopwatch/static/media/stop.7ce751e477150b607c9956287362934f.svg",
+    "static/media/plus.svg": "/reactStopwatch/static/media/plus.eca774ccf29a52b95125af9229d7f776.svg",
+    "static/media/minus.svg": "/reactStopwatch/static/media/minus.ea77594e4dcd769ae605b7fe24e3cd71.svg",
+    "main.9da86248.css.map": "/reactStopwatch/static/css/main.9da86248.css.map",
+    "main.f2f8f0be.js.map": "/reactStopwatch/static/js/main.f2f8f0be.js.map",
+    "787.7a64d1b3.chunk.js.map": "/reactStopwatch/static/js/787.7a64d1b3.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9da86248.css",
+    "static/js/main.f2f8f0be.js"
+  ]
+}
