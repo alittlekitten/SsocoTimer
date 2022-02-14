@@ -5,6 +5,7 @@ import Header from "./components/Header.jsx";
 import Nav from "./components/Nav.jsx";
 import Timer from "./components/Timer.jsx";
 import Stopwatch from "./components/Stopwatch.jsx";
+import Copyright from "./components/Copyright.jsx";
 import "./App.css";
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
     <div css={PageContainer}>
       <Nav />
       <div css={MainContainer}>
+        <Copyright />
         <Header />
         {tap === "Timer" && <Timer />}
         {tap === "Stopwatch" && <Stopwatch />}
