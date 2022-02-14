@@ -2,12 +2,11 @@
 
 **👉 배포 페이지 : https://alittlekitten.github.io/reactStopwatch/**
 
-**최신 업데이트 날짜 : `2022.02.12`**
+**최신 업데이트 날짜 : `2022.02.14`**
 
-**최신 릴리즈 버전 : `ver 1.0.0`**
+**최신 릴리즈 버전 : `ver 1.0.1`**
 
-
-![Honeycam 2022-02-03 02-33-35](https://user-images.githubusercontent.com/14370441/152206600-60ad7dd7-a6f5-40ae-a649-3fb82dd46214.gif)
+![Honeycam 2022-02-14 23-43-10](https://user-images.githubusercontent.com/14370441/153885360-fdfd9e8c-f5f9-49fa-9acb-fe6f735e7a21.gif)
 
 - React와 CRA를 이용해서 간단한 스탑워치를 만들어보는 연습용 레포지토리입니다.
 - React의 기본적인 동작 방식을 익히고 있습니다.
@@ -79,6 +78,12 @@
 ### `22.02.12`
 - [x] 배포(https://alittlekitten.github.io/reactStopwatch/)
 
+### `22.02.14`
+
+- [x] 개발자 정보 추가 (깃허브 페이지와 티스토리 페이지 링크 버튼 생성)
+- [x] 버튼 크기 변경으로 인한 요소 위치변화 버그 제거
+- [x] 버튼에 transition적용 
+
 <br />
 
 ## 🗝 고민한 점
@@ -132,9 +137,19 @@
 - Stopwatch는 Date로 지나간 시간을 측정하는 방식을 사용하였습니다.
 - Timer는 설정한 시간을 Date객체로 만든 후에 Date로 지나간 시간을 빼 주는 방식을 사용하였습니다.
 
+### transform 속성
+
+- 기존에는 버튼의 width와 height를 직접 변경하여 hover로 인한 크기 변화가 있으면 다른 요소들이 위치 정보에 영향을 받았습니다.
+- 그래서 position: absolute까지 써가면서 변경을 막았었습니다.
+- 이제는 css에 있는 transform과 scale을 이용하면 다른 요소에 영향을 끼치지 않고 버튼의 크기 변경이 가능하도록 구현하였습니다.
+- transition 속성과 함께 적용하여 보다 자연스럽고 부드러운 UI/UX를 만들 수 있었습니다.
+
 <br />
 
 ## 🎞 움짤
+
+### ver 1.0.1
+![Honeycam 2022-02-14 23-40-30](https://user-images.githubusercontent.com/14370441/153885083-c9ced6ea-1213-459d-b14f-48ae6da0ba9f.gif)
 
 ### ver 0.2.0
 ![Honeycam 2022-02-03 02-33-35](https://user-images.githubusercontent.com/14370441/152206600-60ad7dd7-a6f5-40ae-a649-3fb82dd46214.gif)
