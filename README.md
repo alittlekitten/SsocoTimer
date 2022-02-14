@@ -1,6 +1,6 @@
 ## ⏳ ReactStopwatch
 
-**👉 배포 페이지 : https://alittlekitten.github.io/reactStopwatch/**
+**👉 배포 페이지 : https://alittlekitten.github.io/SsocoTimer/**
 
 **최신 업데이트 날짜 : `2022.02.15`**
 
