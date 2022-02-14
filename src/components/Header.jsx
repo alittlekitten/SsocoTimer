@@ -8,7 +8,7 @@ const Header = () => {
 
   return (
     <div css={headerStyle}>
-      <span className="react">React</span>
+      <span className="ssoco">Ssoco</span>
       <span>&nbsp;</span>
       {tap === "Timer" && <span className="timer">Timer</span>}
       {tap === "Stopwatch" && <span className="stopwatch">Stopwatch</span>}
@@ -25,7 +25,7 @@ const headerStyle = css`
   font-weight: 600;
   font-family: "HSYuji-Regular";
 
-  .react {
+  .ssoco {
     color: #0083ff;
   }
 

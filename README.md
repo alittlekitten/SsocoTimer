@@ -1,4 +1,4 @@
-## ⏳ ReactStopwatch
+## ⏳ SsocoTimer
 
 **👉 배포 페이지 : https://alittlekitten.github.io/SsocoTimer/**
 
@@ -76,14 +76,17 @@
 - [x] increase/decrease 버튼을 눌렀을 때 정상적으로 시간이 멈추지 않는 버그 수정
 
 ### `22.02.12`
+
 - [x] 배포(https://alittlekitten.github.io/reactStopwatch/)
 
 ### `22.02.14`
 
 - [x] 개발자 정보 추가 (깃허브 페이지와 티스토리 페이지 링크 버튼 생성)
 - [x] 버튼 크기 변경으로 인한 요소 위치변화 버그 제거
-- [x] 버튼에 transition적용 
+- [x] 버튼에 transition적용
 - [x] 메타데이터 추가 (head의 로고와 타이틀, 설명 수정)
+- [x] 도메인명 변경 (reactStopwatch -> SsocoTimer)
+- [x] 배포 주소 변경 (https://alittlekitten.github.io/SsocoTimer/)
 
 <br />
 
@@ -150,23 +153,25 @@
 ## 🎞 움짤
 
 ### ver 1.0.1
+
 ![Honeycam 2022-02-14 23-40-30](https://user-images.githubusercontent.com/14370441/153885083-c9ced6ea-1213-459d-b14f-48ae6da0ba9f.gif)
 
 ### ver 0.2.0
+
 ![Honeycam 2022-02-03 02-33-35](https://user-images.githubusercontent.com/14370441/152206600-60ad7dd7-a6f5-40ae-a649-3fb82dd46214.gif)
 
 ### ver 0.1.1
+
 ![Honeycam 2022-02-02 07-47-45](https://user-images.githubusercontent.com/14370441/152064440-ef007f4b-bed2-4321-a698-e338b24de2bd.gif)
 
 ### ver 0.1.0
+
 ![Honeycam 2022-02-01 04-44-01](https://user-images.githubusercontent.com/14370441/151861680-30f19156-b347-4106-b5bd-e7c2ffd1af7c.gif)
 
 ### ver 0.0.1
+
 ![Honeycam 2022-01-28 04-20-06](https://user-images.githubusercontent.com/14370441/151429636-543529b3-052f-474f-ab2e-ae49b78f07d7.gif)
 
 ### ver 0.0.0
+
 ![Honeycam 2022-01-25 03-44-43](https://user-images.githubusercontent.com/14370441/150844648-a5d95396-1f4a-42a1-b11d-5c3f8a2b6304.gif)
-
-
-
-
