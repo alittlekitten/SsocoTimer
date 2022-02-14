@@ -4,6 +4,14 @@ import { ReactComponent as Github } from "../images/github.svg";
 import { ReactComponent as Tistory } from "../images/tistory.svg";
 
 const Copyright = () => {
+  const githubOnClick = () => {
+    window.open("https://github.com/alittlekitten/");
+  };
+
+  const TistoryOnClick = () => {
+    window.open("https://ssocoit.tistory.com/");
+  };
+
   return (
     <div>
       <div css={main}>
@@ -11,8 +19,8 @@ const Copyright = () => {
           Copyright 2022. by <span className="github-id">alittlekitten</span>
         </span>
         <div className="icons">
-          <Github className="github" />
-          <Tistory className="tistory" />
+          <Github className="github" onClick={githubOnClick} />
+          <Tistory className="tistory" onClick={TistoryOnClick} />
         </div>
       </div>
       <div css={hr}>
