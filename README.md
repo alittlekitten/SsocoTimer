@@ -6,7 +6,7 @@
 
 **최신 릴리즈 버전 : `ver 1.0.1`**
 
-![Honeycam 2022-02-14 23-43-10](https://user-images.githubusercontent.com/14370441/153885360-fdfd9e8c-f5f9-49fa-9acb-fe6f735e7a21.gif)
+![Honeycam 2022-02-15 00-42-34](https://user-images.githubusercontent.com/14370441/153896342-b6774dcf-ab7b-4221-935b-00af5ffebe6c.gif)
 
 - React와 CRA를 이용해서 간단한 스탑워치를 만들어보는 연습용 레포지토리입니다.
 - React의 기본적인 동작 방식을 익히고 있습니다.
@@ -154,7 +154,7 @@
 
 ### ver 1.0.1
 
-![Honeycam 2022-02-14 23-40-30](https://user-images.githubusercontent.com/14370441/153885083-c9ced6ea-1213-459d-b14f-48ae6da0ba9f.gif)
+![Honeycam 2022-02-15 00-42-34](https://user-images.githubusercontent.com/14370441/153896373-6e561530-d9bb-4896-80be-556c8a12ba0a.gif)
 
 ### ver 0.2.0
 
