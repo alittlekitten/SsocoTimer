@@ -166,8 +166,8 @@ const playContainer = (props) => css`
   .lap:hover,
   .pause:hover,
   .stop:hover {
-    width: 52px;
-    height: 52px;
+    transform: scale(1.04, 1.04);
+    transition: all ease 0.1s;
     fill: red;
   }
 `;

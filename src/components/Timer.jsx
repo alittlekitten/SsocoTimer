@@ -300,6 +300,12 @@ const watchContainer = css`
     font-size: 2rem;
   }
 
+  .plus:hover,
+  .minus:hover {
+    transform: scale(1.04, 1.04);
+    transition: all ease 0.1s;
+  }
+
   .plus:hover {
     fill: #bcfcff;
   }
@@ -323,27 +329,19 @@ const playContainer = (props) => css`
     fill: ${props.status === "play" ? "red" : "black"};
   }
 
-  .play:hover {
-    width: 52px;
-    height: 52px;
-    fill: red;
+  .play,
+  .lap,
+  .pause,
+  .stop {
+    cursor: pointer;
   }
 
-  .lap:hover {
-    width: 52px;
-    height: 52px;
-    fill: red;
-  }
-
-  .pause:hover {
-    width: 52px;
-    height: 52px;
-    fill: red;
-  }
-
+  .play:hover,
+  .lap:hover,
+  .pause:hover,
   .stop:hover {
-    width: 52px;
-    height: 52px;
+    transform: scale(1.04, 1.04);
+    transition: all ease 0.1s;
     fill: red;
   }
 `;

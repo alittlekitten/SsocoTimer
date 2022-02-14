@@ -7,13 +7,17 @@ const Copyright = () => {
   return (
     <div>
       <div css={main}>
-        <span className="copyright">Copyright 2022. by alittlekitten</span>
+        <span className="copyright">
+          Copyright 2022. by <span className="github-id">alittlekitten</span>
+        </span>
         <div className="icons">
           <Github className="github" />
           <Tistory className="tistory" />
         </div>
       </div>
-      <hr />
+      <div css={hr}>
+        <hr />
+      </div>
     </div>
   );
 };
@@ -27,11 +31,16 @@ const main = css`
   font-family: "HSYuji-Regular";
   font-weight: 600;
   font-size: 0.8rem;
+  color: #7f7f7f;
   height: 30px;
 
   .copyright {
     position: absolute;
     right: 60px;
+
+    .github-id {
+      color: red;
+    }
   }
 
   .icons {
@@ -44,16 +53,17 @@ const main = css`
       margin-left: 0.5rem;
     }
 
-    .github:hover {
-      width: 24px;
-      height: 24px;
-      fill: red;
-    }
-
+    .github:hover,
     .tistory:hover {
-      width: 22px;
-      height: 22px;
+      transform: scale(1.1, 1.1);
+      transition: all ease 0.3s;
       fill: red;
     }
+  }
+`;
+
+const hr = css`
+  hr {
+    border: solid 1px #f9eded;
   }
 `;
