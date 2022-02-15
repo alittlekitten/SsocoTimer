@@ -80,9 +80,11 @@ const Timer = () => {
   }, [hour, minute, second]);
 
   const offPress = () => {
-    setStatus("pause");
-    speed.current = 300;
-    clearTimeout(timeout.current);
+    if (status === "increase" || status === "decrease") {
+      setStatus("pause");
+      speed.current = 300;
+      clearTimeout(timeout.current);
+    }
   };
 
   const secondChange = (e) => {
