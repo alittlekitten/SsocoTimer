@@ -2,11 +2,11 @@
 
 **👉 배포 페이지 : https://alittlekitten.github.io/SsocoTimer/**
 
-**최신 업데이트 날짜 : `2022.02.15`**
+**최신 업데이트 날짜 : `2022.02.16`**
 
-**최신 릴리즈 버전 : `ver 1.0.1`**
+**최신 릴리즈 버전 : `ver 1.0.2`**
 
-![Honeycam 2022-02-15 00-42-34](https://user-images.githubusercontent.com/14370441/153896342-b6774dcf-ab7b-4221-935b-00af5ffebe6c.gif)
+![Honeycam 2022-02-16 02-56-45](https://user-images.githubusercontent.com/14370441/154123927-34d5656d-6cfe-4ff3-b9a0-edd6d16b8e2c.gif)
 
 - React와 CRA를 이용해서 간단한 스탑워치를 만들어보는 연습용 레포지토리입니다.
 - React의 기본적인 동작 방식을 익히고 있습니다.
@@ -82,11 +82,19 @@
 ### `22.02.14`
 
 - [x] 개발자 정보 추가 (깃허브 페이지와 티스토리 페이지 링크 버튼 생성)
-- [x] 버튼 크기 변경으로 인한 요소 위치변화 버그 제거
+- [x] 버튼 크기 변경으로 인한 요소 위치변화 버그 제거 [👉 issue링크](https://github.com/alittlekitten/SsocoTimer/issues/1)
 - [x] 버튼에 transition적용
 - [x] 메타데이터 추가 (head의 로고와 타이틀, 설명 수정)
 - [x] 도메인명 변경 (reactStopwatch -> SsocoTimer)
 - [x] 배포 주소 변경 (https://alittlekitten.github.io/SsocoTimer/)
+
+### `22.02.15`
+
+- [x] 타이머가 끝났을 때 알람 소리(꼬꼬댁)가 나게 하는 기능 추가
+- [x] 토글 버튼을 통해 알람 소리를 켜고 끌 수 있는 기능을 추가 
+- [x] 제작자에게 메일을 보낼 수 있는 버튼 추가
+- [x] `Timer` 00:00:00인 상태에서 -버튼을 누르면 -1:59:59로 변하는 버그 수정 [👉 issue링크](https://github.com/alittlekitten/SsocoTimer/issues/20)
+- [x] `Timer` 재생 상태에서 +-버튼에서 마우스를 올렸다가 떼는 순간 재생이 멈추는 버그 수정 [👉 issue링크](https://github.com/alittlekitten/SsocoTimer/issues/21)
 
 <br />
 
@@ -94,44 +102,44 @@
 
 ### 어떻게 증감이 빨라지는 버튼을 만들었는가
 
-- setTimeout의 두 번째 인자를 점차 감소하게 만듦
-- 재귀를 통해 꾹 누르고 있으면 계속해서 count가 동작하게 구현
-- 마우스의 클릭과 클릭해제는 `onMouseDown`, `onMouseUp`으로 구현
-- 예외사항 처리를 위해 `onMouseLeave`와 `onChange`이벤트도 사용
+- setTimeout의 두 번째 인자를 점차 감소하게 만들었습니다.
+- 재귀를 통해 꾹 누르고 있으면 계속해서 count가 동작하게 구현했습니다.
+- 마우스의 클릭과 클릭해제는 `onMouseDown`, `onMouseUp`으로 구현했습니다.
+- 예외사항 처리를 위해 `onMouseLeave`와 `onChange`이벤트를 사용했습니다.
 
 ### input에 입력받기
 
-- 아무 글자나 우선 입력받고, input의 value가 변할 때마다 `onChange` 이벤트로 감시
-- 입력받은 값에서 숫자를 제외한 값은 전부 regex를 이용해서 추출
-- input값은 text형태로 받으므로 number형태로 바꿔서 time에 적용
+- 아무 글자나 우선 입력받고, input의 value가 변할 때마다 `onChange` 이벤트로 감시합니다.
+- 입력받은 값에서 숫자를 제외한 값은 전부 regex를 이용해서 추출했습니다.
+- input값은 text형태로 받으므로 number형태로 바꿔서 time에 적용했습니다.
 
 ### 숫자 감소가 0에서 멈추게 하기
 
-- repeatCount 함수 내에서 setTime 함수가 작동할 때 조건문을 걸어줌
-- 만약 시간이 감소해서 0이 되는 경우 더이상 감소하지 않도록 예외처리
+- repeatCount 함수 내에서 setTime 함수가 작동할 때 조건문을 걸었습니다.
+- 만약 시간이 감소해서 0이 되는 경우 더이상 감소하지 않도록 예외처리했습니다.
 
 ### svg 버튼 호버와 클릭시 효과 넣기
 
-- `{ ReactComponent as Plus }`를 사용하여 svg파일을 컴포넌트처럼 사용
+- `{ ReactComponent as Plus }`를 사용하여 svg파일을 컴포넌트처럼 사용했습니다.
 
 ### 조건부 스타일 적용하기
 
-- 기존에는 useState만으로 time을 관리했지만, setTimeout의 재귀를 사용하다보니 실시간으로 time이 바뀌지 않는 문제가 발생
-- 이 문제를 해결하기 위해 임시로 전역에 nowTime이라는 변수를 만듦 (향후 상태관리 시스템을 적용하면서 전역변수를 없앨 예정)
-- Emotion문법을 사용하여 만든 CSS in JS Component에 props를 전달
-- props로 받은 nowTime값을 삼항연산자의 Chaining을 이용해서 조건을 적용한 후에 스타일 반영
+- 기존에는 useState만으로 time을 관리했지만, setTimeout의 재귀를 사용하다보니 실시간으로 time이 바뀌지 않는 문제가 발생했습니다.
+  - 이 문제를 해결하기 위해 임시로 전역에 nowTime이라는 변수를 만들었습니다. (추후 로직 변경을 통해 전역변수를 없앴습니다.)
+- 이렇게 변화한 상태를 props에 담은 후 Emotion문법을 사용하여 만든 CSS in JS Component에 전달했습니다.
+- props로 받은 nowTime값을 삼항연산자의 Chaining을 이용해서 조건을 적용한 후에 스타일에 반영했습니다.
 
 ### useEffect 활용
 
 - 기존에는 setState 안에서 prev => 를 통해 내부 상태값을 확인하고 변경하는 방식을 사용했습니다.
-- 하지만 time으로 관리했던 시간 상태가 second, minute, hour로 나눠지면서 상태들이 연결되기 시작했습니다.
-- 기존 prev를 이용하여 상태값을 변경하는 방식은 setState 안에서 또 다시 setState를 하는 경우 중복해서 state를 변경시키는 문제를 야기했습니다. (렌더링 되기 전에 state를 한번에 처리하기 때문에 문제 발생)
-- 그래서 useEffect를 사용하여 렌더링이 된 이후에 state를 관리해주는 방식으로 문제를 해결할 수 있었습니다.
+  - 하지만 time으로 관리했던 시간 상태가 second, minute, hour로 나눠지면서 상태들이 연결되기 시작했습니다.
+  - 기존 prev를 이용하여 상태값을 변경하는 방식은 setState 안에서 또 다시 setState를 하는 경우 중복해서 state를 변경시키는 문제를 야기했습니다. (렌더링 되기 전에 state를 한번에 처리하기 때문에 문제 발생)
+- useEffect를 사용하여 렌더링이 된 이후에 state를 관리해주는 방식으로 문제를 해결할 수 있었습니다.
 
 ### useCallback 활용
 
 - useEffect를 활용하면서 중복된 코드들을 밖에 선언하고 안에서 가져다 쓰는 방식을 사용하게 되었습니다.
-- 이 과정에서 함수를 의존성 배열 안에 넣다보니 리렌더링이 될 때마다 함수가 새로 생성이 되는 문제가 발생했습니다.
+  - 이 과정에서 함수를 의존성 배열 안에 넣다보니 리렌더링이 될 때마다 함수가 새로 생성이 되는 문제가 발생했습니다.
 - useCallback을 사용하여 의존성 배열 안에 들어간 요소가 바뀌지 않으면 기존에 있던 함수를 재사용하도록 구현하였습니다.
 
 ### setTimeout / setInterval의 딜레이 문제 해결
@@ -148,9 +156,20 @@
 - 이제는 css에 있는 transform과 scale을 이용하면 다른 요소에 영향을 끼치지 않고 버튼의 크기 변경이 가능하도록 구현하였습니다.
 - transition 속성과 함께 적용하여 보다 자연스럽고 부드러운 UI/UX를 만들 수 있었습니다.
 
+### 알람 재생 / useMemo 활용
+
+- Timer에서 사용하는 알람기능 상태관리를 위해 ./src/store 폴더 내부에 soundReducer를 만들고, 같은 폴더의 index.js에서 combineReducers를 사용해서 기존의 리듀서와 함께 사용할 수 있도록 만들었습니다.
+- Title에서 현재 tap 상태가 Timer일 때만 알람 버튼이 나오도록 설정하였습니다.
+- Timer.jsx에서는 new Audio()를 이용해서 음원파일을 불러옵니다.
+  - 매번 새롭게 불러오지 않고 한번만 불러오기 위해서 useMemo를 이용해서 Memoization을 하였습니다.
+  - 타이머가 재생중에 00:00:00이 되면 Audio의 play 메서드를 실행하는 `playAlarm`함수를 실행하도록 로직을 구현했습니다.
+
 <br />
 
 ## 🎞 움짤
+
+### ver 1.0.2
+![Honeycam 2022-02-16 02-56-45](https://user-images.githubusercontent.com/14370441/154123905-faca3462-1775-4ea7-a242-e0d3633502c7.gif)
 
 ### ver 1.0.1
 
