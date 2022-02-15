@@ -205,7 +205,7 @@ const Timer = () => {
     }
 
     return () => clearTimeout(playTimeout.current);
-  }, [hour, minute, second, ms, status]);
+  }, [hour, minute, second, ms, status, timerAlarm, playAlarm]);
 
   useEffect(() => {
     if (status === "increase") {
