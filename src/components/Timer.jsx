@@ -1,12 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import { useSelector } from "react-redux";
 import { ReactComponent as Plus } from "../images/plus.svg";
 import { ReactComponent as Minus } from "../images/minus.svg";
 import { ReactComponent as Play } from "../images/play.svg";
 import { ReactComponent as Pause } from "../images/pause.svg";
 import { ReactComponent as Stop } from "../images/stop.svg";
 import { ReactComponent as Lap } from "../images/lap.svg";
+import Fin from "../sounds/chicken.mp3";
 
 const Timer = () => {
   const [ms, setMs] = useState(0); // 밀리초 (정밀도 1/1000)
@@ -20,9 +22,10 @@ const Timer = () => {
   const playTimeout = useRef(null); // 재생버튼을 눌렀을 때 발생하는 Interval을 담기 위한 변수
   const startTime = useRef(null); // 시작 시간을 담은 ref요소
   const setTime = useRef(null); // play 눌렀을 때 설정된 시간을 담은 ref 요소
+  const alarm = useMemo(() => new Audio(Fin), []);
+  const { timerAlarm } = useSelector((state) => state.soundReducer);
 
   // 마우스 클릭할 때 동작들
-
   const onIncrease = () => {
     setStatus("increase");
     increase();
@@ -164,6 +167,10 @@ const Timer = () => {
     setTime.current = null;
   };
 
+  const playAlarm = () => {
+    alarm.play();
+  };
+
   useEffect(() => {
     const cal = new Date(
       setTime.current - (Date.now() - startTime.current) + 999
@@ -175,6 +182,7 @@ const Timer = () => {
         setStatus("stop");
         startTime.current = null;
         setTime.current = null;
+        if (timerAlarm) playAlarm();
       } else {
         playTimeout.current = setTimeout(() => {
           setMs(cal.getUTCMilliseconds());
