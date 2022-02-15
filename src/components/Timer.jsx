@@ -49,8 +49,10 @@ const Timer = () => {
   }, [hour, minute, second]);
 
   const onDecrease = () => {
-    setStatus("decrease");
-    decrease();
+    if (!(hour === 0 && minute === 0 && second === 0)) {
+      setStatus("decrease");
+      decrease();
+    }
   };
 
   const decrease = useCallback(() => {
