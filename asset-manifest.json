@@ -1,23 +1,26 @@
 {
   "files": {
     "main.css": "/SsocoTimer/static/css/main.9da86248.css",
-    "main.js": "/SsocoTimer/static/js/main.790fe87a.js",
+    "main.js": "/SsocoTimer/static/js/main.268fad1a.js",
     "static/js/787.7a64d1b3.chunk.js": "/SsocoTimer/static/js/787.7a64d1b3.chunk.js",
+    "static/media/chicken.mp3": "/SsocoTimer/static/media/chicken.76087247557a536c1651.mp3",
     "static/media/github.svg": "/SsocoTimer/static/media/github.1bcb71b785e313ff2768d4706d918610.svg",
+    "static/media/alarm.svg": "/SsocoTimer/static/media/alarm.aa8506f43f7ef38c8d7f8ecdc1740922.svg",
     "static/media/lap.svg": "/SsocoTimer/static/media/lap.833fddd568fed194f4155c98d0baa924.svg",
     "static/media/play.svg": "/SsocoTimer/static/media/play.ab40a1b50d0ea956ddb9ea4705bb4cb4.svg",
     "static/media/pause.svg": "/SsocoTimer/static/media/pause.fa101559b0402e388f63fc3fab952796.svg",
     "index.html": "/SsocoTimer/index.html",
     "static/media/stop.svg": "/SsocoTimer/static/media/stop.7ce751e477150b607c9956287362934f.svg",
     "static/media/plus.svg": "/SsocoTimer/static/media/plus.eca774ccf29a52b95125af9229d7f776.svg",
+    "static/media/email.svg": "/SsocoTimer/static/media/email.297db13597ff6b764482f72620d9025d.svg",
     "static/media/minus.svg": "/SsocoTimer/static/media/minus.ea77594e4dcd769ae605b7fe24e3cd71.svg",
     "static/media/tistory.svg": "/SsocoTimer/static/media/tistory.7f56a69f48ba9e568e487b221deed9ea.svg",
     "main.9da86248.css.map": "/SsocoTimer/static/css/main.9da86248.css.map",
-    "main.790fe87a.js.map": "/SsocoTimer/static/js/main.790fe87a.js.map",
+    "main.268fad1a.js.map": "/SsocoTimer/static/js/main.268fad1a.js.map",
     "787.7a64d1b3.chunk.js.map": "/SsocoTimer/static/js/787.7a64d1b3.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9da86248.css",
-    "static/js/main.790fe87a.js"
+    "static/js/main.268fad1a.js"
   ]
 }
