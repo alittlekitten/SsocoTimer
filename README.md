@@ -1,4 +1,4 @@
-## ⏳ SsocoTimer
+# ⏳ SsocoTimer
 
 **👉 배포 페이지 : https://alittlekitten.github.io/SsocoTimer/**
 
