@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useSelector } from "react-redux";
-import Header from "./components/Header.jsx";
+import Title from "./components/Title.jsx";
 import Nav from "./components/Nav.jsx";
 import Timer from "./components/Timer.jsx";
 import Stopwatch from "./components/Stopwatch.jsx";
-import Copyright from "./components/Copyright.jsx";
+import Header from "./components/Header.jsx";
 import "./App.css";
 
 const App = () => {
@@ -16,8 +16,8 @@ const App = () => {
     <div css={PageContainer}>
       <Nav />
       <div css={MainContainer}>
-        <Copyright />
         <Header />
+        <Title />
         {tap === "Timer" && <Timer />}
         {tap === "Stopwatch" && <Stopwatch />}
       </div>
