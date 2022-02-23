@@ -169,9 +169,9 @@ const Timer = () => {
     setTime.current = null;
   };
 
-  const playAlarm = () => {
+  const playAlarm = useCallback(() => {
     alarm.play();
-  };
+  }, [alarm]);
 
   useEffect(() => {
     const cal = new Date(
@@ -221,7 +221,7 @@ const Timer = () => {
 
   return (
     <div css={totalContainer({ status, hour, minute, second })}>
-      <div css={watchContainer}>
+      <div css={watchContainer({ speed })}>
         <Plus
           alt="더하기"
           onMouseDown={onIncrease}
@@ -294,7 +294,7 @@ const totalContainer = (props) => css`
     : "white"};
 `;
 
-const watchContainer = css`
+const watchContainer = (props) => css`
   display: flex;
   justify-content: center;
   line-height: 50px;
@@ -319,11 +319,15 @@ const watchContainer = css`
   }
 
   .plus:hover {
-    fill: #bcfcff;
+    fill: rgba(${props.speed.current / 1.4}, 255, 255);
   }
 
   .minus:hover {
-    fill: #ffc4c4;
+    fill: rgba(
+      255,
+      ${props.speed.current / 1.4 + 20},
+      ${props.speed.current / 1.4 + 20}
+    );
   }
 `;
 
