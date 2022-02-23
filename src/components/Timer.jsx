@@ -64,6 +64,7 @@ const Timer = () => {
     if (second > 0) {
       if (hour === 0 && minute === 0 && second === 1) {
         setStatus("stop");
+        speed.current = 300;
         clearTimeout(playTimeout.current);
       }
       setSecond(second - 1);
