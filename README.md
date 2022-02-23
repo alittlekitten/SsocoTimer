@@ -99,6 +99,8 @@
 ### `22.02.24`
 
 - [x] +- 버튼을 눌렀을 때 초가 증감하는 속도에 따라 버튼 색이 진해지는 버튼 디자인 추가
+- [x] `Timer` -버튼을 누르고 있었을 때 0초가 되면 speed가 초기화되지 않는 버그 수정 [👉 issue링크](https://github.com/alittlekitten/SsocoTimer/issues/25)
+
 
 <br />
 
