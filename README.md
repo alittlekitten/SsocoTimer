@@ -2,9 +2,9 @@
 
 **👉 배포 페이지 : https://alittlekitten.github.io/SsocoTimer/**
 
-**최신 업데이트 날짜 : `2022.02.16`**
+**최신 업데이트 날짜 : `2022.02.24`**
 
-**최신 릴리즈 버전 : `ver 1.0.2`**
+**최신 릴리즈 버전 : `ver 1.0.3`**
 
 ![Honeycam 2022-02-16 02-56-45](https://user-images.githubusercontent.com/14370441/154123927-34d5656d-6cfe-4ff3-b9a0-edd6d16b8e2c.gif)
 
@@ -96,6 +96,10 @@
 - [x] `Timer` 00:00:00인 상태에서 -버튼을 누르면 -1:59:59로 변하는 버그 수정 [👉 issue링크](https://github.com/alittlekitten/SsocoTimer/issues/20)
 - [x] `Timer` 재생 상태에서 +-버튼에서 마우스를 올렸다가 떼는 순간 재생이 멈추는 버그 수정 [👉 issue링크](https://github.com/alittlekitten/SsocoTimer/issues/21)
 
+### `22.02.24`
+
+- [x] +- 버튼을 눌렀을 때 초가 증감하는 속도에 따라 버튼 색이 진해지는 버튼 디자인 추가
+
 <br />
 
 ## 🗝 고민한 점
@@ -164,11 +168,21 @@
   - 매번 새롭게 불러오지 않고 한번만 불러오기 위해서 useMemo를 이용해서 Memoization을 하였습니다.
   - 타이머가 재생중에 00:00:00이 되면 Audio의 play 메서드를 실행하는 `playAlarm`함수를 실행하도록 로직을 구현했습니다.
 
+### 버튼 클릭시 속도에 따른 버튼 색 변화
+
+- 기존에는 hover를 했을 때 고정된 색상이 나오도록 설정했었습니다.
+- 이 부분을 속도에 따라 달라지게 만들기 위해 speed 상태를 props로 전달하고, 16진수 코드를 rgba형식으로 바꾼 후 speed에 따라 변화할 수 있도록 계산식을 부여했습니다.
+
 <br />
 
 ## 🎞 움짤
 
+### ver 1.0.3
+
+![Honeycam 2022-02-24 04-00-01](https://user-images.githubusercontent.com/14370441/155389223-78847bc6-c6d7-46d8-9b04-a5b0f2a783d7.gif)
+
 ### ver 1.0.2
+
 ![Honeycam 2022-02-16 02-56-45](https://user-images.githubusercontent.com/14370441/154123905-faca3462-1775-4ea7-a242-e0d3633502c7.gif)
 
 ### ver 1.0.1
