@@ -2,11 +2,11 @@
 
 **👉 배포 페이지 : https://alittlekitten.github.io/SsocoTimer/**
 
-**최신 업데이트 날짜 : `2022.02.24`**
+**최신 업데이트 날짜 : `2022.02.25`**
 
-**최신 릴리즈 버전 : `ver 1.0.3`**
+**최신 릴리즈 버전 : `ver 1.1.0`**
 
-![Honeycam 2022-02-16 02-56-45](https://user-images.githubusercontent.com/14370441/154123927-34d5656d-6cfe-4ff3-b9a0-edd6d16b8e2c.gif)
+![Honeycam 2022-02-25 02-39-36](https://user-images.githubusercontent.com/14370441/155577845-d4996b20-aa4e-4a0b-8a9b-78c3fc9df752.gif)
 
 - React와 CRA를 이용해서 간단한 스탑워치를 만들어보는 연습용 레포지토리입니다.
 - React의 기본적인 동작 방식을 익히고 있습니다.
@@ -75,11 +75,11 @@
 - [x] 타이머도 Date방식으로 변환
 - [x] increase/decrease 버튼을 눌렀을 때 정상적으로 시간이 멈추지 않는 버그 수정
 
-### `22.02.12`
+### `22.02.12` - `ver 1.0.0`
 
 - [x] 배포(https://alittlekitten.github.io/reactStopwatch/)
 
-### `22.02.14`
+### `22.02.14` - `ver 1.0.1`
 
 - [x] 개발자 정보 추가 (깃허브 페이지와 티스토리 페이지 링크 버튼 생성)
 - [x] 버튼 크기 변경으로 인한 요소 위치변화 버그 제거 [👉 issue링크](https://github.com/alittlekitten/SsocoTimer/issues/1)
@@ -88,7 +88,7 @@
 - [x] 도메인명 변경 (reactStopwatch -> SsocoTimer)
 - [x] 배포 주소 변경 (https://alittlekitten.github.io/SsocoTimer/)
 
-### `22.02.15`
+### `22.02.15` - `ver 1.0.2`
 
 - [x] 타이머가 끝났을 때 알람 소리(꼬꼬댁)가 나게 하는 기능 추가
 - [x] 토글 버튼을 통해 알람 소리를 켜고 끌 수 있는 기능을 추가 
@@ -96,10 +96,15 @@
 - [x] `Timer` 00:00:00인 상태에서 -버튼을 누르면 -1:59:59로 변하는 버그 수정 [👉 issue링크](https://github.com/alittlekitten/SsocoTimer/issues/20)
 - [x] `Timer` 재생 상태에서 +-버튼에서 마우스를 올렸다가 떼는 순간 재생이 멈추는 버그 수정 [👉 issue링크](https://github.com/alittlekitten/SsocoTimer/issues/21)
 
-### `22.02.24`
+### `22.02.24` - `ver 1.0.3`
 
 - [x] +- 버튼을 눌렀을 때 초가 증감하는 속도에 따라 버튼 색이 진해지는 버튼 디자인 추가
 - [x] `Timer` -버튼을 누르고 있었을 때 0초가 되면 speed가 초기화되지 않는 버그 수정 [👉 issue링크](https://github.com/alittlekitten/SsocoTimer/issues/25)
+
+### `22.02.25` - `ver 1.1.0`
+
+- [x] 현재 시간을 나타내는 탭 추가 (시, 분, 초, 밀리초 표시)
+- [x] 상단 헤더에 버전정보 추가
 
 
 <br />
@@ -175,9 +180,19 @@
 - 기존에는 hover를 했을 때 고정된 색상이 나오도록 설정했었습니다.
 - 이 부분을 속도에 따라 달라지게 만들기 위해 speed 상태를 props로 전달하고, 16진수 코드를 rgba형식으로 바꾼 후 speed에 따라 변화할 수 있도록 계산식을 부여했습니다.
 
+### setTimeout으로 매 초마다 시간을 불러올 때 생기는 초기 딜레이
+
+- 처음에는 복잡하게 밀리초까지 받아올 필요가 있을까 싶어서 초까지만 구현을 하려고 했습니다.
+  - useEffect안에 setTimeout을 이용해서 1000ms 후에 새로운 시간으로 렌더링되도록 만들었는데, 이렇게 구현하니 초기 1초 딜레이가 발생하게 되었습니다.
+- 해당 딜레이 현상을 막기 위해 밀리초까지 표기하고, 1ms마다 리렌더링 하는 방식으로 구현했습니다. (추후 더욱 편하게 초기값을 설정하는 방법을 찾아볼 예정입니다.)
+
 <br />
 
 ## 🎞 움짤
+
+### ver 1.1.0
+
+![Honeycam 2022-02-25 02-39-36](https://user-images.githubusercontent.com/14370441/155578669-cc970193-b256-4686-b0c5-4a06fd3aec01.gif)
 
 ### ver 1.0.3
 
