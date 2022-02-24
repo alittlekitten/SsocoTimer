@@ -21,6 +21,7 @@ const Title = () => {
       {tap === "Timer" && <span className="timer">Timer</span>}
       {tap === "Timer" && <Alarm className="music" onClick={MusicToggle} />}
       {tap === "Stopwatch" && <span className="stopwatch">Stopwatch</span>}
+      {tap === "Clock" && <span className="clock">Clock</span>}
     </div>
   );
 };
@@ -57,6 +58,10 @@ const titleStyle = (props) => css`
 
   .stopwatch {
     color: #5e1e1e;
+  }
+
+  .clock {
+    color: #ff6b6b;
   }
 `;
 

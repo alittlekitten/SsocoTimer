@@ -14,6 +14,11 @@ const tapReducer = (state = initialState, action) => {
         ...state,
         tap: "Stopwatch",
       };
+    case "Clock":
+      return {
+        ...state,
+        tap: "Clock",
+      };
     default:
       return state;
   }

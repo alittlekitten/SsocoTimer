@@ -9,6 +9,7 @@ const Nav = () => {
 
   const onClickTimer = () => dispatch({ type: "Timer" });
   const onClickStopwatch = () => dispatch({ type: "Stopwatch" });
+  const onClickClock = () => dispatch({ type: "Clock" });
 
   return (
     <div css={Buttons({ tap })}>
@@ -17,6 +18,9 @@ const Nav = () => {
       </button>
       <button className="stopwatch" onClick={onClickStopwatch}>
         스톱워치
+      </button>
+      <button className="clock" onClick={onClickClock}>
+        시계
       </button>
     </div>
   );
@@ -59,6 +63,10 @@ const Buttons = (props) => css`
 
   .stopwatch {
     background-color: ${props.tap === "Stopwatch" ? "#fffca5" : ""};
+  }
+
+  .clock {
+    background-color: ${props.tap === "Clock" ? "#fffca5" : ""};
   }
 `;
 
