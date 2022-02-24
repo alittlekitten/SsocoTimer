@@ -5,6 +5,7 @@ import Title from "./components/Title.jsx";
 import Nav from "./components/Nav.jsx";
 import Timer from "./components/Timer.jsx";
 import Stopwatch from "./components/Stopwatch.jsx";
+import Clock from "./components/Clock.jsx";
 import Header from "./components/Header.jsx";
 import "./App.css";
 
@@ -20,6 +21,7 @@ const App = () => {
         <Title />
         {tap === "Timer" && <Timer />}
         {tap === "Stopwatch" && <Stopwatch />}
+        {tap === "Clock" && <Clock />}
       </div>
     </div>
   );
