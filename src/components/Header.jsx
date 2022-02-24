@@ -20,10 +20,12 @@ const Header = () => {
   return (
     <div>
       <div css={main}>
-        <span className="copyright">
-          Copyright 2022. by <span className="github-id">alittlekitten</span>
-        </span>
+        <span className="version">Ssoco Timer v1.1.0 </span>
+
         <div className="icons">
+          <span className="copyright">
+            Copyright 2022. by <span className="github-id">alittlekitten</span>
+          </span>
           <Github className="github" onClick={githubOnClick} />
           <Tistory className="tistory" onClick={TistoryOnClick} />
           <Email className="email" onClick={EmailOnClick} />
@@ -41,22 +43,24 @@ export default Header;
 const main = css`
   display: flex;
   align-items: center;
-  justify-content: right;
+  justify-content: space-between;
   font-family: "HSYuji-Regular";
   font-weight: 600;
   font-size: 0.8rem;
   color: #7f7f7f;
   height: 30px;
 
-  .copyright {
-    .github-id {
-      color: red;
-    }
+  .version {
+    color: black;
   }
 
   .icons {
     display: flex;
     align-items: center;
+
+    .github-id {
+      color: red;
+    }
 
     .github,
     .tistory,
