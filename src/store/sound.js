@@ -4,12 +4,12 @@ const initialState = {
 
 const soundReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "timerAlarmOff":
+    case "TimerAlarmOff":
       return {
         ...state,
         timerAlarm: false,
       };
-    case "timerAlarmOn":
+    case "TimerAlarmOn":
       return {
         ...state,
         timerAlarm: true,

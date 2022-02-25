@@ -5,15 +5,15 @@ import { ReactComponent as Tistory } from "../images/tistory.svg";
 import { ReactComponent as Email } from "../images/email.svg";
 
 const Header = () => {
-  const githubOnClick = () => {
+  const onClickGithub = () => {
     window.open("https://github.com/alittlekitten/");
   };
 
-  const TistoryOnClick = () => {
+  const onClickTistory = () => {
     window.open("https://ssocoit.tistory.com/");
   };
 
-  const EmailOnClick = () => {
+  const onClickEmail = () => {
     window.open("mailto:dlscjs8646@gmail.com");
   };
 
@@ -26,9 +26,9 @@ const Header = () => {
           <span className="copyright">
             Copyright 2022. by <span className="github-id">alittlekitten</span>
           </span>
-          <Github className="github" onClick={githubOnClick} />
-          <Tistory className="tistory" onClick={TistoryOnClick} />
-          <Email className="email" onClick={EmailOnClick} />
+          <Github className="github" onClick={onClickGithub} />
+          <Tistory className="tistory" onClick={onClickTistory} />
+          <Email className="email" onClick={onClickEmail} />
         </div>
       </div>
       <div css={hr}>

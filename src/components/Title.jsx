@@ -9,9 +9,10 @@ const Title = () => {
   const { timerAlarm } = useSelector((state) => state.soundReducer);
   const dispatch = useDispatch();
 
-  const MusicToggle = () => {
-    if (timerAlarm === true) dispatch({ type: "timerAlarmOff" });
-    else dispatch({ type: "timerAlarmOn" });
+  const toggleMusic = () => {
+    if (timerAlarm === true) dispatch({ type: "TimerAlarmOff" });
+    else dispatch({ type: "TimerAlarmOn" });
+  };
   };
 
   return (
@@ -19,7 +20,7 @@ const Title = () => {
       <span className="ssoco">Ssoco</span>
       <span>&nbsp;</span>
       {tap === "Timer" && <span className="timer">Timer</span>}
-      {tap === "Timer" && <Alarm className="music" onClick={MusicToggle} />}
+      {tap === "Timer" && <Alarm className="music" onClick={toggleMusic} />}
       {tap === "Stopwatch" && <span className="stopwatch">Stopwatch</span>}
       {tap === "Clock" && <span className="clock">Clock</span>}
     </div>
