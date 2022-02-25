@@ -33,9 +33,6 @@ const Clock = () => {
         <span className="hour">{hour >= 10 ? hour : "0" + hour}</span> :{" "}
         <span className="minute">{minute >= 10 ? minute : "0" + minute}</span> :{" "}
         <span className="second">{second >= 10 ? second : "0" + second}</span> :{" "}
-        <span className="ms">
-          {ms >= 100 ? ms : ms >= 10 ? "0" + ms : "00" + ms}
-        </span>
       <p className="ymd">
         <span className="year">{year}</span> /{" "}
         <span className="month">{month}</span> /{" "}
@@ -71,11 +68,6 @@ const clockContainer = css`
       width: 40px;
     }
 
-    .ms {
-      display: inline-block;
-      text-align: center;
-      width: 60px;
-    }
   .ymd {
     position: absolute;
     font-size: 1.1rem;
