@@ -1,8 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useState, useRef, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const Clock = () => {
+  const { hour12 } = useSelector((state) => state.clockReducer);
+
   const [ms, setMs] = useState(0); // 밀리초 (정밀도 1/1000)
   const [second, setSecond] = useState(0); // 초
   const [minute, setMinute] = useState(0); // 분
@@ -29,15 +32,31 @@ const Clock = () => {
 
   return (
     <div css={clockContainer}>
-      <p>
-        <span className="hour">{hour >= 10 ? hour : "0" + hour}</span> :{" "}
-        <span className="minute">{minute >= 10 ? minute : "0" + minute}</span> :{" "}
-        <span className="second">{second >= 10 ? second : "0" + second}</span> :{" "}
       <p className="ymd">
         <span className="year">{year}</span> /{" "}
         <span className="month">{month}</span> /{" "}
         <span className="day">{day}</span>
       </p>
+      <p className="hms">
+        {hour12 &&
+          (hour < 12 ? (
+            <span className="hour12am">AM </span>
+          ) : (
+            <span className="hour12pm">PM </span>
+          ))}
+        {hour12 &&
+          (hour < 12 ? (
+            <span className="hour">{hour >= 10 ? hour : "0" + hour}</span>
+          ) : (
+            <span className="hour">
+              {hour - 12 >= 10 ? hour - 12 : "0" + (hour - 12)}
+            </span>
+          ))}
+        {!hour12 && (
+          <span className="hour">{hour >= 10 ? hour : "0" + hour}</span>
+        )}{" "}
+        : <span className="minute">{minute >= 10 ? minute : "0" + minute}</span>{" "}
+        : <span className="second">{second >= 10 ? second : "0" + second}</span>
       </p>
     </div>
   );
@@ -60,6 +79,13 @@ const clockContainer = css`
     line-height: 50px;
     vertical-align: middle;
 
+    .hour12am {
+      color: #ff6b6b;
+    }
+    .hour12pm {
+      color: #0083ff;
+    }
+
     .hour,
     .minute,
     .second {
@@ -67,6 +93,7 @@ const clockContainer = css`
       text-align: center;
       width: 40px;
     }
+  }
 
   .ymd {
     position: absolute;
