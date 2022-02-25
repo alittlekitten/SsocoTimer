@@ -7,11 +7,17 @@ const Clock = () => {
   const [second, setSecond] = useState(0); // 초
   const [minute, setMinute] = useState(0); // 분
   const [hour, setHour] = useState(0); // 시
+  const [year, setYear] = useState(0);
+  const [month, setMonth] = useState(0);
+  const [day, setDay] = useState(0);
   const playTimeout = useRef(null);
 
   useEffect(() => {
     const now = new Date(Date.now());
     playTimeout.current = setTimeout(() => {
+      setYear(now.getFullYear());
+      setMonth(now.getMonth() + 1);
+      setDay(now.getDate());
       setHour(now.getHours());
       setMinute(now.getMinutes());
       setSecond(now.getSeconds());
@@ -30,6 +36,11 @@ const Clock = () => {
         <span className="ms">
           {ms >= 100 ? ms : ms >= 10 ? "0" + ms : "00" + ms}
         </span>
+      <p className="ymd">
+        <span className="year">{year}</span> /{" "}
+        <span className="month">{month}</span> /{" "}
+        <span className="day">{day}</span>
+      </p>
       </p>
     </div>
   );
@@ -38,6 +49,7 @@ const Clock = () => {
 export default Clock;
 
 const clockContainer = css`
+  position: relative;
   padding: 1.5rem;
   display: flex;
   justify-content: center;
@@ -64,5 +76,10 @@ const clockContainer = css`
       text-align: center;
       width: 60px;
     }
+  .ymd {
+    position: absolute;
+    font-size: 1.1rem;
+    top: 0px;
+    line-height: 30px;
   }
 `;
