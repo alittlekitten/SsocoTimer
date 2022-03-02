@@ -1,8 +1,16 @@
+interface TapState {
+  tap: String;
+}
+
+interface ActionState {
+  type: String;
+}
+
 const initialState = {
   tap: "Timer",
 };
 
-const tapReducer = (state = initialState, action) => {
+const tapReducer = (state: TapState = initialState, action: ActionState) => {
   switch (action.type) {
     case "Timer":
       return {
