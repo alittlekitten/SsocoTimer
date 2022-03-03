@@ -20,7 +20,7 @@ const Header = () => {
   return (
     <div>
       <div css={main}>
-        <span className="version">Ssoco Timer v1.1.1 </span>
+        <span className="version">Ssoco Timer v1.2.0 </span>
 
         <div className="icons">
           <span className="copyright">
