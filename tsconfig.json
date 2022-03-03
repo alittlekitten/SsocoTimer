@@ -5,14 +5,14 @@
     "jsx": "preserve" /* JSX 파일로 컴파일시키는 옵션 */,
 
     /* Modules */
-    "module": "ES6" /* 컴파일된 결과물이 사용하게 될 module 방식 */,
-    "moduleResolution": "node" /*  */,
+    "module": "esnext" /* 컴파일된 결과물이 사용하게 될 module 방식 */,
+    "moduleResolution": "node" /* 각 import가 어떤 모듈을 가리키는지 해석하는 방법으로, node를 할당하면 node_modules 내부까지 확인해서 해석하게 된다 */,
 
     /* JavaScript Support */
     "allowJs": true /* JS파일의 점진적인 TS변경을 위한 옵션 */,
 
     /* Interop Constraints */
-    "esModuleInterop": true /* 모든 imports에 대한 namespace 생성을 통해 CommonJS와 ES Modules 간의 상호 운용성이 생기게할 지 여부, 'allowSyntheticDefaultImports'를 암시적으로 승인합니다. */,
+    "esModuleInterop": true /* 모든 imports에 대한 namespace 생성을 통해 CommonJS와 ES Modules 간의 상호 운용성이 생기게할 지 여부, 'allowSyntheticDefaultImports - JSON파일 import로 사용'를 암시적으로 승인 */,
     "forceConsistentCasingInFileNames": true /* 같은 파일에 대한 일관되지 않은 참조를 허용하지 않을 지 여부 */,
 
     /* Type Checking */
@@ -20,6 +20,6 @@
     "noImplicitAny": true /* any 안쓸겁니다 */,
     "skipLibCheck": true /* 정의파일 (.d.ts)의 타입 확인을 건너 뛸 것인지 여부 */
   },
-  "include": ["src/**/*.ts"] /* 컴파일할 파일 경로 */,
+  "include": ["src/**/*.ts", "src/store/index.ts"] /* 컴파일할 파일 경로 */,
   "exclude": ["node_modules", "build"] /* 컴파일 안할 파일 경로 */
 }
