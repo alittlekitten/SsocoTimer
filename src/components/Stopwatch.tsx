@@ -1,21 +1,28 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { ReactComponent as Play } from "../images/play.svg";
 import { ReactComponent as Pause } from "../images/pause.svg";
 import { ReactComponent as Stop } from "../images/stop.svg";
 import { ReactComponent as Lap } from "../images/lap.svg";
 
+interface LapState {
+  hour: number;
+  minute: number;
+  second: number;
+  ms: number;
+}
+
 const Timer = () => {
-  const [ms, setMs] = useState(0); // 밀리초 (정밀도 1/1000)
-  const [second, setSecond] = useState(0); // 초
-  const [minute, setMinute] = useState(0); // 분
-  const [hour, setHour] = useState(0); // 시
-  const [lap, setLap] = useState([]); // 랩
-  const [status, setStatus] = useState("stop");
-  const playTimeout = useRef(null); // 재생버튼을 눌렀을 때 발생하는 Interval을 담기 위한 변수
-  const startTime = useRef(null); // 시작 시간을 담은 ref요소
-  const pauseTime = useRef(null); // 잠시 멈춘 시간을 담은 ref요소
+  const [ms, setMs] = useState<number>(0); // 밀리초 (정밀도 1/1000)
+  const [second, setSecond] = useState<number>(0); // 초
+  const [minute, setMinute] = useState<number>(0); // 분
+  const [hour, setHour] = useState<number>(0); // 시
+  const [lap, setLap] = useState<LapState[]>([]); // 랩
+  const [status, setStatus] = useState<string>("stop");
+  const playTimeout = useRef<NodeJS.Timeout | null>(null); // 재생버튼을 눌렀을 때 발생하는 Interval을 담기 위한 변수
+  const startTime = useRef<number | null>(null); // 시작 시간을 담은 ref요소
+  const pauseTime = useRef<number | null>(null); // 잠시 멈춘 시간을 담은 ref요소
 
   // 타이머 상태에 따른 동작
 
@@ -87,7 +94,7 @@ const Timer = () => {
         <Play onClick={timePlay} className="play" />
         <Lap onClick={timeLap} className="lap" />
         <Pause onClick={timePause} className="pause" />
-        <Stop alt="정지" onClick={timeReset} className="stop" />
+        <Stop onClick={timeReset} className="stop" />
       </div>
       <div css={lapContainer}>
         <h3>-- lap --</h3>

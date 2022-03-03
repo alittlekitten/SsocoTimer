@@ -5,11 +5,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { ReactComponent as Alarm } from "../images/alarm.svg";
 import { ReactComponent as Hour12 } from "../images/hour12.svg";
 import { ReactComponent as Hour24 } from "../images/hour24.svg";
+import { RootState } from "../store";
 
 const Title = () => {
-  const { tap } = useSelector((state) => state.tapReducer); // store에 있는 state를 가져옴
-  const { timerAlarm } = useSelector((state) => state.soundReducer);
-  const { hour12 } = useSelector((state) => state.clockReducer);
+  const { tap } = useSelector((state: RootState) => state.tapReducer); // store에 있는 state를 가져옴
+  const { timerAlarm } = useSelector((state: RootState) => state.soundReducer);
+  const { hour12 } = useSelector((state: RootState) => state.clockReducer);
   const dispatch = useDispatch();
 
   const toggleMusic = () => {

@@ -2,9 +2,10 @@
 import { css } from "@emotion/react";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store";
 
 const Nav = () => {
-  const { tap } = useSelector((state) => state.tapReducer);
+  const { tap } = useSelector((state: RootState) => state.tapReducer);
   const dispatch = useDispatch(); // store의 reducer를 부름 -> reducer를 통해 새로운 action을 넘겨줌으로써 state를 변경함
 
   const onClickTimer = () => dispatch({ type: "Timer" });

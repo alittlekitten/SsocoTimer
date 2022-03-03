@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useSelector } from "react-redux";
-import Title from "./components/Title.jsx";
-import Nav from "./components/Nav.jsx";
-import Timer from "./components/Timer.jsx";
-import Stopwatch from "./components/Stopwatch.jsx";
-import Clock from "./components/Clock.jsx";
-import Header from "./components/Header.jsx";
+import Title from "./components/Title";
+import Nav from "./components/Nav";
+import Timer from "./components/Timer";
+import Stopwatch from "./components/Stopwatch";
+import Clock from "./components/Clock";
+import Header from "./components/Header";
 import { RootState } from "./store";
 import "./App.css";
 
