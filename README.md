@@ -11,9 +11,9 @@
 
 **👉 배포 페이지 : https://alittlekitten.github.io/SsocoTimer/**
 
-**최신 업데이트 날짜 : `2022.02.26`**
+**최신 업데이트 날짜 : `2022.03.03`**
 
-**최신 릴리즈 버전 : `ver 1.1.1`**
+**최신 릴리즈 버전 : `ver 1.2.0`**
 
 ![Honeycam 2022-02-26 03-44-57](https://user-images.githubusercontent.com/14370441/155770607-7f0f5346-9672-478b-9f0d-70e32ef0ab9b.gif)
 
@@ -23,13 +23,14 @@
 - 클릭을 유지하면 점점 빠르게 count가 변동합니다.
 - 전역에서 관리가 필요한 상태를 처리하기 위해 Redux를 사용합니다.
 - 함수형 컴포넌트와 React hooks를 적극적으로 사용합니다.
+- 기존 JS 기반의 프로젝트를 TS 기반 프로젝트로 마이그레이션했습니다.
 
 <br />
 
 ## 🔧 Tools
 
 <div>
-  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=black"/>
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=TypeScript&logoColor=white"/>
   <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/>
   <img src="https://img.shields.io/badge/Create React App-09D3AC?style=flat-square&logo=Create React App&logoColor=white"/>
   <img src="https://img.shields.io/badge/Emotion-C865B9?style=flat-square&logo=Emotion&logoColor=white"/>
@@ -84,11 +85,11 @@
 - [x] 타이머도 Date방식으로 변환
 - [x] increase/decrease 버튼을 눌렀을 때 정상적으로 시간이 멈추지 않는 버그 수정
 
-### `22.02.12` - `ver 1.0.0`
+### `22.02.12` - `v1.0.0`
 
 - [x] 배포(https://alittlekitten.github.io/reactStopwatch/)
 
-### `22.02.14` - `ver 1.0.1`
+### `22.02.14` - `v1.0.1`
 
 - [x] 개발자 정보 추가 (깃허브 페이지와 티스토리 페이지 링크 버튼 생성)
 - [x] 버튼 크기 변경으로 인한 요소 위치변화 버그 제거 [👉 issue링크](https://github.com/alittlekitten/SsocoTimer/issues/1)
@@ -97,7 +98,7 @@
 - [x] 도메인명 변경 (reactStopwatch -> SsocoTimer)
 - [x] 배포 주소 변경 (https://alittlekitten.github.io/SsocoTimer/)
 
-### `22.02.15` - `ver 1.0.2`
+### `22.02.15` - `v1.0.2`
 
 - [x] 타이머가 끝났을 때 알람 소리(꼬꼬댁)가 나게 하는 기능 추가
 - [x] 토글 버튼을 통해 알람 소리를 켜고 끌 수 있는 기능을 추가 
@@ -105,23 +106,26 @@
 - [x] `Timer` 00:00:00인 상태에서 -버튼을 누르면 -1:59:59로 변하는 버그 수정 [👉 issue링크](https://github.com/alittlekitten/SsocoTimer/issues/20)
 - [x] `Timer` 재생 상태에서 +-버튼에서 마우스를 올렸다가 떼는 순간 재생이 멈추는 버그 수정 [👉 issue링크](https://github.com/alittlekitten/SsocoTimer/issues/21)
 
-### `22.02.24` - `ver 1.0.3`
+### `22.02.24` - `v1.0.3`
 
 - [x] +- 버튼을 눌렀을 때 초가 증감하는 속도에 따라 버튼 색이 진해지는 버튼 디자인 추가
 - [x] `Timer` -버튼을 누르고 있었을 때 0초가 되면 speed가 초기화되지 않는 버그 수정 [👉 issue링크](https://github.com/alittlekitten/SsocoTimer/issues/25)
 
-### `22.02.25` - `ver 1.1.0`
+### `22.02.25` - `v1.1.0`
 
 - [x] 현재 시간을 나타내는 탭 추가 (시, 분, 초, 밀리초 표시)
 - [x] 상단 헤더에 버전정보 추가
 
-### `22.02.26` - `ver 1.1.1`
+### `22.02.26` - `v1.1.1`
 
 - [x] `Clock` 연월일 추가
 - [x] `Clock` 밀리초 단위 사용자가 볼 수 없도록 삭제
 - [x] `Clock` 12시간제, 24시간제를 선택할 수 있는 버튼 추가
 - [x] 구글 서치콘솔 등록
 
+### `22.03.03` - `v1.2.0`
+
+- [x] 타입스크립트 마이그레이션
 
 <br />
 
@@ -209,6 +213,14 @@
 - 시계 UX 개선을 위해 연월일을 추가하였습니다.
 - 미리 잡아놓은 범위 내에서 연월일을 추가하고 싶었기 때문에 기존 시분초의 바로 윗부분에 자리를 만들어주었습니다.
 - `position:relation` 상태인 부모 엘리먼트의 아래에 있는 자식 컴포넌트는 `position:absolute`를 하게 되면 해당 상위 엘리먼트를 기준으로 offset 속성이 적용된다는 점을 이용하여 배치하였습니다.
+
+### TypeScript 마이그레이션
+
+- 기존 JS 기반의 프로젝트를 TS 기반으로 마이그레이션했습니다.
+- tsconfig.json을 생성하고, allowJS 옵션을 이용해서 점진적으로 ts/tsx로 변환하였습니다.
+- any사용을 최소화 하기 위해서 noImplicitAny 옵션을 true로 바꾸고, 타입 추론이 어려울 수 있는 상태값들에 대해 타입을 명시적으로 지정하였습니다.
+- 각 컴포넌트에서 사용하는 인터페이스 중에서 중복되는 요소들을 정리할 예정에 있습니다.
+- redux에서 `string`형태로 관리되는 action type을 실제 문자열 값으로 추론되도록 변경할 예정에 있습니다.
 
 <br />
 
