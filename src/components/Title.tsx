@@ -12,7 +12,6 @@ const Title = () => {
   const { timerAlarm } = useSelector((state: RootState) => state.soundReducer);
   const { hour12 } = useSelector((state: RootState) => state.clockReducer);
   const dispatch = useDispatch();
-
   const toggleMusic = () => {
     if (timerAlarm === true) dispatch({ type: "TimerAlarmOff" });
     else dispatch({ type: "TimerAlarmOn" });
