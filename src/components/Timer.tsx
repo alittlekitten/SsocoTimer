@@ -1,237 +1,31 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import React, {
-  useState,
-  useRef,
-  useEffect,
-  useCallback,
-  useMemo,
-} from "react";
-import { useSelector } from "react-redux";
 import { ReactComponent as Plus } from "../images/plus.svg";
 import { ReactComponent as Minus } from "../images/minus.svg";
 import { ReactComponent as Play } from "../images/play.svg";
 import { ReactComponent as Pause } from "../images/pause.svg";
 import { ReactComponent as Stop } from "../images/stop.svg";
 import { ReactComponent as Lap } from "../images/lap.svg";
-import Fin from "../sounds/chicken.mp3";
-import { RootState } from "../store";
-
-interface LapState {
-  hour: number;
-  minute: number;
-  second: number;
-}
+import useTimer from "../hooks/useTimer";
 
 const Timer = () => {
-  const [ms, setMs] = useState<number>(0); // 밀리초 (정밀도 1/1000)
-  const [second, setSecond] = useState<number>(0); // 초
-  const [minute, setMinute] = useState<number>(0); // 분
-  const [hour, setHour] = useState<number>(0); // 초
-  const [lap, setLap] = useState<LapState[]>([]); // 랩
-  const [status, setStatus] = useState<string>("stop");
-  const speed = useRef<number>(300); // 마우스를 꾹 눌렀을 때 증감 스피드
-  const timeout = useRef<NodeJS.Timeout | null>(null); // 증감 스피드를 조절 및 재귀적 사용을 위한 setTimeout 변수
-  const playTimeout = useRef<NodeJS.Timeout | null>(null); // 재생버튼을 눌렀을 때 발생하는 Interval을 담기 위한 변수
-  const startTime = useRef<number | null>(null); // 시작 시간을 담은 ref요소
-  const setTime = useRef<Date | null>(null); // play 눌렀을 때 설정된 시간을 담은 ref 요소
-  const alarm = useMemo(() => new Audio(Fin), []);
-  const { timerAlarm } = useSelector((state: RootState) => state.soundReducer);
-
-  // 마우스 클릭할 때 동작들
-  const onIncrease = () => {
-    setStatus("increase");
-    increase();
-  };
-
-  const increase = useCallback(() => {
-    // hour, minute, second가 바뀔 때만 함수가 재생성되도록 useCallback 사용
-    if (speed.current > 30) speed.current -= 10;
-    if (second < 59) setSecond(second + 1);
-    else {
-      // 1000시간 미만으로만 설정 가능하도록 고정
-      if (hour === 999 && minute === 59 && second === 59) {
-        setStatus("stop");
-        clearTimeout(playTimeout.current);
-      } else if (minute < 59) {
-        setSecond(0);
-        setMinute(minute + 1);
-      } else {
-        setSecond(0);
-        setMinute(0);
-        setHour(hour + 1);
-      }
-    }
-  }, [hour, minute, second]);
-
-  const onDecrease = () => {
-    if (!(hour === 0 && minute === 0 && second === 0)) {
-      setStatus("decrease");
-      decrease();
-    }
-  };
-
-  const decrease = useCallback(() => {
-    // hour, minute, second가 바뀔 때만 함수가 재생성되도록 useCallback 사용
-    if (speed.current > 30) speed.current -= 10;
-    if (second > 0) {
-      if (hour === 0 && minute === 0 && second === 1) {
-        setStatus("stop");
-        speed.current = 300;
-        clearTimeout(playTimeout.current);
-      }
-      setSecond(second - 1);
-    } else {
-      if (minute > 0) {
-        setSecond(59);
-        setMinute(minute - 1);
-      } else {
-        setSecond(59);
-        setMinute(59);
-        setHour(hour - 1);
-      }
-    }
-  }, [hour, minute, second]);
-
-  const offPress = () => {
-    if (status === "increase" || status === "decrease") {
-      setStatus("pause");
-      speed.current = 300;
-      clearTimeout(timeout.current);
-    }
-  };
-
-  const secondChange = (e) => {
-    timePause();
-    const originalValue = e.target.value;
-    const onlyNumber = originalValue.replace(/[^0-9]/g, "");
-    if (!onlyNumber) {
-      setSecond(0);
-    } else if (+onlyNumber > 59) {
-      // 60 넘어가면 초기화
-      setSecond(0);
-    } else {
-      setSecond(+onlyNumber);
-    }
-  };
-
-  const minuteChange = (e) => {
-    timePause();
-    const originalValue = e.target.value;
-    const onlyNumber = originalValue.replace(/[^0-9]/g, "");
-    if (!onlyNumber) {
-      setMinute(0);
-    } else if (+onlyNumber > 59) {
-      // 60 넘어가면 초기화
-      setMinute(0);
-    } else {
-      setMinute(+onlyNumber);
-    }
-  };
-
-  const hourChange = (e) => {
-    timePause();
-    const originalValue = e.target.value;
-    const onlyNumber = originalValue.replace(/[^0-9]/g, "");
-    if (!onlyNumber) {
-      setHour(0);
-    } else if (+onlyNumber > 999) {
-      // 999시간 넘어가면 0으로 초기화
-      setHour(0);
-    } else {
-      setHour(+onlyNumber);
-    }
-  };
-
-  // 타이머 상태에 따른 동작
-
-  const timePlay = () => {
-    // 최초 시작
-    if (startTime.current === null && status !== "play") {
-      startTime.current = Date.now();
-      setTime.current = new Date(
-        second * 1000 + minute * 1000 * 60 + hour * 1000 * 60 * 60
-      );
-    }
-
-    if (!(hour === 0 && minute === 0 && second === 0)) setStatus("play"); // 문자열은 기본형 데이터라 play를 play로 바꿔도 변화 X
-  };
-
-  const timeLap = () => {
-    if (status === "play")
-      setLap((prev) => [...prev, { hour, minute, second }]);
-  };
-
-  const timePause = () => {
-    setStatus("pause");
-    if (status === "play") {
-      clearInterval(playTimeout.current);
-      startTime.current = null;
-      setTime.current = null;
-    }
-  };
-
-  const timeReset = () => {
-    setStatus("stop");
-    setLap([]);
-    clearInterval(playTimeout.current);
-    setMs(0);
-    setSecond(0);
-    setMinute(0);
-    setHour(0);
-    startTime.current = null;
-    setTime.current = null;
-  };
-
-  const playAlarm = useCallback(() => {
-    alarm.play();
-  }, [alarm]);
-
-  useEffect(() => {
-    const cal = new Date(
-      +setTime.current - (Date.now() - startTime.current) + 999
-    ); // 시작할 때 해당 시간에 1초를 부여하고 0이 되면 딱 끝나도록 하기 위해 999를 더해줌
-    // play 눌렀을 때의 로직
-    if (status === "play") {
-      if (hour === 0 && minute === 0 && second === 0) {
-        clearTimeout(playTimeout.current);
-        setStatus("stop");
-        startTime.current = null;
-        setTime.current = null;
-        if (timerAlarm) playAlarm();
-      } else {
-        playTimeout.current = setTimeout(() => {
-          setMs(cal.getUTCMilliseconds());
-          setSecond(cal.getUTCSeconds());
-          setMinute(cal.getUTCMinutes());
-          setHour(cal.getUTCHours());
-        }, 1);
-      }
-    }
-    if (
-      status === "pause" ||
-      status === "stop" ||
-      status === "increase" ||
-      status === "decrease"
-    ) {
-      startTime.current = null;
-      setTime.current = null;
-    }
-
-    return () => clearTimeout(playTimeout.current);
-  }, [hour, minute, second, ms, status, timerAlarm, playAlarm]);
-
-  useEffect(() => {
-    if (status === "increase") {
-      timeout.current = setTimeout(() => {
-        increase();
-      }, speed.current);
-    } else if (status === "decrease") {
-      timeout.current = setTimeout(() => {
-        decrease();
-      }, speed.current);
-    }
-  }, [increase, decrease, status]);
+  const {
+    time,
+    lap,
+    status,
+    speed,
+    onIncrease,
+    onDecrease,
+    offPress,
+    secondChange,
+    minuteChange,
+    hourChange,
+    timePlay,
+    timeLap,
+    timePause,
+    timeReset,
+  } = useTimer();
+  const { second, minute, hour } = time;
 
   return (
     <div css={totalContainer({ status, hour, minute, second })}>

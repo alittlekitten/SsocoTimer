@@ -1,80 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import React, { useState, useRef, useEffect } from "react";
 import { ReactComponent as Play } from "../images/play.svg";
 import { ReactComponent as Pause } from "../images/pause.svg";
 import { ReactComponent as Stop } from "../images/stop.svg";
 import { ReactComponent as Lap } from "../images/lap.svg";
-
-interface LapState {
-  hour: number;
-  minute: number;
-  second: number;
-  ms: number;
-}
+import useStopwatch from "../hooks/useStopwatch";
 
 const Timer = () => {
-  const [ms, setMs] = useState<number>(0); // 밀리초 (정밀도 1/1000)
-  const [second, setSecond] = useState<number>(0); // 초
-  const [minute, setMinute] = useState<number>(0); // 분
-  const [hour, setHour] = useState<number>(0); // 시
-  const [lap, setLap] = useState<LapState[]>([]); // 랩
-  const [status, setStatus] = useState<string>("stop");
-  const playTimeout = useRef<NodeJS.Timeout | null>(null); // 재생버튼을 눌렀을 때 발생하는 Interval을 담기 위한 변수
-  const startTime = useRef<number | null>(null); // 시작 시간을 담은 ref요소
-  const pauseTime = useRef<number | null>(null); // 잠시 멈춘 시간을 담은 ref요소
-
-  // 타이머 상태에 따른 동작
-
-  const timePlay = () => {
-    // 최초 시작
-    if (startTime.current === null && status !== "play")
-      startTime.current = Date.now();
-    // pause후 시작
-    else if (status === "pause")
-      startTime.current += Date.now() - pauseTime.current;
-    setStatus("play");
-  };
-
-  const timeLap = () => {
-    if (status === "play")
-      setLap((prev) => [...prev, { hour, minute, second, ms }]);
-  };
-
-  const timePause = () => {
-    if (status === "play") {
-      clearInterval(playTimeout.current);
-      pauseTime.current = Date.now();
-    }
-    setStatus("pause");
-  };
-
-  const timeReset = () => {
-    setStatus("stop");
-    clearInterval(playTimeout.current);
-    setLap([]);
-    setSecond(0);
-    setMinute(0);
-    setHour(0);
-    setMs(0);
-    startTime.current = null;
-    pauseTime.current = null;
-  };
-
-  useEffect(() => {
-    // play 눌렀을 때의 로직
-    const now = new Date(Date.now() - startTime.current);
-    if (status === "play") {
-      playTimeout.current = setTimeout(() => {
-        setHour(now.getUTCHours());
-        setMinute(now.getUTCMinutes());
-        setSecond(now.getUTCSeconds());
-        setMs(now.getUTCMilliseconds());
-      }, 1);
-    }
-    // clean-up 함수의 실행 순서는 "state 업데이트 -> 리렌더링 -> 클린업 -> 새로운 이펙트 실행" 이기 때문에 useEffect의 동작에는 문제가 없다!
-    return () => clearTimeout(playTimeout.current);
-  }, [hour, minute, second, ms, status]);
+  const { time, lap, status, timePlay, timeLap, timePause, timeReset } =
+    useStopwatch();
+  const { ms, minute, second, hour } = time;
 
   return (
     <div css={totalContainer}>

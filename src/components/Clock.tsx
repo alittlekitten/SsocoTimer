@@ -1,35 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { useState, useRef, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
+import useClock from "../hooks/useClock";
 
 const Clock = () => {
-  const { hour12 } = useSelector((state: RootState) => state.clockReducer);
-
-  const [ms, setMs] = useState<number>(0); // 밀리초 (정밀도 1/1000)
-  const [second, setSecond] = useState<number>(0); // 초
-  const [minute, setMinute] = useState<number>(0); // 분
-  const [hour, setHour] = useState<number>(0); // 시
-  const [year, setYear] = useState<number>(0);
-  const [month, setMonth] = useState<number>(0);
-  const [day, setDay] = useState<number>(0);
-  const playTimeout = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    const now = new Date(Date.now());
-    playTimeout.current = setTimeout(() => {
-      setYear(now.getFullYear());
-      setMonth(now.getMonth() + 1);
-      setDay(now.getDate());
-      setHour(now.getHours());
-      setMinute(now.getMinutes());
-      setSecond(now.getSeconds());
-      setMs(now.getMilliseconds());
-    }, 1);
-
-    return () => clearTimeout(playTimeout.current);
-  }, [hour, minute, second, ms]);
+  const { time, hour12 } = useClock();
+  const { second, minute, hour, day, month, year } = time;
 
   return (
     <div css={clockContainer}>
