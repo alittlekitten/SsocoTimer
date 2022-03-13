@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ReactComponent as Alarm } from "../images/alarm.svg";
 import { ReactComponent as Hour12 } from "../images/hour12.svg";
