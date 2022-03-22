@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { ReactComponent as Play } from "../images/play.svg";
 import { ReactComponent as Pause } from "../images/pause.svg";

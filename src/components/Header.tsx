@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { ReactComponent as Github } from "../images/github.svg";
 import { ReactComponent as Tistory } from "../images/tistory.svg";

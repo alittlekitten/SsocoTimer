@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useSelector, useDispatch } from "react-redux";
 import { ReactComponent as Alarm } from "../images/alarm.svg";

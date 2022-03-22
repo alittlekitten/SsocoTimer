@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { ReactComponent as Plus } from "../images/plus.svg";
 import { ReactComponent as Minus } from "../images/minus.svg";
