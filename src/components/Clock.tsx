@@ -28,10 +28,10 @@ const Clock = () => {
             </span>
           ))}
         {!hour12 && (
-          <span className="hour">{hour >= 10 ? hour : "0" + hour}</span>
+          <span className="hour">{hour.toString().padStart(2, "0")}</span>
         )}{" "}
-        : <span className="minute">{minute >= 10 ? minute : "0" + minute}</span>{" "}
-        : <span className="second">{second >= 10 ? second : "0" + second}</span>
+        : <span className="minute">{minute.toString().padStart(2, "0")}</span> :{" "}
+        <span className="second">{second.toString().padStart(2, "0")}</span>
       </p>
     </div>
   );

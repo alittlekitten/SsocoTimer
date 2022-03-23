@@ -14,14 +14,10 @@ const Timer = () => {
     <div css={totalContainer}>
       <div css={watchContainer}>
         <p>
-          <span className="hour">{hour >= 10 ? hour : "0" + hour}</span> :{" "}
-          <span className="minute">{minute >= 10 ? minute : "0" + minute}</span>{" "}
-          :{" "}
-          <span className="second">{second >= 10 ? second : "0" + second}</span>{" "}
-          :{" "}
-          <span className="ms">
-            {ms >= 100 ? ms : ms >= 10 ? "0" + ms : "00" + ms}
-          </span>
+          <span className="hour">{hour.toString().padStart(2, "0")}</span> :{" "}
+          <span className="minute">{minute.toString().padStart(2, "0")}</span> :{" "}
+          <span className="second">{second.toString().padStart(2, "0")}</span> :{" "}
+          <span className="ms">{ms.toString().padStart(3, "0")}</span>
         </p>
       </div>
       <div css={playContainer({ status })}>
@@ -34,14 +30,10 @@ const Timer = () => {
         <h3>-- lap --</h3>
         {lap.map((elem, index) => (
           <p key={index}>
-            {elem.hour >= 10 ? elem.hour : "0" + elem.hour} :{" "}
-            {elem.minute >= 10 ? elem.minute : "0" + elem.minute} :{" "}
-            {elem.second >= 10 ? elem.second : "0" + elem.second} :{" "}
-            {elem.ms >= 100
-              ? elem.ms
-              : elem.ms >= 10
-              ? "0" + elem.ms
-              : "00" + elem.ms}
+            {elem.hour.toString().padStart(2, "0")} :{" "}
+            {elem.minute.toString().padStart(2, "0")} :{" "}
+            {elem.second.toString().padStart(2, "0")} :{" "}
+            {elem.ms.toString().padStart(3, "0")}
           </p>
         ))}
       </div>

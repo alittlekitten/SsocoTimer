@@ -37,19 +37,19 @@ const Timer = () => {
         />
         <input
           type="text"
-          value={hour >= 10 ? hour : "0" + hour}
+          value={hour.toString().padStart(2, "0")}
           onChange={hourChange}
         ></input>
         <span>&nbsp;:&nbsp;</span>
         <input
           type="text"
-          value={minute >= 10 ? minute : "0" + minute}
+          value={minute.toString().padStart(2, "0")}
           onChange={minuteChange}
         ></input>
         <span>&nbsp;:&nbsp;</span>
         <input
           type="text"
-          value={second >= 10 ? second : "0" + second}
+          value={second.toString().padStart(2, "0")}
           onChange={secondChange}
         ></input>
         <Minus
@@ -69,9 +69,9 @@ const Timer = () => {
         <h3>-- lap --</h3>
         {lap.map((elem, index) => (
           <p key={index}>
-            {elem.hour >= 10 ? elem.hour : "0" + elem.hour} :{" "}
-            {elem.minute >= 10 ? elem.minute : "0" + elem.minute} :{" "}
-            {elem.second >= 10 ? elem.second : "0" + elem.second}
+            {elem.hour.toString().padStart(2, "0")} :{" "}
+            {elem.minute.toString().padStart(2, "0")} :{" "}
+            {elem.second.toString().padStart(2, "0")}
           </p>
         ))}
       </div>
