@@ -10,6 +10,8 @@
     "plugin:react/recommended",
     "plugin:prettier/recommended"
   ],
+  "globals": { "NodeJS": true },
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -17,22 +19,13 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "prettier"],
+  "plugins": ["react", "@typescript-eslint", "prettier"],
   "rules": {
     "prettier/prettier": ["error", { "endOfLine": "auto" }],
-    "import/no-anonymous-default-export": [
-      "error",
-      {
-        "allowArray": false,
-        "allowArrowFunction": false,
-        "allowAnonymousClass": false,
-        "allowAnonymousFunction": false,
-        "allowCallExpression": true,
-        "allowLiteral": false,
-        "allowObject": true
-      }
-    ],
     "react/jsx-uses-react": "off",
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "no-unused-vars": "off",
+    "no-undef": "warn",
+    "@typescript-eslint/no-unused-vars": ["warn"]
   }
 }
