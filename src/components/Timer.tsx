@@ -79,7 +79,14 @@ const Timer = () => {
   );
 };
 
-const totalContainer = (props) => css`
+interface totalProps {
+  status: string;
+  hour: number;
+  minute: number;
+  second: number;
+}
+
+const totalContainer = (props: totalProps) => css`
   padding: 1.5rem;
   background-color: ${props.status === "play" &&
   props.hour === 0 &&
@@ -99,7 +106,14 @@ const totalContainer = (props) => css`
     : "white"};
 `;
 
-const watchContainer = (props) => css`
+interface MutableRefObject<T> {
+  current: T;
+}
+interface watchProps {
+  speed: MutableRefObject<number>;
+}
+
+const watchContainer = (props: watchProps) => css`
   display: flex;
   justify-content: center;
   line-height: 50px;
@@ -136,7 +150,11 @@ const watchContainer = (props) => css`
   }
 `;
 
-const playContainer = (props) => css`
+interface playProps {
+  status: string;
+}
+
+const playContainer = (props: playProps) => css`
   height: 100px;
   display: flex;
   justify-content: center;

@@ -25,7 +25,11 @@ const Nav = () => {
   );
 };
 
-const Buttons = (props) => css`
+interface ButtonsProps {
+  tap: String;
+}
+
+const Buttons = (props: ButtonsProps) => css`
   display: flex;
   flex-direction: column;
   margin-top: 100px;

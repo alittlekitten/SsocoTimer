@@ -38,7 +38,11 @@ const Title = () => {
   );
 };
 
-const titleStyle = (props) => css`
+interface titleProps {
+  timerAlarm: Boolean;
+}
+
+const titleStyle = (props: titleProps) => css`
   display: flex;
   justify-content: center;
   align-items: center;
