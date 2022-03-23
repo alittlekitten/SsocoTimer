@@ -13,19 +13,19 @@
 
 **👉 배포 페이지 : https://alittlekitten.github.io/SsocoTimer/**
 
-**최신 업데이트 날짜 : `2022.03.14`**
+**최신 업데이트 날짜 : `2022.03.24`**
 
-**최신 릴리즈 버전 : `ver 1.2.1`**
+**최신 릴리즈 버전 : `ver 1.3.0`**
 
 ![Honeycam 2022-02-26 03-44-57](https://user-images.githubusercontent.com/14370441/155770607-7f0f5346-9672-478b-9f0d-70e32ef0ab9b.gif)
 
-- React와 CRA를 이용해서 간단한 스탑워치를 만들어보는 연습용 레포지토리입니다.
+- `React`와 `CRA`를 이용해서 간단한 스탑워치를 만들어보는 연습용 레포지토리입니다.
 - React의 기본적인 동작 방식을 익히고 있습니다.
-- CSS in JS 중에서도 Emotion을 사용하고 있습니다.
+- CSS in JS 중에서도 `Emotion`을 사용하고 있습니다.
 - 클릭을 유지하면 점점 빠르게 count가 변동합니다.
-- 전역에서 관리가 필요한 상태를 처리하기 위해 Redux를 사용합니다.
-- 함수형 컴포넌트와 React hooks를 적극적으로 사용합니다.
-- 기존 JS 기반의 프로젝트를 TS 기반 프로젝트로 마이그레이션했습니다.
+- 전역에서 관리가 필요한 상태를 처리하기 위해 `Redux`를 사용합니다.
+- 함수형 컴포넌트와 `React hooks`를 적극적으로 사용합니다.
+- 기존 `JavaScript` 기반의 프로젝트를 `TypeScript` 기반 프로젝트로 마이그레이션했습니다.
 
 <br />
 
@@ -135,6 +135,18 @@
 - [x] svg 파일 불러올 때 인식하지 못하는 문제를 해결하기 위한 레퍼런스 설정 변경 (react-scripts 타입 의존성 가져오기)
 - [x] 기타 환경설정 변경 및 메타데이터 변경
 
+### `22.03.24` - `v1.3.0`
+
+- [x] 12시간제 시계에서 12시가 00시로 표시되는 오류 수정 [👉 issue 링크](https://github.com/alittlekitten/SsocoTimer/issues/34)
+- [x] - - 버튼 마우스 커서 pointer로 바꾸기 [👉 issue 링크](https://github.com/alittlekitten/SsocoTimer/issues/35)
+- [x] craco 적용을 통한 `JSX pragma` 제거
+- [x] craco 적용을 통한 절대경로 설정
+- [x] 필요없는 logo.svg파일 삭제
+- [x] `padStart`를 통한 코드 리팩토링
+- [x] `eslint`, `prettier` 적용 및 `@typescript-eslint` 적용
+- [x] eslint 설정으로부터 발견된 미비한 타입 및 인터페이스 관련 문제 및 오류 해소, any type 제거
+- [x] 재생 버튼과 일시정지 버튼을 조건부 렌더링으로 화면에 띄워서 UI/UX 개선
+
 <br />
 
 ## 🗝 고민한 점
@@ -242,6 +254,14 @@
 - 현재까지 가장 큰 3개의 기능단위인 Timer, Stopwatch, Clock에 대한 비즈니스 로직 분리를 완료했습니다.
   - 다만 각각의 비즈니스 로직 단위도 다소 큰 부분이 있어서 조금 더 세세하게 나눌 예정입니다.
 - 추가로 전역 store에서 useSelector로 가져오는 상태를 래핑하는 커스텀 훅을 생성해서 사용할 예정입니다.
+
+### craco 도입
+
+- CRA 환경에서는 babel이나 webpack을 따로 설정하지 않아도 알아서 설정해주기 때문에 굉장히 편리합니다.
+- 하지만 그만큼 세세한 설정을 할 수 없다는 단점이 존재합니다.
+- eject를 할 수 있지만, eject를 하게 되면 CRA를 쓴 의미가 퇴색될 수 있다고 판단하였습니다.
+- babel 옵션 변경 및 절대경로 설정 변경을 위해서는 우회할 수 있는 다른 방법이 필요했고, 그 방법들 중 `craco`를 선택했습니다.
+- `craco`를 사용하여 babel 설정을 변경하여 CRA, typescript 환경에서 JSX Pragma를 제거하는 과정을 https://ssocoit.tistory.com/257에 자세히 남겨두었습니다.
 
 <br />
 
