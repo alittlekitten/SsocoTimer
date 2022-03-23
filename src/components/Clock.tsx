@@ -20,8 +20,8 @@ const Clock = () => {
             <span className="hour12pm">PM </span>
           ))}
         {hour12 &&
-          (hour < 12 ? (
-            <span className="hour">{hour >= 10 ? hour : "0" + hour}</span>
+          (hour < 13 ? (
+            <span className="hour">{hour.toString().padStart(2, "0")}</span>
           ) : (
             <span className="hour">
               {hour - 12 >= 10 ? hour - 12 : "0" + (hour - 12)}
