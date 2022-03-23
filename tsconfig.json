@@ -1,8 +1,10 @@
 {
+  "extends": "./tsconfig.alias.json",
   "compilerOptions": {
     /* Language and Environment */
     "target": "ES5" /* 어떤 버전의 자바스크립트 코드로 컴파일할지 결정하는 옵션 */ /* Specify a set of bundled library declaration files that describe the target runtime environment. */,
-    "jsx": "preserve" /* JSX 파일로 컴파일시키는 옵션 */,
+    "jsx": "react-jsx" /* JSX 파일로 컴파일시키는 옵션 */,
+    "jsxImportSource": "@emotion/react",
 
     /* Modules */
     "module": "esnext" /* 컴파일된 결과물이 사용하게 될 module 방식 */,
@@ -20,6 +22,11 @@
     "noImplicitAny": true /* any 안쓸겁니다 */,
     "skipLibCheck": true /* 정의파일 (.d.ts)의 타입 확인을 건너 뛸 것인지 여부 */
   },
-  "include": ["src/**/*.ts", "src/store/index.ts"] /* 컴파일할 파일 경로 */,
+  "include": [
+    "craco.config.ts",
+    "src",
+    "src/**/*.ts",
+    "src/store/index.ts"
+  ] /* 컴파일할 파일 경로 */,
   "exclude": ["node_modules", "build"] /* 컴파일 안할 파일 경로 */
 }

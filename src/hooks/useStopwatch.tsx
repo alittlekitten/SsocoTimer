@@ -23,8 +23,10 @@ const useStopwatch = () => {
     if (startTime.current === null && status !== "play")
       startTime.current = Date.now();
     // pause후 시작
-    else if (status === "pause")
-      startTime.current += Date.now() - pauseTime.current;
+    else if (status === "pause") {
+      if (startTime.current && pauseTime.current)
+        startTime.current += Date.now() - pauseTime.current;
+    }
     setStatus("play");
   };
 
@@ -35,7 +37,7 @@ const useStopwatch = () => {
 
   const timePause = () => {
     if (status === "play") {
-      clearInterval(playTimeout.current);
+      if (playTimeout.current) clearInterval(playTimeout.current);
       pauseTime.current = Date.now();
     }
     setStatus("pause");
@@ -43,7 +45,7 @@ const useStopwatch = () => {
 
   const timeReset = () => {
     setStatus("stop");
-    clearInterval(playTimeout.current);
+    if (playTimeout.current) clearInterval(playTimeout.current);
     setLap([]);
     setTime({ ...time, ms: 0, second: 0, minute: 0, hour: 0 });
     startTime.current = null;
@@ -52,6 +54,7 @@ const useStopwatch = () => {
 
   useEffect(() => {
     // play 눌렀을 때의 로직
+    if (!startTime.current) startTime.current = Date.now();
     const now = new Date(Date.now() - startTime.current);
     if (status === "play") {
       playTimeout.current = setTimeout(() => {
@@ -65,7 +68,9 @@ const useStopwatch = () => {
       }, 1);
     }
     // clean-up 함수의 실행 순서는 "state 업데이트 -> 리렌더링 -> 클린업 -> 새로운 이펙트 실행" 이기 때문에 useEffect의 동작에는 문제가 없다!
-    return () => clearTimeout(playTimeout.current);
+    return () => {
+      if (playTimeout.current) clearTimeout(playTimeout.current);
+    };
   }, [playTimeout, setTime, time, status]);
 
   return {

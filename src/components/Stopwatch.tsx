@@ -1,10 +1,9 @@
-/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { ReactComponent as Play } from "../images/play.svg";
-import { ReactComponent as Pause } from "../images/pause.svg";
-import { ReactComponent as Stop } from "../images/stop.svg";
-import { ReactComponent as Lap } from "../images/lap.svg";
-import useStopwatch from "../hooks/useStopwatch";
+import { ReactComponent as Play } from "@images/play.svg";
+import { ReactComponent as Pause } from "@images/pause.svg";
+import { ReactComponent as Stop } from "@images/stop.svg";
+import { ReactComponent as Lap } from "@images/lap.svg";
+import useStopwatch from "@hooks/useStopwatch";
 
 const Timer = () => {
   const { time, lap, status, timePlay, timeLap, timePause, timeReset } =
@@ -15,34 +14,29 @@ const Timer = () => {
     <div css={totalContainer}>
       <div css={watchContainer}>
         <p>
-          <span className="hour">{hour >= 10 ? hour : "0" + hour}</span> :{" "}
-          <span className="minute">{minute >= 10 ? minute : "0" + minute}</span>{" "}
-          :{" "}
-          <span className="second">{second >= 10 ? second : "0" + second}</span>{" "}
-          :{" "}
-          <span className="ms">
-            {ms >= 100 ? ms : ms >= 10 ? "0" + ms : "00" + ms}
-          </span>
+          <span className="hour">{hour.toString().padStart(2, "0")}</span> :{" "}
+          <span className="minute">{minute.toString().padStart(2, "0")}</span> :{" "}
+          <span className="second">{second.toString().padStart(2, "0")}</span> :{" "}
+          <span className="ms">{ms.toString().padStart(3, "0")}</span>
         </p>
       </div>
       <div css={playContainer({ status })}>
-        <Play onClick={timePlay} className="play" />
+        {status === "play" ? (
+          <Pause onClick={timePause} className="pause" />
+        ) : (
+          <Play onClick={timePlay} className="play" />
+        )}
         <Lap onClick={timeLap} className="lap" />
-        <Pause onClick={timePause} className="pause" />
         <Stop onClick={timeReset} className="stop" />
       </div>
       <div css={lapContainer}>
         <h3>-- lap --</h3>
         {lap.map((elem, index) => (
           <p key={index}>
-            {elem.hour >= 10 ? elem.hour : "0" + elem.hour} :{" "}
-            {elem.minute >= 10 ? elem.minute : "0" + elem.minute} :{" "}
-            {elem.second >= 10 ? elem.second : "0" + elem.second} :{" "}
-            {elem.ms >= 100
-              ? elem.ms
-              : elem.ms >= 10
-              ? "0" + elem.ms
-              : "00" + elem.ms}
+            {elem.hour.toString().padStart(2, "0")} :{" "}
+            {elem.minute.toString().padStart(2, "0")} :{" "}
+            {elem.second.toString().padStart(2, "0")} :{" "}
+            {elem.ms.toString().padStart(3, "0")}
           </p>
         ))}
       </div>
@@ -83,7 +77,11 @@ const watchContainer = css`
   }
 `;
 
-const playContainer = (props) => css`
+interface playProps {
+  status: string;
+}
+
+const playContainer = (props: playProps) => css`
   height: 100px;
   display: flex;
   justify-content: center;

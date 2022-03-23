@@ -1,8 +1,6 @@
-/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store";
+import { RootState } from "@src/store";
 
 const Nav = () => {
   const { tap } = useSelector((state: RootState) => state.tapReducer);
@@ -27,7 +25,11 @@ const Nav = () => {
   );
 };
 
-const Buttons = (props) => css`
+interface ButtonsProps {
+  tap: String;
+}
+
+const Buttons = (props: ButtonsProps) => css`
   display: flex;
   flex-direction: column;
   margin-top: 100px;

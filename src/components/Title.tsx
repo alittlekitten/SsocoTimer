@@ -1,10 +1,9 @@
-/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useSelector, useDispatch } from "react-redux";
-import { ReactComponent as Alarm } from "../images/alarm.svg";
-import { ReactComponent as Hour12 } from "../images/hour12.svg";
-import { ReactComponent as Hour24 } from "../images/hour24.svg";
-import { RootState } from "../store";
+import { ReactComponent as Alarm } from "@images/alarm.svg";
+import { ReactComponent as Hour12 } from "@images/hour12.svg";
+import { ReactComponent as Hour24 } from "@images/hour24.svg";
+import { RootState } from "@src/store";
 
 const Title = () => {
   const { tap } = useSelector((state: RootState) => state.tapReducer); // store에 있는 state를 가져옴
@@ -39,7 +38,11 @@ const Title = () => {
   );
 };
 
-const titleStyle = (props) => css`
+interface titleProps {
+  timerAlarm: Boolean;
+}
+
+const titleStyle = (props: titleProps) => css`
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import useTimeManage from "./utils/useTimeManage";
 import { useSelector } from "react-redux";
-import { RootState } from "../store";
+import { RootState } from "@src/store";
 
 const useClock = () => {
   const { time, setTime, playTimeout } = useTimeManage();
@@ -21,7 +21,9 @@ const useClock = () => {
       });
     }, 1);
 
-    return () => clearTimeout(playTimeout.current);
+    return () => {
+      if (playTimeout.current) clearTimeout(playTimeout.current);
+    };
   }, [time, playTimeout, setTime]);
 
   return { time, hour12 };

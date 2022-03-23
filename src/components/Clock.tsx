@@ -1,6 +1,5 @@
-/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import useClock from "../hooks/useClock";
+import useClock from "@hooks/useClock";
 
 const Clock = () => {
   const { time, hour12 } = useClock();
@@ -21,18 +20,18 @@ const Clock = () => {
             <span className="hour12pm">PM </span>
           ))}
         {hour12 &&
-          (hour < 12 ? (
-            <span className="hour">{hour >= 10 ? hour : "0" + hour}</span>
+          (hour < 13 ? (
+            <span className="hour">{hour.toString().padStart(2, "0")}</span>
           ) : (
             <span className="hour">
               {hour - 12 >= 10 ? hour - 12 : "0" + (hour - 12)}
             </span>
           ))}
         {!hour12 && (
-          <span className="hour">{hour >= 10 ? hour : "0" + hour}</span>
+          <span className="hour">{hour.toString().padStart(2, "0")}</span>
         )}{" "}
-        : <span className="minute">{minute >= 10 ? minute : "0" + minute}</span>{" "}
-        : <span className="second">{second >= 10 ? second : "0" + second}</span>
+        : <span className="minute">{minute.toString().padStart(2, "0")}</span> :{" "}
+        <span className="second">{second.toString().padStart(2, "0")}</span>
       </p>
     </div>
   );

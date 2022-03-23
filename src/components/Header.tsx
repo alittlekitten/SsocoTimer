@@ -1,8 +1,7 @@
-/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { ReactComponent as Github } from "../images/github.svg";
-import { ReactComponent as Tistory } from "../images/tistory.svg";
-import { ReactComponent as Email } from "../images/email.svg";
+import { ReactComponent as Github } from "@images/github.svg";
+import { ReactComponent as Tistory } from "@images/tistory.svg";
+import { ReactComponent as Email } from "@images/email.svg";
 
 const Header = () => {
   const onClickGithub = () => {
@@ -20,7 +19,7 @@ const Header = () => {
   return (
     <div>
       <div css={main}>
-        <span className="version">Ssoco Timer v1.2.1 </span>
+        <span className="version">Ssoco Timer v1.3.0 </span>
 
         <div className="icons">
           <span className="copyright">
