@@ -21,7 +21,9 @@ const useClock = () => {
       });
     }, 1);
 
-    return () => clearTimeout(playTimeout.current);
+    return () => {
+      if (playTimeout.current) clearTimeout(playTimeout.current);
+    };
   }, [time, playTimeout, setTime]);
 
   return { time, hour12 };

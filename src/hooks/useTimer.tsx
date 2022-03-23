@@ -26,6 +26,8 @@ const useTimer = () => {
   // 마우스 클릭할 때 동작들
   const onIncrease = () => {
     setStatus("increase");
+    startTime.current = null;
+    playTime.current = null;
     increase();
   };
 
@@ -37,7 +39,7 @@ const useTimer = () => {
       // 1000시간 미만으로만 설정 가능하도록 고정
       if (hour === 999 && minute === 59 && second === 59) {
         setStatus("stop");
-        clearTimeout(playTimeout.current);
+        if (playTimeout.current) clearTimeout(playTimeout.current);
       } else if (minute < 59) {
         setTime({ ...time, second: 0, minute: minute + 1 });
       } else {
@@ -47,6 +49,8 @@ const useTimer = () => {
   }, [playTimeout, time, setTime, hour, minute, second]);
 
   const onDecrease = () => {
+    startTime.current = null;
+    playTime.current = null;
     if (!(hour === 0 && minute === 0 && second === 0)) {
       setStatus("decrease");
       decrease();
@@ -60,7 +64,7 @@ const useTimer = () => {
       if (hour === 0 && minute === 0 && second === 1) {
         setStatus("stop");
         speed.current = 300;
-        clearTimeout(playTimeout.current);
+        if (playTimeout.current) clearTimeout(playTimeout.current);
       }
       setTime({ ...time, second: second - 1 });
     } else {
@@ -73,11 +77,11 @@ const useTimer = () => {
     if (status === "increase" || status === "decrease") {
       setStatus("pause");
       speed.current = 300;
-      clearTimeout(timeout.current);
+      if (timeout.current) clearTimeout(timeout.current);
     }
   };
 
-  const secondChange = (e) => {
+  const secondChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     timePause();
     const originalValue = e.target.value;
     const onlyNumber = originalValue.replace(/[^0-9]/g, "");
@@ -86,7 +90,7 @@ const useTimer = () => {
     else setTime({ ...time, second: +onlyNumber });
   };
 
-  const minuteChange = (e) => {
+  const minuteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     timePause();
     const originalValue = e.target.value;
     const onlyNumber = originalValue.replace(/[^0-9]/g, "");
@@ -94,7 +98,7 @@ const useTimer = () => {
     else setTime({ ...time, minute: +onlyNumber });
   };
 
-  const hourChange = (e) => {
+  const hourChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     timePause();
     const originalValue = e.target.value;
     const onlyNumber = originalValue.replace(/[^0-9]/g, "");
@@ -125,7 +129,7 @@ const useTimer = () => {
   const timePause = () => {
     setStatus("pause");
     if (status === "play") {
-      clearInterval(playTimeout.current);
+      if (playTimeout.current) clearInterval(playTimeout.current);
       startTime.current = null;
       playTime.current = null;
     }
@@ -134,7 +138,7 @@ const useTimer = () => {
   const timeReset = () => {
     setStatus("stop");
     setLap([]);
-    clearInterval(playTimeout.current);
+    if (playTimeout.current) clearInterval(playTimeout.current);
     setTime({ ...time, ms: 0, second: 0, minute: 0, hour: 0 });
     startTime.current = null;
     playTime.current = null;
@@ -145,13 +149,19 @@ const useTimer = () => {
   }, [alarm]);
 
   useEffect(() => {
+    if (!startTime.current) startTime.current = Date.now();
+    if (!playTime.current) {
+      playTime.current = new Date(
+        second * 1000 + minute * 1000 * 60 + hour * 1000 * 60 * 60
+      );
+    }
     const cal = new Date(
       +playTime.current - (Date.now() - startTime.current) + 999
     ); // 시작할 때 해당 시간에 1초를 부여하고 0이 되면 딱 끝나도록 하기 위해 999를 더해줌
     // play 눌렀을 때의 로직
     if (status === "play") {
       if (hour === 0 && minute === 0 && second === 0) {
-        clearTimeout(playTimeout.current);
+        if (playTimeout.current) clearTimeout(playTimeout.current);
         setStatus("stop");
         startTime.current = null;
         playTime.current = null;
@@ -178,7 +188,9 @@ const useTimer = () => {
       playTime.current = null;
     }
 
-    return () => clearTimeout(playTimeout.current);
+    return () => {
+      if (playTimeout.current) clearTimeout(playTimeout.current);
+    };
   }, [
     playTimeout,
     setTime,
