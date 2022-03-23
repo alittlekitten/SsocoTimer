@@ -131,6 +131,11 @@ const watchContainer = (props: watchProps) => css`
     font-size: 2rem;
   }
 
+  .plus,
+  .minus {
+    cursor: pointer;
+  }
+
   .plus:hover,
   .minus:hover {
     transform: scale(1.04, 1.04);
