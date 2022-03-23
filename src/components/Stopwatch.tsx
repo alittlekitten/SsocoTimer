@@ -21,9 +21,12 @@ const Timer = () => {
         </p>
       </div>
       <div css={playContainer({ status })}>
-        <Play onClick={timePlay} className="play" />
+        {status === "play" ? (
+          <Pause onClick={timePause} className="pause" />
+        ) : (
+          <Play onClick={timePlay} className="play" />
+        )}
         <Lap onClick={timeLap} className="lap" />
-        <Pause onClick={timePause} className="pause" />
         <Stop onClick={timeReset} className="stop" />
       </div>
       <div css={lapContainer}>
