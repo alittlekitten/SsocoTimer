@@ -74,7 +74,11 @@ const watchContainer = css`
   }
 `;
 
-const playContainer = (props) => css`
+interface playProps {
+  status: string;
+}
+
+const playContainer = (props: playProps) => css`
   height: 100px;
   display: flex;
   justify-content: center;
