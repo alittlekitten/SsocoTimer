@@ -1,9 +1,9 @@
 import { css } from "@emotion/react";
-import { ReactComponent as Play } from "../images/play.svg";
-import { ReactComponent as Pause } from "../images/pause.svg";
-import { ReactComponent as Stop } from "../images/stop.svg";
-import { ReactComponent as Lap } from "../images/lap.svg";
-import useStopwatch from "../hooks/useStopwatch";
+import { ReactComponent as Play } from "@images/play.svg";
+import { ReactComponent as Pause } from "@images/pause.svg";
+import { ReactComponent as Stop } from "@images/stop.svg";
+import { ReactComponent as Lap } from "@images/lap.svg";
+import useStopwatch from "@hooks/useStopwatch";
 
 const Timer = () => {
   const { time, lap, status, timePlay, timeLap, timePause, timeReset } =

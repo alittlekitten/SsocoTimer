@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import useClock from "../hooks/useClock";
+import useClock from "@hooks/useClock";
 
 const Clock = () => {
   const { time, hour12 } = useClock();

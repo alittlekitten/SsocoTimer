@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import useTimeManage from "./utils/useTimeManage";
 import { useSelector } from "react-redux";
-import { RootState } from "../store";
+import { RootState } from "@src/store";
 
 const useClock = () => {
   const { time, setTime, playTimeout } = useTimeManage();

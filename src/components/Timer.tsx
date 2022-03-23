@@ -1,11 +1,11 @@
 import { css } from "@emotion/react";
-import { ReactComponent as Plus } from "../images/plus.svg";
-import { ReactComponent as Minus } from "../images/minus.svg";
-import { ReactComponent as Play } from "../images/play.svg";
-import { ReactComponent as Pause } from "../images/pause.svg";
-import { ReactComponent as Stop } from "../images/stop.svg";
-import { ReactComponent as Lap } from "../images/lap.svg";
-import useTimer from "../hooks/useTimer";
+import { ReactComponent as Plus } from "@images/plus.svg";
+import { ReactComponent as Minus } from "@images/minus.svg";
+import { ReactComponent as Play } from "@images/play.svg";
+import { ReactComponent as Pause } from "@images/pause.svg";
+import { ReactComponent as Stop } from "@images/stop.svg";
+import { ReactComponent as Lap } from "@images/lap.svg";
+import useTimer from "@hooks/useTimer";
 
 const Timer = () => {
   const {

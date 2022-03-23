@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../store";
+import { RootState } from "@src/store";
 import useTimeManage from "./utils/useTimeManage";
-import Fin from "../sounds/chicken.mp3";
+import Fin from "@sounds/chicken.mp3";
 
 interface LapState {
   hour: number;

@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store";
+import { RootState } from "@src/store";
 
 const Nav = () => {
   const { tap } = useSelector((state: RootState) => state.tapReducer);
