@@ -144,7 +144,7 @@
 
 #### Special Thx To my mentor [yeon52](https://github.com/yeon52), [pyo-sh](https://github.com/pyo-sh)
 - [x] 12시간제 시계에서 12시가 00시로 표시되는 오류 수정 [👉 issue 링크](https://github.com/alittlekitten/SsocoTimer/issues/34)
-- [x] - - 버튼 마우스 커서 pointer로 바꾸기 [👉 issue 링크](https://github.com/alittlekitten/SsocoTimer/issues/35)
+- [x] `+ - 버튼` 마우스 커서 pointer로 바꾸기 [👉 issue 링크](https://github.com/alittlekitten/SsocoTimer/issues/35)
 - [x] craco 적용을 통한 `JSX pragma` 제거
 - [x] craco 적용을 통한 절대경로 설정
 - [x] 필요없는 logo.svg파일 삭제
