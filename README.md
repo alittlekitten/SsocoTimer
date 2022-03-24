@@ -10,7 +10,12 @@
 ```
 
 ---
-
+</br>
+<div align="center">
+  <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://github.com/alittlekitten/SsocoTimer&count_bg=%233D61C8&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/>
+</div>
+</br>
+  
 **👉 배포 페이지 : https://alittlekitten.github.io/SsocoTimer/**
 
 **최신 업데이트 날짜 : `2022.03.24`**
