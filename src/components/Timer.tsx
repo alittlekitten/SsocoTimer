@@ -5,9 +5,45 @@ import { ReactComponent as Play } from "@images/play.svg";
 import { ReactComponent as Pause } from "@images/pause.svg";
 import { ReactComponent as Stop } from "@images/stop.svg";
 import { ReactComponent as Lap } from "@images/lap.svg";
+import React from "react";
 import useTimer from "@hooks/useTimer";
 
-const Timer = () => {
+interface ITime {
+  ms: number;
+  second: number;
+  minute: number;
+  hour: number;
+  day: number;
+  month: number;
+  year: number;
+}
+
+interface LapState {
+  hour: number;
+  minute: number;
+  second: number;
+}
+
+interface TimerProps {
+  props: {
+    time: ITime;
+    lap: LapState[];
+    status: string;
+    speed: React.MutableRefObject<number>;
+    onIncrease: () => void;
+    onDecrease: () => void;
+    offPress: () => void;
+    secondChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    minuteChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    hourChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    timePlay: () => void;
+    timeLap: () => void;
+    timePause: () => void;
+    timeReset: () => void;
+  };
+}
+
+const Timer = (timerProps: TimerProps) => {
   const {
     time,
     lap,
@@ -23,7 +59,7 @@ const Timer = () => {
     timeLap,
     timePause,
     timeReset,
-  } = useTimer();
+  } = timerProps.props;
   const { second, minute, hour } = time;
 
   return (

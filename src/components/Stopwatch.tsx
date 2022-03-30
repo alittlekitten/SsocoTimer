@@ -3,11 +3,39 @@ import { ReactComponent as Play } from "@images/play.svg";
 import { ReactComponent as Pause } from "@images/pause.svg";
 import { ReactComponent as Stop } from "@images/stop.svg";
 import { ReactComponent as Lap } from "@images/lap.svg";
-import useStopwatch from "@hooks/useStopwatch";
 
-const Timer = () => {
+interface ITime {
+  ms: number;
+  second: number;
+  minute: number;
+  hour: number;
+  day: number;
+  month: number;
+  year: number;
+}
+
+interface LapState {
+  hour: number;
+  minute: number;
+  second: number;
+  ms: number;
+}
+
+interface StopwatchProps {
+  props: {
+    time: ITime;
+    lap: LapState[];
+    status: string;
+    timePlay: () => void;
+    timeLap: () => void;
+    timePause: () => void;
+    timeReset: () => void;
+  };
+}
+
+const Stopwatch = (stopwatchProps: StopwatchProps) => {
   const { time, lap, status, timePlay, timeLap, timePause, timeReset } =
-    useStopwatch();
+    stopwatchProps.props;
   const { ms, minute, second, hour } = time;
 
   return (
@@ -129,4 +157,4 @@ const lapContainer = css`
   }
 `;
 
-export default Timer;
+export default Stopwatch;
