@@ -175,7 +175,10 @@ const useTimer = () => {
             ms: cal.getUTCMilliseconds(),
             second: cal.getUTCSeconds(),
             minute: cal.getUTCMinutes(),
-            hour: cal.getUTCHours(),
+            hour:
+              cal.getUTCHours() +
+              (cal.getUTCDate() - 1) * 24 +
+              cal.getUTCMonth() * 24 * 31,
           });
         }, 1);
       }
