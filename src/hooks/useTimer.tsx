@@ -32,8 +32,6 @@ const useTimer = () => {
   // 마우스 클릭할 때 동작들
   const onIncrease = () => {
     setStatus("increase");
-    startTime.current = null;
-    playTime.current = null;
     increase();
   };
 
@@ -55,8 +53,6 @@ const useTimer = () => {
   }, [playTimeout, time, setTime, hour, minute, second]);
 
   const onDecrease = () => {
-    startTime.current = null;
-    playTime.current = null;
     if (!(hour === 0 && minute === 0 && second === 0)) {
       setStatus("decrease");
       decrease();
@@ -92,7 +88,7 @@ const useTimer = () => {
     const originalValue = e.target.value;
     const onlyNumber = originalValue.replace(/[^0-9]/g, "");
     // input창에 아무것도 없거나, 60 넘어가면 초기화
-    if (!onlyNumber || +onlyNumber > 59) setTime({ ...time, second: 0 });
+    if (!onlyNumber || +onlyNumber > 59) setTime({ ...time, second: 59 });
     else setTime({ ...time, second: +onlyNumber });
   };
 
@@ -100,7 +96,7 @@ const useTimer = () => {
     timePause();
     const originalValue = e.target.value;
     const onlyNumber = originalValue.replace(/[^0-9]/g, "");
-    if (!onlyNumber || +onlyNumber > 59) setTime({ ...time, minute: 0 });
+    if (!onlyNumber || +onlyNumber > 59) setTime({ ...time, minute: 59 });
     else setTime({ ...time, minute: +onlyNumber });
   };
 
@@ -109,7 +105,7 @@ const useTimer = () => {
     const originalValue = e.target.value;
     const onlyNumber = originalValue.replace(/[^0-9]/g, "");
     // 입력값이 없거나 999시간 넘어가면 0으로 초기화
-    if (!onlyNumber || +onlyNumber > 999) setTime({ ...time, hour: 0 });
+    if (!onlyNumber || +onlyNumber > 999) setTime({ ...time, hour: 999 });
     else setTime({ ...time, hour: +onlyNumber });
   };
 
