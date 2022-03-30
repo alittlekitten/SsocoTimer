@@ -20,8 +20,7 @@ const useStopwatch = () => {
 
   const timePlay = () => {
     // 최초 시작
-    if (startTime.current === null && status !== "play")
-      startTime.current = Date.now();
+    if (status === "stop") startTime.current = Date.now();
     // pause후 시작
     else if (status === "pause") {
       if (startTime.current && pauseTime.current)
@@ -55,8 +54,8 @@ const useStopwatch = () => {
   useEffect(() => {
     // play 눌렀을 때의 로직
     if (!startTime.current) startTime.current = Date.now();
-    const now = new Date(Date.now() - startTime.current);
     if (status === "play") {
+      const now = new Date(Date.now() - startTime.current);
       playTimeout.current = setTimeout(() => {
         setTime({
           ...time,
