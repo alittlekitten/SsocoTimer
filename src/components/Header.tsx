@@ -104,8 +104,8 @@ const main = (theme: ThemeVariables) => css`
   }
 `;
 
-const hr = css`
+const hr = (theme: ThemeVariables) => css`
   hr {
-    border: solid 1px #f9eded;
+    border: solid 1px ${theme.hrLine};
   }
 `;
