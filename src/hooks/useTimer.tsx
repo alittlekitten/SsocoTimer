@@ -145,7 +145,7 @@ const useTimer = () => {
       setStatus("stop");
       if (playTimeout.current) clearTimeout(playTimeout.current);
     } else {
-      setTime({ ...time, minute: 0, hour: hour + 1 });
+      setTime({ ...time, hour: hour + 1 });
     }
   }, [playTimeout, setTime, time, hour]);
 
