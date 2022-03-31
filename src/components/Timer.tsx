@@ -72,7 +72,7 @@ const Timer = (timerProps: TimerProps) => {
 
   return (
     <div css={totalContainer({ status, hour, minute, second })}>
-      <div css={watchContainer({ speed })}>
+      <div css={watchContainer({ speed, hour, minute, second, ms })}>
         <div className="hours">
           <Plus
             onMouseDown={hourOnIncrease}
@@ -194,6 +194,10 @@ interface MutableRefObject<T> {
 }
 interface watchProps {
   speed: MutableRefObject<number>;
+  hour: number;
+  minute: number;
+  second: number;
+  ms: number;
 }
 
 const watchContainer = (props: watchProps) => css`
@@ -256,6 +260,15 @@ const watchContainer = (props: watchProps) => css`
       ${props.speed.current / 1.4 + 20},
       ${props.speed.current / 1.4 + 20}
     );
+  }
+
+  .minus:hover {
+    ${props.ms === 0 &&
+    props.second === 0 &&
+    props.minute === 0 &&
+    props.hour === 0
+      ? `fill: white; transform: none; transition: none;`
+      : ``}
   }
 `;
 
