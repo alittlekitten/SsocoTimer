@@ -4,6 +4,8 @@ import { RootState } from "@src/store";
 import { ReactComponent as Github } from "@images/github.svg";
 import { ReactComponent as Tistory } from "@images/tistory.svg";
 import { ReactComponent as Email } from "@images/email.svg";
+import { ReactComponent as Sun } from "@images/sun.svg";
+import { ReactComponent as Moon } from "@images/moon.svg";
 import { ThemeVariables } from "../styles/palette";
 
 const Header = () => {
@@ -40,6 +42,11 @@ const Header = () => {
           <span className="copyright">
             Copyright 2022. by <span className="github-id">alittlekitten</span>
           </span>
+          {themeStatus == "dark" ? (
+            <Moon className="moon" onClick={toggleTheme} />
+          ) : (
+            <Sun className="sun" onClick={toggleTheme} />
+          )}
           <Github className="github" onClick={onClickGithub} />
           <Tistory className="tistory" onClick={onClickTistory} />
           <Email className="email" onClick={onClickEmail} />
@@ -76,6 +83,8 @@ const main = (theme: ThemeVariables) => css`
       color: ${theme.copyright2};
     }
 
+    .moon,
+    .sun,
     .github,
     .tistory,
     .email {
@@ -84,6 +93,8 @@ const main = (theme: ThemeVariables) => css`
       fill: ${theme.utilBtn};
     }
 
+    .moon:hover,
+    .sun:hover,
     .github:hover,
     .tistory:hover,
     .email:hover {
