@@ -261,10 +261,12 @@ const useTimer = () => {
         ms + second * 1000 + minute * 1000 * 60 + hour * 1000 * 60 * 60
       );
     }
-    const cal = new Date(+playTime.current - (Date.now() - startTime.current)); // 시작할 때 해당 시간에 1초를 부여하고 0이 되면 딱 끝나도록 하기 위해 999를 더해줌
+    const cal = new Date(
+      Math.max(+playTime.current - (Date.now() - startTime.current), 0)
+    ); // 시작할 때 해당 시간에 1초를 부여하고 0이 되면 딱 끝나도록 하기 위해 999를 더해줌
     // play 눌렀을 때의 로직
     if (status === "play") {
-      if (hour === 0 && minute === 0 && second === 0 && ms < 10) {
+      if (hour === 0 && minute === 0 && second === 0 && ms === 0) {
         if (playTimeout.current) clearTimeout(playTimeout.current);
         setTime({ ...time, ms: 0 });
         setStatus("stop");
