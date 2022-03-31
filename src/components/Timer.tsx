@@ -5,16 +5,60 @@ import { ReactComponent as Play } from "@images/play.svg";
 import { ReactComponent as Pause } from "@images/pause.svg";
 import { ReactComponent as Stop } from "@images/stop.svg";
 import { ReactComponent as Lap } from "@images/lap.svg";
-import useTimer from "@hooks/useTimer";
+import React from "react";
 
-const Timer = () => {
+interface ITime {
+  ms: number;
+  second: number;
+  minute: number;
+  hour: number;
+  day: number;
+  month: number;
+  year: number;
+}
+
+interface LapState {
+  hour: number;
+  minute: number;
+  second: number;
+  ms: number;
+}
+
+interface TimerProps {
+  props: {
+    time: ITime;
+    lap: LapState[];
+    status: string;
+    speed: React.MutableRefObject<number>;
+    secondOnIncrease: () => void;
+    secondOnDecrease: () => void;
+    minuteOnIncrease: () => void;
+    minuteOnDecrease: () => void;
+    hourOnIncrease: () => void;
+    hourOnDecrease: () => void;
+    offPress: () => void;
+    secondChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    minuteChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    hourChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    timePlay: () => void;
+    timeLap: () => void;
+    timePause: () => void;
+    timeReset: () => void;
+  };
+}
+
+const Timer = (timerProps: TimerProps) => {
   const {
     time,
     lap,
     status,
     speed,
-    onIncrease,
-    onDecrease,
+    secondOnIncrease,
+    secondOnDecrease,
+    minuteOnIncrease,
+    minuteOnDecrease,
+    hourOnIncrease,
+    hourOnDecrease,
     offPress,
     secondChange,
     minuteChange,
@@ -23,41 +67,75 @@ const Timer = () => {
     timeLap,
     timePause,
     timeReset,
-  } = useTimer();
-  const { second, minute, hour } = time;
+  } = timerProps.props;
+  const { second, minute, hour, ms } = time;
 
   return (
     <div css={totalContainer({ status, hour, minute, second })}>
-      <div css={watchContainer({ speed })}>
-        <Plus
-          onMouseDown={onIncrease}
-          onMouseUp={offPress}
-          onMouseLeave={offPress}
-          className="plus"
-        />
-        <input
-          type="text"
-          value={hour.toString().padStart(2, "0")}
-          onChange={hourChange}
-        ></input>
-        <span>&nbsp;:&nbsp;</span>
-        <input
-          type="text"
-          value={minute.toString().padStart(2, "0")}
-          onChange={minuteChange}
-        ></input>
-        <span>&nbsp;:&nbsp;</span>
-        <input
-          type="text"
-          value={second.toString().padStart(2, "0")}
-          onChange={secondChange}
-        ></input>
-        <Minus
-          onMouseDown={onDecrease}
-          onMouseUp={offPress}
-          onMouseLeave={offPress}
-          className="minus"
-        />
+      <div css={watchContainer({ speed, hour, minute, second, ms })}>
+        <div className="hours">
+          <Plus
+            onMouseDown={hourOnIncrease}
+            onMouseUp={offPress}
+            onMouseLeave={offPress}
+            className="plus"
+          />
+          <input
+            type="text"
+            value={hour.toString().padStart(2, "0")}
+            onChange={hourChange}
+          ></input>
+          <Minus
+            onMouseDown={hourOnDecrease}
+            onMouseUp={offPress}
+            onMouseLeave={offPress}
+            className="minus"
+          />
+        </div>
+        <span className="colon">&nbsp;:&nbsp;</span>
+        <div className="minutes">
+          <Plus
+            onMouseDown={minuteOnIncrease}
+            onMouseUp={offPress}
+            onMouseLeave={offPress}
+            className="plus"
+          />
+          <input
+            type="text"
+            value={minute.toString().padStart(2, "0")}
+            onChange={minuteChange}
+          ></input>
+          <Minus
+            onMouseDown={minuteOnDecrease}
+            onMouseUp={offPress}
+            onMouseLeave={offPress}
+            className="minus"
+          />
+        </div>
+        <span className="colon">&nbsp;:&nbsp;</span>
+        <div className="seconds">
+          <Plus
+            onMouseDown={secondOnIncrease}
+            onMouseUp={offPress}
+            onMouseLeave={offPress}
+            className="plus"
+          />
+          <input
+            type="text"
+            value={second.toString().padStart(2, "0")}
+            onChange={secondChange}
+          ></input>
+          <Minus
+            onMouseDown={secondOnDecrease}
+            onMouseUp={offPress}
+            onMouseLeave={offPress}
+            className="minus"
+          />
+        </div>
+        <span className="colon">&nbsp;:&nbsp;</span>
+        <div className="milliseconds">
+          <span className="ms">{ms.toString().padStart(3, "0")}</span>
+        </div>
       </div>
       <div css={playContainer({ status })}>
         {status === "play" ? (
@@ -74,7 +152,8 @@ const Timer = () => {
           <p key={index}>
             {elem.hour.toString().padStart(2, "0")} :{" "}
             {elem.minute.toString().padStart(2, "0")} :{" "}
-            {elem.second.toString().padStart(2, "0")}
+            {elem.second.toString().padStart(2, "0")} :{" "}
+            {elem.ms.toString().padStart(3, "0")}
           </p>
         ))}
       </div>
@@ -91,20 +170,21 @@ interface totalProps {
 
 const totalContainer = (props: totalProps) => css`
   padding: 1.5rem;
+  padding-top: 0px;
   background-color: ${props.status === "play" &&
   props.hour === 0 &&
   props.minute === 0 &&
-  props.second === 3
+  props.second === 2
     ? "#ffd3d3"
     : props.status === "play" &&
       props.hour === 0 &&
       props.minute === 0 &&
-      props.second === 2
+      props.second === 1
     ? "#ff9b9b"
     : props.status === "play" &&
       props.hour === 0 &&
       props.minute === 0 &&
-      props.second === 1
+      props.second === 0
     ? "#ff5e5e"
     : "white"};
 `;
@@ -114,6 +194,10 @@ interface MutableRefObject<T> {
 }
 interface watchProps {
   speed: MutableRefObject<number>;
+  hour: number;
+  minute: number;
+  second: number;
+  ms: number;
 }
 
 const watchContainer = (props: watchProps) => css`
@@ -122,7 +206,7 @@ const watchContainer = (props: watchProps) => css`
   line-height: 50px;
 
   input {
-    width: 70px;
+    width: 60px;
     font-family: "HSYuji-Regular";
     font-weight: 600;
     font-size: 2rem;
@@ -130,8 +214,29 @@ const watchContainer = (props: watchProps) => css`
   }
 
   span {
+    width: 70px;
+    font-family: "HSYuji-Regular";
     font-weight: 600;
     font-size: 2rem;
+    text-align: center;
+  }
+
+  .colon {
+    width: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hours,
+  .minutes,
+  .seconds,
+  .milliseconds {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .plus,
@@ -155,6 +260,15 @@ const watchContainer = (props: watchProps) => css`
       ${props.speed.current / 1.4 + 20},
       ${props.speed.current / 1.4 + 20}
     );
+  }
+
+  .minus:hover {
+    ${props.ms === 0 &&
+    props.second === 0 &&
+    props.minute === 0 &&
+    props.hour === 0
+      ? `fill: white; transform: none; transition: none;`
+      : ``}
   }
 `;
 

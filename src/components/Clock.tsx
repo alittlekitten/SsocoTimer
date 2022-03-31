@@ -1,8 +1,24 @@
 import { css } from "@emotion/react";
-import useClock from "@hooks/useClock";
 
-const Clock = () => {
-  const { time, hour12 } = useClock();
+interface ITime {
+  ms: number;
+  second: number;
+  minute: number;
+  hour: number;
+  day: number;
+  month: number;
+  year: number;
+}
+
+interface ClockProps {
+  props: {
+    time: ITime;
+    hour12: Boolean;
+  };
+}
+
+const Clock = (clockProps: ClockProps) => {
+  const { time, hour12 } = clockProps.props;
   const { second, minute, hour, day, month, year } = time;
 
   return (
