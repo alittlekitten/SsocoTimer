@@ -44,7 +44,7 @@ const PageContainer = css`
 `;
 
 const MainContainer = css`
-  width: 450px;
+  width: 500px;
 `;
 
 export default App;
