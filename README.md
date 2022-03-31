@@ -20,7 +20,7 @@
 
 **최신 업데이트 날짜 : `2022.03.24`**
 
-**최신 릴리즈 버전 : `ver 1.3.0`**
+**최신 릴리즈 버전 : `ver 1.4.0`**
 
 ![Honeycam 2022-03-24 02-10-55](https://user-images.githubusercontent.com/14370441/159756812-272b28a4-2281-4769-88fb-9e57795b6de7.gif)
 
@@ -143,6 +143,7 @@
 ### `22.03.24` - `v1.3.0`
 
 #### Special Thx To my mentor [yeon52](https://github.com/yeon52), [pyo-sh](https://github.com/pyo-sh)
+
 - [x] 12시간제 시계에서 12시가 00시로 표시되는 오류 수정 [👉 issue 링크](https://github.com/alittlekitten/SsocoTimer/issues/34)
 - [x] `+ - 버튼` 마우스 커서 pointer로 바꾸기 [👉 issue 링크](https://github.com/alittlekitten/SsocoTimer/issues/35)
 - [x] craco 적용을 통한 `JSX pragma` 제거
@@ -152,6 +153,16 @@
 - [x] `eslint`, `prettier` 적용 및 `@typescript-eslint` 적용
 - [x] eslint 설정으로부터 발견된 미비한 타입 및 인터페이스 관련 문제 및 오류 해소, any type 제거
 - [x] 재생 버튼과 일시정지 버튼을 조건부 렌더링으로 화면에 띄워서 UI/UX 개선
+
+### `22.03.31` - `v1.4.0`
+
+#### Special Thx To my mentor [yeon52](https://github.com/yeon52), [jyo-jyo](https://github.com/jyo-jyo), [pyo-sh](https://github.com/pyo-sh)
+
+- [x] 상태값 저장 - 타이머와 스톱워치가 동시에 돌 수 있도록 구현하기
+- [x] 타이머 랩하고 스톱워치 랩 데이터가 통일이 안되어있어서 불편
+- [x] 타이머 위아래로 시 분 초에 모두 + - 버튼 달기
+- [x] 분과 초에서 59가 넘는 숫자를 입력하면 강제로 59로 놓기
+- [x] 최솟값이랑 최댓값일 때 더하기 빼기 버튼 비활성화된것처럼 보이게 하기
 
 <br />
 
@@ -268,6 +279,20 @@
 - eject를 할 수 있지만, eject를 하게 되면 CRA를 쓴 의미가 퇴색될 수 있다고 판단하였습니다.
 - babel 옵션 변경 및 절대경로 설정 변경을 위해서는 우회할 수 있는 다른 방법이 필요했고, 그 방법들 중 `craco`를 선택했습니다.
 - `craco`를 사용하여 babel 설정을 변경하여 CRA, typescript 환경에서 JSX Pragma를 제거하는 과정을 https://ssocoit.tistory.com/257에 자세히 남겨두었습니다.
+
+### 상태 관리 방법에 대한 고민
+
+- 처음에는 redux에서 상태를 선언하고, 여기서 상태를 관리하려고 했습니다.
+- 그런데 생각해보니 Reducer를 이용해서만 상태값을 변경시킬 수 있는데, stopwatch의 경우 시간의 차로 계산을 하기 때문에 밀리초가 지나갈 때 딱 .000초를 맞추지 못하는 경우가 발생했습니다.
+  - 이런 문제로 인해 정상적으로 +1 -1하는 방식을 사용할 수가 없게 되어서 다른 방법을 찾아야했습니다.
+- useReducer를 사용해서 value를 dispatch하는 방식도 생각했지만, store의 본질적인 등장 원인인 props drilling 해결이 현재 레포지토리 구조와 같이 얕은 앱에서는 큰 메리트가 없다고 생각하게 되었습니다.
+- 그래서 부모 요소(app.tsx)에 선언해놓고 자식요소로 전달하는 방식을 사용하기로 결정했습니다.
+- 다만 현재 구조는 자식 요소에 위치했던 상태값들이 부모 요소로 넘어와서 관리되면서 발생하는 문제인 과도한 리렌더링이 발생할 수 있는 가능성이 존재하므로 추후에 구조 개선 예정에 있습니다.
+
+### Date 함수를 사용한 시간 계산
+
+- useTimer 커스텀 훅 내부의 useEffect에서 매 렌더링마다 Date함수를 사용해서 시간을 계산하다보니 브라우저의 렌더링 한계(크롬 기준 약 4ms)에 막혀 정확하게 0 hours 0 minutes 0 seconds 0 ms 상태에 걸리지 않아서 시간이 부자연스럽게 증가하는 문제가 발생했습니다.
+- 해당 문제를 Date 내부에 들어가는 변수값에 음수가 들어가지 않도록 Math.max를 사용하는 방향으로 개선할 수 있었습니다.
 
 <br />
 
