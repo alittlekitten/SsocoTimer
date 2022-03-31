@@ -1,4 +1,5 @@
-import { css } from "@emotion/react";
+import { css, useTheme } from "@emotion/react";
+import { ThemeVariables } from "../styles/palette";
 
 interface ITime {
   ms: number;
@@ -20,9 +21,10 @@ interface ClockProps {
 const Clock = (clockProps: ClockProps) => {
   const { time, hour12 } = clockProps.props;
   const { second, minute, hour, day, month, year } = time;
+  const theme = useTheme() as ThemeVariables;
 
   return (
-    <div css={clockContainer}>
+    <div css={clockContainer(theme)}>
       <p className="ymd">
         <span className="year">{year}</span> /{" "}
         <span className="month">{month}</span> /{" "}
@@ -55,7 +57,7 @@ const Clock = (clockProps: ClockProps) => {
 
 export default Clock;
 
-const clockContainer = css`
+const clockContainer = (theme: ThemeVariables) => css`
   position: relative;
   padding: 1.5rem;
   display: flex;
@@ -71,10 +73,10 @@ const clockContainer = css`
     vertical-align: middle;
 
     .hour12am {
-      color: #ff6b6b;
+      color: ${theme.hour12am};
     }
     .hour12pm {
-      color: #0083ff;
+      color: ${theme.hour12pm};
     }
 
     .hour,

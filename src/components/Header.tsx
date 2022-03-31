@@ -1,9 +1,18 @@
-import { css } from "@emotion/react";
+import { css, useTheme } from "@emotion/react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@src/store";
 import { ReactComponent as Github } from "@images/github.svg";
 import { ReactComponent as Tistory } from "@images/tistory.svg";
 import { ReactComponent as Email } from "@images/email.svg";
+import { ThemeVariables } from "../styles/palette";
 
 const Header = () => {
+  const { themeStatus } = useSelector(
+    (state: RootState) => state.optionReducer
+  );
+  const dispatch = useDispatch();
+  const theme = useTheme() as ThemeVariables;
+
   const onClickGithub = () => {
     window.open("https://github.com/alittlekitten/");
   };
@@ -16,9 +25,15 @@ const Header = () => {
     window.open("mailto:dlscjs8646@gmail.com");
   };
 
+  const toggleTheme = () => {
+    if (themeStatus === "light") dispatch({ type: "dark" });
+    else dispatch({ type: "light" });
+    console.log("gg");
+  };
+
   return (
     <div>
-      <div css={main}>
+      <div css={main(theme)}>
         <span className="version">Ssoco Timer v1.4.0 </span>
 
         <div className="icons">
@@ -30,7 +45,7 @@ const Header = () => {
           <Email className="email" onClick={onClickEmail} />
         </div>
       </div>
-      <div css={hr}>
+      <div css={hr(theme)}>
         <hr />
       </div>
     </div>
@@ -39,18 +54,18 @@ const Header = () => {
 
 export default Header;
 
-const main = css`
+const main = (theme: ThemeVariables) => css`
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-family: "HSYuji-Regular";
   font-weight: 600;
   font-size: 0.8rem;
-  color: #7f7f7f;
+  color: ${theme.copyright1};
   height: 30px;
 
   .version {
-    color: black;
+    color: ${theme.text2};
   }
 
   .icons {
@@ -58,7 +73,7 @@ const main = css`
     align-items: center;
 
     .github-id {
-      color: red;
+      color: ${theme.copyright2};
     }
 
     .github,
@@ -66,6 +81,7 @@ const main = css`
     .email {
       cursor: pointer;
       margin-left: 0.75rem;
+      fill: ${theme.utilBtn};
     }
 
     .github:hover,
