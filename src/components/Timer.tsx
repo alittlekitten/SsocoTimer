@@ -6,7 +6,6 @@ import { ReactComponent as Pause } from "@images/pause.svg";
 import { ReactComponent as Stop } from "@images/stop.svg";
 import { ReactComponent as Lap } from "@images/lap.svg";
 import React from "react";
-import useTimer from "@hooks/useTimer";
 
 interface ITime {
   ms: number;
@@ -195,7 +194,7 @@ const watchContainer = (props: watchProps) => css`
   line-height: 50px;
 
   input {
-    width: 70px;
+    width: 60px;
     font-family: "HSYuji-Regular";
     font-weight: 600;
     font-size: 2rem;
