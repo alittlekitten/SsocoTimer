@@ -30,8 +30,12 @@ interface TimerProps {
     lap: LapState[];
     status: string;
     speed: React.MutableRefObject<number>;
-    onIncrease: () => void;
-    onDecrease: () => void;
+    secondOnIncrease: () => void;
+    secondOnDecrease: () => void;
+    minuteOnIncrease: () => void;
+    minuteOnDecrease: () => void;
+    hourOnIncrease: () => void;
+    hourOnDecrease: () => void;
     offPress: () => void;
     secondChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     minuteChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -49,8 +53,12 @@ const Timer = (timerProps: TimerProps) => {
     lap,
     status,
     speed,
-    onIncrease,
-    onDecrease,
+    secondOnIncrease,
+    secondOnDecrease,
+    minuteOnIncrease,
+    minuteOnDecrease,
+    hourOnIncrease,
+    hourOnDecrease,
     offPress,
     secondChange,
     minuteChange,
