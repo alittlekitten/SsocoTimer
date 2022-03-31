@@ -73,7 +73,6 @@ const main = css`
     .email:hover {
       transform: scale(1.1, 1.1);
       transition: all ease 0.3s;
-      fill: red;
     }
   }
 `;
