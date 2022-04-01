@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, ThemeProvider } from "@emotion/react";
 import { useSelector, useDispatch } from "react-redux";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Title from "@components/Title";
 import Nav from "@components/Nav";
 import Timer from "@components/Timer";
@@ -46,26 +47,42 @@ const App = () => {
     <ThemeProvider
       theme={themeStatus == "dark" ? colorSet.dark : colorSet.light}
     >
-      <div
-        css={Viewport({
-          themeStatus,
-          timerSecond,
-          timerMinute,
-          timerHour,
-          timerStatus,
-        })}
-      >
-        <div css={PageContainer}>
-          <Nav />
-          <div css={MainContainer}>
-            <Header />
-            <Title />
-            {tap === "Timer" && <Timer props={timerProps} />}
-            {tap === "Stopwatch" && <Stopwatch props={stopwatchProps} />}
-            {tap === "Clock" && <Clock />}
+      <BrowserRouter>
+        <div
+          css={Viewport({
+            themeStatus,
+            timerSecond,
+            timerMinute,
+            timerHour,
+            timerStatus,
+          })}
+        >
+          <div css={PageContainer}>
+            <Nav />
+            <div css={MainContainer}>
+              <Header />
+              <Title />
+              <Routes>
+                {tap === "Timer" && (
+                  <Route
+                    path="/*"
+                    element={<Timer props={timerProps} />}
+                  ></Route>
+                )}
+                {tap === "Stopwatch" && (
+                  <Route
+                    path="/stopwatch"
+                    element={<Stopwatch props={stopwatchProps} />}
+                  ></Route>
+                )}
+                {tap === "Clock" && (
+                  <Route path="/clock" element={<Clock />}></Route>
+                )}
+              </Routes>
+            </div>
           </div>
         </div>
-      </div>
+      </BrowserRouter>
     </ThemeProvider>
   );
 };

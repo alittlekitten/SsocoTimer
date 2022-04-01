@@ -2,6 +2,7 @@ import { css, useTheme } from "@emotion/react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@src/store";
 import { ThemeVariables } from "@styles/palette";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
   const { tap } = useSelector((state: RootState) => state.tapReducer);
@@ -14,15 +15,21 @@ const Nav = () => {
 
   return (
     <div css={Buttons({ tap, theme })}>
-      <button className="timer" onClick={onClickTimer}>
-        타이머
-      </button>
-      <button className="stopwatch" onClick={onClickStopwatch}>
-        스톱워치
-      </button>
-      <button className="clock" onClick={onClickClock}>
-        시계
-      </button>
+      <Link to="/">
+        <button className="timer" onClick={onClickTimer}>
+          타이머
+        </button>
+      </Link>
+      <Link to="/stopwatch">
+        <button className="stopwatch" onClick={onClickStopwatch}>
+          스톱워치
+        </button>
+      </Link>
+      <Link to="/clock">
+        <button className="clock" onClick={onClickClock}>
+          시계
+        </button>
+      </Link>
     </div>
   );
 };
