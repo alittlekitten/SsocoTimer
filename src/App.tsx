@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css, ThemeProvider } from "@emotion/react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Title from "@components/Title";
 import Nav from "@components/Nav";
 import Timer from "@components/Timer";
@@ -13,6 +13,9 @@ import "@src/App.css";
 import useStopwatch from "@hooks/useStopwatch";
 import useClock from "@hooks/useClock";
 import colorSet from "@styles/palette";
+import { useLayoutEffect } from "react";
+
+// 로컬스토리지의 themeState 가져와서 확인하고 존재하면 theme 변경하기
 
 const App = () => {
   const { tap } = useSelector((state: RootState) => state.tapReducer); // tapReducer의 상태를 가져올 수 있다. (여기서는 구조분해할당으로 가져옴)
@@ -20,6 +23,8 @@ const App = () => {
     (state: RootState) => state.optionReducer
   );
   // 리렌더링을 줄이기 위해서는 최대한 자세하게 가져오는 것이 좋음
+
+  const dispatch = useDispatch();
 
   const timerProps = useTimer();
   const stopwatchProps = useStopwatch();
@@ -29,6 +34,14 @@ const App = () => {
   const timerMinute = timerProps.time.minute;
   const timerHour = timerProps.time.hour;
   const timerStatus = timerProps.status;
+
+  // 최초 상태값 로컬스토리지에서 확인용
+  // 해당 로직은 최초에만 실행되고 그 다음에는 실행될 필요가 없기 때문에 dependency에 빈 배열을 넣음
+  // 해당 작업이 완료된 이후에 화면에 paint가 되어야 깜빡임 현상이 없기 때문에 useLayoutEffect 사용
+  useLayoutEffect(() => {
+    const savedTheme = localStorage.getItem("themeState");
+    if (savedTheme === "dark") dispatch({ type: "dark" });
+  }, []);
 
   return (
     <ThemeProvider
