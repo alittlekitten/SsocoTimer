@@ -3,7 +3,7 @@ import { ReactComponent as Play } from "@images/play.svg";
 import { ReactComponent as Pause } from "@images/pause.svg";
 import { ReactComponent as Stop } from "@images/stop.svg";
 import { ReactComponent as Lap } from "@images/lap.svg";
-import { ThemeVariables } from "../styles/palette";
+import { ThemeVariables } from "@styles/palette";
 
 interface ITime {
   ms: number;

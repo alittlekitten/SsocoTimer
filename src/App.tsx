@@ -10,9 +10,9 @@ import Header from "@components/Header";
 import { RootState } from "@src/store";
 import useTimer from "@hooks/useTimer";
 import "@src/App.css";
-import useStopwatch from "./hooks/useStopwatch";
-import useClock from "./hooks/useClock";
-import colorSet from "./styles/palette";
+import useStopwatch from "@hooks/useStopwatch";
+import useClock from "@hooks/useClock";
+import colorSet from "@styles/palette";
 
 const App = () => {
   const { tap } = useSelector((state: RootState) => state.tapReducer); // tapReducer의 상태를 가져올 수 있다. (여기서는 구조분해할당으로 가져옴)
