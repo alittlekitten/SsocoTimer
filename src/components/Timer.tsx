@@ -49,6 +49,7 @@ interface TimerProps {
 }
 
 const Timer = (timerProps: TimerProps) => {
+  document.title = "SsocoTimer"; // 탭 이름 변경
   const {
     time,
     lap,

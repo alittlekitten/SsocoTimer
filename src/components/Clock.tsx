@@ -3,6 +3,7 @@ import { ThemeVariables } from "@styles/palette";
 import useClock from "@hooks/useClock";
 
 const Clock = () => {
+  document.title = "SsocoClock"; // 탭 이름 변경
   const clockProps = useClock();
   const hour12 = clockProps.hour12;
   const { second, minute, hour, day, month, year } = clockProps.time;

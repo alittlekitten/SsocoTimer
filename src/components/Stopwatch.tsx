@@ -35,6 +35,7 @@ interface StopwatchProps {
 }
 
 const Stopwatch = (stopwatchProps: StopwatchProps) => {
+  document.title = "SsocoStopwatch"; // 탭 이름 변경
   const { time, lap, status, timePlay, timeLap, timePause, timeReset } =
     stopwatchProps.props;
   const { ms, minute, second, hour } = time;
