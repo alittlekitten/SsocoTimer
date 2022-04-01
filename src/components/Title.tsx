@@ -66,10 +66,6 @@ const titleStyle = (props: titleProps) => css`
     cursor: pointer;
   }
 
-  .music:hover {
-    transform: scale(1.04, 1.04);
-  }
-
   .hour24,
   .hour12 {
     position: absolute;
@@ -80,8 +76,9 @@ const titleStyle = (props: titleProps) => css`
   }
 
   .hour24:hover,
-  .hour12:hover {
-    transform: scale(1.04, 1.04);
+  .hour12:hover,
+  .music:hover {
+    transform: scale(1.04, 1.04) rotate(15deg);
   }
 
   .ssoco {

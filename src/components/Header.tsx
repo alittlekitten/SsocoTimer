@@ -91,6 +91,7 @@ const main = (theme: ThemeVariables) => css`
       cursor: pointer;
       margin-left: 0.75rem;
       fill: ${theme.utilBtn};
+      transition: all ease 0.3s;
     }
 
     .moon:hover,
@@ -98,7 +99,7 @@ const main = (theme: ThemeVariables) => css`
     .github:hover,
     .tistory:hover,
     .email:hover {
-      transform: scale(1.1, 1.1);
+      transform: scale(1.1, 1.1) rotate(15deg);
       transition: all ease 0.3s;
     }
   }
