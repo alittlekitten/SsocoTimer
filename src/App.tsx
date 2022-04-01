@@ -25,11 +25,24 @@ const App = () => {
   const stopwatchProps = useStopwatch();
   const clockProps = useClock();
 
+  const timerSecond = timerProps.time.second;
+  const timerMinute = timerProps.time.minute;
+  const timerHour = timerProps.time.hour;
+  const timerStatus = timerProps.status;
+
   return (
     <ThemeProvider
       theme={themeStatus == "dark" ? colorSet.dark : colorSet.light}
     >
-      <div css={Viewport(themeStatus)}>
+      <div
+        css={Viewport({
+          themeStatus,
+          timerSecond,
+          timerMinute,
+          timerHour,
+          timerStatus,
+        })}
+      >
         <div css={PageContainer}>
           <Nav />
           <div css={MainContainer}>
@@ -45,13 +58,51 @@ const App = () => {
   );
 };
 
-const Viewport = (themeStatus: string) => css`
+interface ViewportProps {
+  themeStatus: string;
+  timerSecond: number;
+  timerMinute: number;
+  timerHour: number;
+  timerStatus: string;
+}
+
+const Viewport = (props: ViewportProps) => css`
   width: 100vw;
   height: 100vh;
-  background-color: ${themeStatus === "light"
-    ? colorSet.light.bgPage1
+  background-color: ${props.themeStatus === "light"
+    ? props.timerStatus === "play" &&
+      props.timerHour === 0 &&
+      props.timerMinute === 0 &&
+      props.timerSecond === 2
+      ? colorSet.light.alert1
+      : props.timerStatus === "play" &&
+        props.timerHour === 0 &&
+        props.timerMinute === 0 &&
+        props.timerSecond === 1
+      ? colorSet.light.alert2
+      : props.timerStatus === "play" &&
+        props.timerHour === 0 &&
+        props.timerMinute === 0 &&
+        props.timerSecond === 0
+      ? colorSet.light.alert3
+      : colorSet.light.bgPage1
+    : props.timerStatus === "play" &&
+      props.timerHour === 0 &&
+      props.timerMinute === 0 &&
+      props.timerSecond === 2
+    ? colorSet.dark.alert1
+    : props.timerStatus === "play" &&
+      props.timerHour === 0 &&
+      props.timerMinute === 0 &&
+      props.timerSecond === 1
+    ? colorSet.dark.alert2
+    : props.timerStatus === "play" &&
+      props.timerHour === 0 &&
+      props.timerMinute === 0 &&
+      props.timerSecond === 0
+    ? colorSet.dark.alert3
     : colorSet.dark.bgPage1};
-  color: ${themeStatus === "light"
+  color: ${props.themeStatus === "light"
     ? colorSet.light.text1
     : colorSet.dark.text1};
 `;

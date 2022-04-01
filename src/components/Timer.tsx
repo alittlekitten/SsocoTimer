@@ -73,7 +73,7 @@ const Timer = (timerProps: TimerProps) => {
   const theme = useTheme() as ThemeVariables;
 
   return (
-    <div css={totalContainer({ status, hour, minute, second, theme })}>
+    <div css={totalContainer}>
       <div css={watchContainer({ speed, hour, minute, second, ms, theme })}>
         <div className="hours">
           <Plus
@@ -163,33 +163,9 @@ const Timer = (timerProps: TimerProps) => {
   );
 };
 
-interface totalProps {
-  status: string;
-  hour: number;
-  minute: number;
-  second: number;
-  theme: ThemeVariables;
-}
-
-const totalContainer = (props: totalProps) => css`
+const totalContainer = () => css`
   padding: 1.5rem;
   padding-top: 0px;
-  background-color: ${props.status === "play" &&
-  props.hour === 0 &&
-  props.minute === 0 &&
-  props.second === 2
-    ? props.theme.alert1
-    : props.status === "play" &&
-      props.hour === 0 &&
-      props.minute === 0 &&
-      props.second === 1
-    ? props.theme.alert2
-    : props.status === "play" &&
-      props.hour === 0 &&
-      props.minute === 0 &&
-      props.second === 0
-    ? props.theme.alert3
-    : props.theme.bgPage1};
 `;
 
 interface MutableRefObject<T> {
