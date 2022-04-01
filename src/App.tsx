@@ -47,7 +47,7 @@ const App = () => {
     <ThemeProvider
       theme={themeStatus == "dark" ? colorSet.dark : colorSet.light}
     >
-      <BrowserRouter>
+      <BrowserRouter basename="/SsocoTimer">
         <div
           css={Viewport({
             themeStatus,
