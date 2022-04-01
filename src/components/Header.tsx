@@ -30,7 +30,6 @@ const Header = () => {
   const toggleTheme = () => {
     if (themeStatus === "light") dispatch({ type: "dark" });
     else dispatch({ type: "light" });
-    console.log("gg");
   };
 
   return (
