@@ -18,11 +18,13 @@ const optionReducer = (
 ) => {
   switch (action.type) {
     case "light":
+      localStorage.setItem("themeState", "light");
       return {
         ...state,
         themeStatus: "light",
       };
     case "dark":
+      localStorage.setItem("themeState", "dark");
       return {
         ...state,
         themeStatus: "dark",
