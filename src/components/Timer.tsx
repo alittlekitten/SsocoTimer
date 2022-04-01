@@ -6,7 +6,7 @@ import { ReactComponent as Pause } from "@images/pause.svg";
 import { ReactComponent as Stop } from "@images/stop.svg";
 import { ReactComponent as Lap } from "@images/lap.svg";
 import React from "react";
-import { ThemeVariables } from "../styles/palette";
+import { ThemeVariables } from "@styles/palette";
 
 interface ITime {
   ms: number;

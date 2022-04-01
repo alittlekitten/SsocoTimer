@@ -6,7 +6,7 @@ import { ReactComponent as Tistory } from "@images/tistory.svg";
 import { ReactComponent as Email } from "@images/email.svg";
 import { ReactComponent as Sun } from "@images/sun.svg";
 import { ReactComponent as Moon } from "@images/moon.svg";
-import { ThemeVariables } from "../styles/palette";
+import { ThemeVariables } from "@styles/palette";
 
 const Header = () => {
   const { themeStatus } = useSelector(

@@ -1,5 +1,5 @@
 import { css, useTheme } from "@emotion/react";
-import { ThemeVariables } from "../styles/palette";
+import { ThemeVariables } from "@styles/palette";
 
 interface ITime {
   ms: number;
