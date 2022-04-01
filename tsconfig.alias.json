@@ -8,7 +8,9 @@
       "@images/*": ["./images/*"],
       "@pages/*": ["./pages/*"],
       "@sounds/*": ["./sounds/*"],
-      "@store/*": ["./store/*"]
+      "@store/*": ["./store/*"],
+      "@styles/*": ["./styles/*"],
+      "@types/*": ["./types/*"]
     }
   }
 }

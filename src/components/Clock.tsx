@@ -1,28 +1,16 @@
-import { css } from "@emotion/react";
+import { css, useTheme } from "@emotion/react";
+import { ThemeVariables } from "@styles/palette";
+import useClock from "@hooks/useClock";
 
-interface ITime {
-  ms: number;
-  second: number;
-  minute: number;
-  hour: number;
-  day: number;
-  month: number;
-  year: number;
-}
-
-interface ClockProps {
-  props: {
-    time: ITime;
-    hour12: Boolean;
-  };
-}
-
-const Clock = (clockProps: ClockProps) => {
-  const { time, hour12 } = clockProps.props;
-  const { second, minute, hour, day, month, year } = time;
+const Clock = () => {
+  document.title = "SsocoClock"; // 탭 이름 변경
+  const clockProps = useClock();
+  const hour12 = clockProps.hour12;
+  const { second, minute, hour, day, month, year } = clockProps.time;
+  const theme = useTheme() as ThemeVariables;
 
   return (
-    <div css={clockContainer}>
+    <div css={clockContainer(theme)}>
       <p className="ymd">
         <span className="year">{year}</span> /{" "}
         <span className="month">{month}</span> /{" "}
@@ -55,7 +43,7 @@ const Clock = (clockProps: ClockProps) => {
 
 export default Clock;
 
-const clockContainer = css`
+const clockContainer = (theme: ThemeVariables) => css`
   position: relative;
   padding: 1.5rem;
   display: flex;
@@ -71,10 +59,10 @@ const clockContainer = css`
     vertical-align: middle;
 
     .hour12am {
-      color: #ff6b6b;
+      color: ${theme.hour12am};
     }
     .hour12pm {
-      color: #0083ff;
+      color: ${theme.hour12pm};
     }
 
     .hour,

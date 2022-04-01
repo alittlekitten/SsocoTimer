@@ -1,15 +1,18 @@
-import { css } from "@emotion/react";
+import { css, useTheme } from "@emotion/react";
 import { useSelector, useDispatch } from "react-redux";
 import { ReactComponent as Alarm } from "@images/alarm.svg";
 import { ReactComponent as Hour12 } from "@images/hour12.svg";
 import { ReactComponent as Hour24 } from "@images/hour24.svg";
 import { RootState } from "@src/store";
+import { ThemeVariables } from "@styles/palette";
 
 const Title = () => {
   const { tap } = useSelector((state: RootState) => state.tapReducer); // store에 있는 state를 가져옴
   const { timerAlarm } = useSelector((state: RootState) => state.soundReducer);
   const { hour12 } = useSelector((state: RootState) => state.clockReducer);
+  const theme = useTheme() as ThemeVariables;
   const dispatch = useDispatch();
+
   const toggleMusic = () => {
     if (timerAlarm === true) dispatch({ type: "TimerAlarmOff" });
     else dispatch({ type: "TimerAlarmOn" });
@@ -21,7 +24,7 @@ const Title = () => {
   };
 
   return (
-    <div css={titleStyle({ timerAlarm })}>
+    <div css={titleStyle({ timerAlarm, theme })}>
       <span className="ssoco">Ssoco</span>
       <span>&nbsp;</span>
       {tap === "Timer" && <span className="timer">Timer</span>}
@@ -40,6 +43,7 @@ const Title = () => {
 
 interface titleProps {
   timerAlarm: Boolean;
+  theme: ThemeVariables;
 }
 
 const titleStyle = (props: titleProps) => css`
@@ -54,14 +58,12 @@ const titleStyle = (props: titleProps) => css`
   .music {
     position: absolute;
     right: 30px;
-    fill: ${props.timerAlarm === true ? "red" : "black"};
+    fill: ${props.timerAlarm === true
+      ? props.theme.utilBtnActive
+      : props.theme.utilBtn};
 
     transition: all ease 0.3s;
     cursor: pointer;
-  }
-
-  .music:hover {
-    transform: scale(1.04, 1.04);
   }
 
   .hour24,
@@ -74,24 +76,25 @@ const titleStyle = (props: titleProps) => css`
   }
 
   .hour24:hover,
-  .hour12:hover {
-    transform: scale(1.04, 1.04);
+  .hour12:hover,
+  .music:hover {
+    transform: scale(1.04, 1.04) rotate(15deg);
   }
 
   .ssoco {
-    color: #0083ff;
+    color: ${props.theme.titleSsoco};
   }
 
   .timer {
-    color: #1ca800;
+    color: ${props.theme.titleTimer};
   }
 
   .stopwatch {
-    color: #5e1e1e;
+    color: ${props.theme.titleStopwatch};
   }
 
   .clock {
-    color: #ff6b6b;
+    color: ${props.theme.titleClock};
   }
 `;
 

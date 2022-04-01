@@ -1,8 +1,9 @@
-import { css } from "@emotion/react";
+import { css, useTheme } from "@emotion/react";
 import { ReactComponent as Play } from "@images/play.svg";
 import { ReactComponent as Pause } from "@images/pause.svg";
 import { ReactComponent as Stop } from "@images/stop.svg";
 import { ReactComponent as Lap } from "@images/lap.svg";
+import { ThemeVariables } from "@styles/palette";
 
 interface ITime {
   ms: number;
@@ -34,13 +35,15 @@ interface StopwatchProps {
 }
 
 const Stopwatch = (stopwatchProps: StopwatchProps) => {
+  document.title = "SsocoStopwatch"; // 탭 이름 변경
   const { time, lap, status, timePlay, timeLap, timePause, timeReset } =
     stopwatchProps.props;
   const { ms, minute, second, hour } = time;
+  const theme = useTheme() as ThemeVariables;
 
   return (
     <div css={totalContainer}>
-      <div css={watchContainer}>
+      <div css={watchContainer(theme)}>
         <p>
           <span className="hour">{hour.toString().padStart(2, "0")}</span> :{" "}
           <span className="minute">{minute.toString().padStart(2, "0")}</span> :{" "}
@@ -48,7 +51,7 @@ const Stopwatch = (stopwatchProps: StopwatchProps) => {
           <span className="ms">{ms.toString().padStart(3, "0")}</span>
         </p>
       </div>
-      <div css={playContainer({ status })}>
+      <div css={playContainer({ status, theme })}>
         {status === "play" ? (
           <Pause onClick={timePause} className="pause" />
         ) : (
@@ -76,7 +79,7 @@ const totalContainer = css`
   padding: 1.5rem;
 `;
 
-const watchContainer = css`
+const watchContainer = (theme: ThemeVariables) => css`
   display: flex;
   justify-content: center;
 
@@ -88,6 +91,7 @@ const watchContainer = css`
     white-space: nowrap; // 다음줄로 안넘어가게
     line-height: 50px;
     vertical-align: middle;
+    color: ${theme.text1};
 
     .hour,
     .minute,
@@ -107,6 +111,7 @@ const watchContainer = css`
 
 interface playProps {
   status: string;
+  theme: ThemeVariables;
 }
 
 const playContainer = (props: playProps) => css`
@@ -119,8 +124,8 @@ const playContainer = (props: playProps) => css`
     margin-left: 1rem;
   }
 
-  .play {
-    fill: ${props.status === "play" ? "red" : "black"};
+  .pause {
+    fill: ${props.theme.timeCtrlBtnActive};
   }
 
   .play,
@@ -128,6 +133,7 @@ const playContainer = (props: playProps) => css`
   .pause,
   .stop {
     cursor: pointer;
+    fill: ${props.theme.timeCtrlBtn};
   }
 
   .play:hover,
@@ -136,7 +142,7 @@ const playContainer = (props: playProps) => css`
   .stop:hover {
     transform: scale(1.04, 1.04);
     transition: all ease 0.1s;
-    fill: red;
+    fill: ${props.theme.timeCtrlBtnHover};
   }
 `;
 

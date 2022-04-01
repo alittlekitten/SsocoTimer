@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { css, useTheme } from "@emotion/react";
 import { ReactComponent as Plus } from "@images/plus.svg";
 import { ReactComponent as Minus } from "@images/minus.svg";
 import { ReactComponent as Play } from "@images/play.svg";
@@ -6,6 +6,7 @@ import { ReactComponent as Pause } from "@images/pause.svg";
 import { ReactComponent as Stop } from "@images/stop.svg";
 import { ReactComponent as Lap } from "@images/lap.svg";
 import React from "react";
+import { ThemeVariables } from "@styles/palette";
 
 interface ITime {
   ms: number;
@@ -48,6 +49,7 @@ interface TimerProps {
 }
 
 const Timer = (timerProps: TimerProps) => {
+  document.title = "SsocoTimer"; // 탭 이름 변경
   const {
     time,
     lap,
@@ -69,10 +71,11 @@ const Timer = (timerProps: TimerProps) => {
     timeReset,
   } = timerProps.props;
   const { second, minute, hour, ms } = time;
+  const theme = useTheme() as ThemeVariables;
 
   return (
-    <div css={totalContainer({ status, hour, minute, second })}>
-      <div css={watchContainer({ speed, hour, minute, second, ms })}>
+    <div css={totalContainer}>
+      <div css={watchContainer({ speed, hour, minute, second, ms, theme })}>
         <div className="hours">
           <Plus
             onMouseDown={hourOnIncrease}
@@ -137,7 +140,7 @@ const Timer = (timerProps: TimerProps) => {
           <span className="ms">{ms.toString().padStart(3, "0")}</span>
         </div>
       </div>
-      <div css={playContainer({ status })}>
+      <div css={playContainer({ status, theme })}>
         {status === "play" ? (
           <Pause onClick={timePause} className="pause" />
         ) : (
@@ -161,32 +164,9 @@ const Timer = (timerProps: TimerProps) => {
   );
 };
 
-interface totalProps {
-  status: string;
-  hour: number;
-  minute: number;
-  second: number;
-}
-
-const totalContainer = (props: totalProps) => css`
+const totalContainer = () => css`
   padding: 1.5rem;
   padding-top: 0px;
-  background-color: ${props.status === "play" &&
-  props.hour === 0 &&
-  props.minute === 0 &&
-  props.second === 2
-    ? "#ffd3d3"
-    : props.status === "play" &&
-      props.hour === 0 &&
-      props.minute === 0 &&
-      props.second === 1
-    ? "#ff9b9b"
-    : props.status === "play" &&
-      props.hour === 0 &&
-      props.minute === 0 &&
-      props.second === 0
-    ? "#ff5e5e"
-    : "white"};
 `;
 
 interface MutableRefObject<T> {
@@ -198,6 +178,7 @@ interface watchProps {
   minute: number;
   second: number;
   ms: number;
+  theme: ThemeVariables;
 }
 
 const watchContainer = (props: watchProps) => css`
@@ -211,6 +192,10 @@ const watchContainer = (props: watchProps) => css`
     font-weight: 600;
     font-size: 2rem;
     text-align: center;
+    border-color: ${props.theme.inputBorder};
+    color: ${props.theme.text1};
+    background-color: ${props.theme.bgPage1};
+    transition: 0.125s all ease-in;
   }
 
   span {
@@ -267,13 +252,14 @@ const watchContainer = (props: watchProps) => css`
     props.second === 0 &&
     props.minute === 0 &&
     props.hour === 0
-      ? `fill: white; transform: none; transition: none;`
+      ? `fill: ${props.theme.bgPage1}; transform: none; transition: none;`
       : ``}
   }
 `;
 
 interface playProps {
   status: string;
+  theme: ThemeVariables;
 }
 
 const playContainer = (props: playProps) => css`
@@ -286,8 +272,8 @@ const playContainer = (props: playProps) => css`
     margin-left: 1rem;
   }
 
-  .play {
-    fill: ${props.status === "play" ? "red" : "black"};
+  .pause {
+    fill: ${props.theme.timeCtrlBtnActive};
   }
 
   .play,
@@ -295,6 +281,7 @@ const playContainer = (props: playProps) => css`
   .pause,
   .stop {
     cursor: pointer;
+    fill: ${props.theme.timeCtrlBtn};
   }
 
   .play:hover,
@@ -303,7 +290,7 @@ const playContainer = (props: playProps) => css`
   .stop:hover {
     transform: scale(1.04, 1.04);
     transition: all ease 0.1s;
-    fill: red;
+    fill: ${props.theme.timeCtrlBtnHover};
   }
 `;
 
