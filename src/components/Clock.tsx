@@ -1,26 +1,11 @@
 import { css, useTheme } from "@emotion/react";
 import { ThemeVariables } from "@styles/palette";
+import useClock from "@hooks/useClock";
 
-interface ITime {
-  ms: number;
-  second: number;
-  minute: number;
-  hour: number;
-  day: number;
-  month: number;
-  year: number;
-}
-
-interface ClockProps {
-  props: {
-    time: ITime;
-    hour12: Boolean;
-  };
-}
-
-const Clock = (clockProps: ClockProps) => {
-  const { time, hour12 } = clockProps.props;
-  const { second, minute, hour, day, month, year } = time;
+const Clock = () => {
+  const clockProps = useClock();
+  const hour12 = clockProps.hour12;
+  const { second, minute, hour, day, month, year } = clockProps.time;
   const theme = useTheme() as ThemeVariables;
 
   return (

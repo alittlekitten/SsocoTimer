@@ -11,7 +11,7 @@ import { RootState } from "@src/store";
 import useTimer from "@hooks/useTimer";
 import "@src/App.css";
 import useStopwatch from "@hooks/useStopwatch";
-import useClock from "@hooks/useClock";
+
 import colorSet from "@styles/palette";
 import { useLayoutEffect } from "react";
 
@@ -28,7 +28,6 @@ const App = () => {
 
   const timerProps = useTimer();
   const stopwatchProps = useStopwatch();
-  const clockProps = useClock();
 
   const timerSecond = timerProps.time.second;
   const timerMinute = timerProps.time.minute;
@@ -63,7 +62,7 @@ const App = () => {
             <Title />
             {tap === "Timer" && <Timer props={timerProps} />}
             {tap === "Stopwatch" && <Stopwatch props={stopwatchProps} />}
-            {tap === "Clock" && <Clock props={clockProps} />}
+            {tap === "Clock" && <Clock />}
           </div>
         </div>
       </div>
