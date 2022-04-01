@@ -194,6 +194,7 @@ const watchContainer = (props: watchProps) => css`
     border-color: ${props.theme.inputBorder};
     color: ${props.theme.text1};
     background-color: ${props.theme.bgPage1};
+    transition: 0.125s all ease-in;
   }
 
   span {

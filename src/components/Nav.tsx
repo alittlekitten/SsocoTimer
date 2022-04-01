@@ -38,6 +38,7 @@ const Buttons = (props: ButtonsProps) => css`
   margin-top: 40px;
 
   button {
+    width: 90px;
     margin: 0;
     padding: 0.5rem 1rem;
 
