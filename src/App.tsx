@@ -105,6 +105,7 @@ const Viewport = (props: ViewportProps) => css`
   color: ${props.themeStatus === "light"
     ? colorSet.light.text1
     : colorSet.dark.text1};
+  transition: 0.125s all ease-in;
 `;
 
 const PageContainer = css`
