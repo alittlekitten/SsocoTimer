@@ -9,6 +9,7 @@ import { useState } from "react";
 
 const Title = () => {
   const [ssocoClickCnt, setSsocoClickCnt] = useState<number>(0);
+  const [tapClickCnt, setTapClickCnt] = useState<number>(0);
   const { tap } = useSelector((state: RootState) => state.tapReducer); // store에 있는 state를 가져옴
   const { timerAlarm } = useSelector((state: RootState) => state.soundReducer);
   const { hour12 } = useSelector((state: RootState) => state.clockReducer);
@@ -26,16 +27,30 @@ const Title = () => {
   };
 
   const ssocoClick = () => setSsocoClickCnt(ssocoClickCnt + 1);
+  const tapClick = () => setTapClickCnt(tapClickCnt + 1);
+
   return (
     <div css={titleStyle({ timerAlarm, theme, ssocoClickCnt, tapClickCnt })}>
       <span className="ssoco" onClick={ssocoClick}>
         Ssoco
       </span>
       <span>&nbsp;</span>
-      {tap === "Timer" && <span className="timer">Timer</span>}
+      {tap === "Timer" && (
+        <span className="timer" onClick={tapClick}>
+          Timer
+        </span>
+      )}
       {tap === "Timer" && <Alarm className="music" onClick={toggleMusic} />}
-      {tap === "Stopwatch" && <span className="stopwatch">Stopwatch</span>}
-      {tap === "Clock" && <span className="clock">Clock</span>}
+      {tap === "Stopwatch" && (
+        <span className="stopwatch" onClick={tapClick}>
+          Stopwatch
+        </span>
+      )}
+      {tap === "Clock" && (
+        <span className="clock" onClick={tapClick}>
+          Clock
+        </span>
+      )}
       {tap === "Clock" &&
         (!hour12 ? (
           <Hour24 className="hour24" onClick={toggleClock}></Hour24>
@@ -50,6 +65,7 @@ interface titleProps {
   timerAlarm: Boolean;
   theme: ThemeVariables;
   ssocoClickCnt: number;
+  tapClickCnt: number;
 }
 
 const titleStyle = (props: titleProps) => css`
@@ -92,6 +108,12 @@ const titleStyle = (props: titleProps) => css`
     transform: rotate(${-props.ssocoClickCnt}deg);
     transition: all ease 0.3s;
   }
+
+  .timer,
+  .stopwatch,
+  .clock {
+    transform: rotate(${props.tapClickCnt * 125}deg);
+    transition: all ease 0.2s;
   }
 
   .timer {
