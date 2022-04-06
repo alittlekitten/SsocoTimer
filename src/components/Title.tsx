@@ -5,8 +5,10 @@ import { ReactComponent as Hour12 } from "@images/hour12.svg";
 import { ReactComponent as Hour24 } from "@images/hour24.svg";
 import { RootState } from "@src/store";
 import { ThemeVariables } from "@styles/palette";
+import { useState } from "react";
 
 const Title = () => {
+  const [ssocoClickCnt, setSsocoClickCnt] = useState<number>(0);
   const { tap } = useSelector((state: RootState) => state.tapReducer); // store에 있는 state를 가져옴
   const { timerAlarm } = useSelector((state: RootState) => state.soundReducer);
   const { hour12 } = useSelector((state: RootState) => state.clockReducer);
@@ -23,9 +25,12 @@ const Title = () => {
     else dispatch({ type: "Hour12" });
   };
 
+  const ssocoClick = () => setSsocoClickCnt(ssocoClickCnt + 1);
   return (
-    <div css={titleStyle({ timerAlarm, theme })}>
-      <span className="ssoco">Ssoco</span>
+    <div css={titleStyle({ timerAlarm, theme, ssocoClickCnt, tapClickCnt })}>
+      <span className="ssoco" onClick={ssocoClick}>
+        Ssoco
+      </span>
       <span>&nbsp;</span>
       {tap === "Timer" && <span className="timer">Timer</span>}
       {tap === "Timer" && <Alarm className="music" onClick={toggleMusic} />}
@@ -44,6 +49,7 @@ const Title = () => {
 interface titleProps {
   timerAlarm: Boolean;
   theme: ThemeVariables;
+  ssocoClickCnt: number;
 }
 
 const titleStyle = (props: titleProps) => css`
@@ -83,6 +89,9 @@ const titleStyle = (props: titleProps) => css`
 
   .ssoco {
     color: ${props.theme.titleSsoco};
+    transform: rotate(${-props.ssocoClickCnt}deg);
+    transition: all ease 0.3s;
+  }
   }
 
   .timer {
