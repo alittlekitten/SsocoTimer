@@ -149,7 +149,7 @@ const Timer = (timerProps: TimerProps) => {
         <Lap onClick={timeLap} className="lap" />
         <Stop onClick={timeReset} className="stop" />
       </div>
-      <div css={lapContainer}>
+      <div css={lapContainer(theme)}>
         <h3>-- lap --</h3>
         <div className="lap-items">
           {lap.map((elem, index) => (
@@ -297,20 +297,40 @@ const playContainer = (props: playProps) => css`
   }
 `;
 
-const lapContainer = css`
+const lapContainer = (theme: ThemeVariables) => css`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 0rem;
   font-family: "HSYuji-Regular";
 
   h3 {
     margin-top: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  p {
-    margin: 0px;
+  .lap-items {
+    overflow-y: auto;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    p {
+      margin: 0px;
+    }
+
+    &::-webkit-scrollbar {
+      width: 8px;
+      height: 16px;
+      border-radius: 10px;
+      background: ${theme.scrollBackground};
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: ${theme.scrollThumb};
+      border-radius: 10px;
+    }
   }
 `;
 

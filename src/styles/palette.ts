@@ -31,6 +31,8 @@ const themeVariableSets: Record<Theme, ThemeVariables> = {
     alert2: "#FF9B9B",
     alert3: "#FF5E5E",
     inputBorder: "#828282",
+    scrollBackground: "#EFEFEF",
+    scrollThumb: "#000000",
   },
   dark: {
     bgPage1: "#1E1E1E",
@@ -56,6 +58,8 @@ const themeVariableSets: Record<Theme, ThemeVariables> = {
     alert2: "#FF9B9B",
     alert3: "#FF5E5E",
     inputBorder: "#C9C9C9",
+    scrollBackground: "#4F4F4F",
+    scrollThumb: "#FFFCA5",
   },
 };
 
