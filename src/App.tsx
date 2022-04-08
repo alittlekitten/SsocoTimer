@@ -98,6 +98,8 @@ interface ViewportProps {
 const Viewport = (props: ViewportProps) => css`
   width: 100vw;
   height: 100vh;
+  min-width: 500px;
+  min-height: 720px;
   background-color: ${props.themeStatus === "light"
     ? props.timerStatus === "play" &&
       props.timerHour === 0 &&
