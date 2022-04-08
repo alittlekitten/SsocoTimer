@@ -62,14 +62,17 @@ const Stopwatch = (stopwatchProps: StopwatchProps) => {
       </div>
       <div css={lapContainer}>
         <h3>-- lap --</h3>
-        {lap.map((elem, index) => (
-          <p key={index}>
-            {elem.hour.toString().padStart(2, "0")} :{" "}
-            {elem.minute.toString().padStart(2, "0")} :{" "}
-            {elem.second.toString().padStart(2, "0")} :{" "}
-            {elem.ms.toString().padStart(3, "0")}
-          </p>
-        ))}
+        <div className="lap-items">
+          {lap.map((elem, index) => (
+            <p key={index}>
+              {index + 1}. &nbsp;
+              {elem.hour.toString().padStart(2, "0")} :{" "}
+              {elem.minute.toString().padStart(2, "0")} :{" "}
+              {elem.second.toString().padStart(2, "0")} :{" "}
+              {elem.ms.toString().padStart(3, "0")}
+            </p>
+          ))}
+        </div>
       </div>
     </div>
   );
