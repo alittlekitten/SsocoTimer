@@ -1,5 +1,11 @@
-body {
+body,
+html {
   margin: 0;
+<<<<<<< HEAD
+=======
+  width: 100%;
+  height: 100%;
+>>>>>>> 65426d09ca1a5b2a4610620402a3ad1934168b4c
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;

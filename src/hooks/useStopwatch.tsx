@@ -15,6 +15,7 @@ const useStopwatch = () => {
   const [status, setStatus] = useState<string>("stop");
   const startTime = useRef<number | null>(null); // 시작 시간을 담은 ref요소
   const pauseTime = useRef<number | null>(null); // 잠시 멈춘 시간을 담은 ref요소
+  const lapDOM = useRef<HTMLDivElement | null>(null); // lapDOM을 담을 ref 요소
 
   // 타이머 상태에 따른 동작
 
@@ -34,6 +35,12 @@ const useStopwatch = () => {
       setLap((prev) => [...prev, { hour, minute, second, ms }]);
   };
 
+  const downScroll = () => {
+    const refDOM = lapDOM.current;
+    if (!refDOM) return;
+    refDOM.scrollTop = refDOM.scrollHeight;
+  };
+
   const timePause = () => {
     if (status === "play") {
       if (playTimeout.current) clearInterval(playTimeout.current);
@@ -50,6 +57,11 @@ const useStopwatch = () => {
     startTime.current = null;
     pauseTime.current = null;
   };
+
+  // lap이 변화할 때 스크롤 아래로 내려주기
+  useEffect(() => {
+    downScroll();
+  }, [lap]);
 
   useEffect(() => {
     // play 눌렀을 때의 로직
@@ -76,6 +88,7 @@ const useStopwatch = () => {
     time,
     lap,
     status,
+    lapDOM,
     timePlay,
     timeLap,
     timePause,

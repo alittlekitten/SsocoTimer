@@ -47,7 +47,7 @@ const App = () => {
     <ThemeProvider
       theme={themeStatus == "dark" ? colorSet.dark : colorSet.light}
     >
-      <BrowserRouter>
+      <BrowserRouter basename="/SsocoTimer">
         <div
           css={Viewport({
             themeStatus,
@@ -98,6 +98,11 @@ interface ViewportProps {
 const Viewport = (props: ViewportProps) => css`
   width: 100vw;
   height: 100vh;
+<<<<<<< HEAD
+=======
+  min-width: 500px;
+  min-height: 720px;
+>>>>>>> 65426d09ca1a5b2a4610620402a3ad1934168b4c
   background-color: ${props.themeStatus === "light"
     ? props.timerStatus === "play" &&
       props.timerHour === 0 &&
