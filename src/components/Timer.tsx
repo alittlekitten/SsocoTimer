@@ -31,6 +31,7 @@ interface TimerProps {
     lap: LapState[];
     status: string;
     speed: React.MutableRefObject<number>;
+    lapDOM: React.MutableRefObject<HTMLDivElement | null>;
     secondOnIncrease: () => void;
     secondOnDecrease: () => void;
     minuteOnIncrease: () => void;
@@ -55,6 +56,7 @@ const Timer = (timerProps: TimerProps) => {
     lap,
     status,
     speed,
+    lapDOM,
     secondOnIncrease,
     secondOnDecrease,
     minuteOnIncrease,
@@ -149,16 +151,19 @@ const Timer = (timerProps: TimerProps) => {
         <Lap onClick={timeLap} className="lap" />
         <Stop onClick={timeReset} className="stop" />
       </div>
-      <div css={lapContainer}>
+      <div css={lapContainer(theme)}>
         <h3>-- lap --</h3>
-        {lap.map((elem, index) => (
-          <p key={index}>
-            {elem.hour.toString().padStart(2, "0")} :{" "}
-            {elem.minute.toString().padStart(2, "0")} :{" "}
-            {elem.second.toString().padStart(2, "0")} :{" "}
-            {elem.ms.toString().padStart(3, "0")}
-          </p>
-        ))}
+        <div className="lap-items" ref={lapDOM}>
+          {lap.map((elem, index) => (
+            <p key={index}>
+              {index + 1}. &nbsp;
+              {elem.hour.toString().padStart(2, "0")} :{" "}
+              {elem.minute.toString().padStart(2, "0")} :{" "}
+              {elem.second.toString().padStart(2, "0")} :{" "}
+              {elem.ms.toString().padStart(3, "0")}
+            </p>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -294,20 +299,41 @@ const playContainer = (props: playProps) => css`
   }
 `;
 
-const lapContainer = css`
+const lapContainer = (theme: ThemeVariables) => css`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 0rem;
   font-family: "HSYuji-Regular";
 
   h3 {
     margin-top: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  p {
-    margin: 0px;
+  .lap-items {
+    overflow-y: auto;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    word-wrap: break-word;
+
+    p {
+      margin: 0px;
+    }
+
+    &::-webkit-scrollbar {
+      width: 8px;
+      height: 16px;
+      border-radius: 10px;
+      background: ${theme.scrollBackground};
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: ${theme.scrollThumb};
+      border-radius: 10px;
+    }
   }
 `;
 

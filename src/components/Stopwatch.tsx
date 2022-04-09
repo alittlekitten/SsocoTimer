@@ -3,6 +3,7 @@ import { ReactComponent as Play } from "@images/play.svg";
 import { ReactComponent as Pause } from "@images/pause.svg";
 import { ReactComponent as Stop } from "@images/stop.svg";
 import { ReactComponent as Lap } from "@images/lap.svg";
+import React from "react";
 import { ThemeVariables } from "@styles/palette";
 
 interface ITime {
@@ -27,6 +28,7 @@ interface StopwatchProps {
     time: ITime;
     lap: LapState[];
     status: string;
+    lapDOM: React.MutableRefObject<HTMLDivElement | null>;
     timePlay: () => void;
     timeLap: () => void;
     timePause: () => void;
@@ -36,7 +38,7 @@ interface StopwatchProps {
 
 const Stopwatch = (stopwatchProps: StopwatchProps) => {
   document.title = "SsocoStopwatch"; // 탭 이름 변경
-  const { time, lap, status, timePlay, timeLap, timePause, timeReset } =
+  const { time, lap, status, lapDOM, timePlay, timeLap, timePause, timeReset } =
     stopwatchProps.props;
   const { ms, minute, second, hour } = time;
   const theme = useTheme() as ThemeVariables;
@@ -60,16 +62,19 @@ const Stopwatch = (stopwatchProps: StopwatchProps) => {
         <Lap onClick={timeLap} className="lap" />
         <Stop onClick={timeReset} className="stop" />
       </div>
-      <div css={lapContainer}>
+      <div css={lapContainer(theme)}>
         <h3>-- lap --</h3>
-        {lap.map((elem, index) => (
-          <p key={index}>
-            {elem.hour.toString().padStart(2, "0")} :{" "}
-            {elem.minute.toString().padStart(2, "0")} :{" "}
-            {elem.second.toString().padStart(2, "0")} :{" "}
-            {elem.ms.toString().padStart(3, "0")}
-          </p>
-        ))}
+        <div className="lap-items" ref={lapDOM}>
+          {lap.map((elem, index) => (
+            <p key={index}>
+              {index + 1}. &nbsp;
+              {elem.hour.toString().padStart(2, "0")} :{" "}
+              {elem.minute.toString().padStart(2, "0")} :{" "}
+              {elem.second.toString().padStart(2, "0")} :{" "}
+              {elem.ms.toString().padStart(3, "0")}
+            </p>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -146,20 +151,40 @@ const playContainer = (props: playProps) => css`
   }
 `;
 
-const lapContainer = css`
+const lapContainer = (theme: ThemeVariables) => css`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 0rem;
   font-family: "HSYuji-Regular";
 
   h3 {
     margin-top: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  p {
-    margin: 0px;
+  .lap-items {
+    overflow-y: auto;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    p {
+      margin: 0px;
+    }
+
+    &::-webkit-scrollbar {
+      width: 8px;
+      height: 16px;
+      border-radius: 10px;
+      background: ${theme.scrollBackground};
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: ${theme.scrollThumb};
+      border-radius: 10px;
+    }
   }
 `;
 

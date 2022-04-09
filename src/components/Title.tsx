@@ -76,6 +76,7 @@ const titleStyle = (props: titleProps) => css`
   font-size: 2rem;
   font-weight: 600;
   font-family: "HSYuji-Regular";
+  user-select: none;
 
   .music {
     position: absolute;

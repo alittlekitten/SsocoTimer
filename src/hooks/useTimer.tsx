@@ -27,7 +27,8 @@ const useTimer = () => {
   const timeout = useRef<NodeJS.Timeout | null>(null); // 증감 스피드를 조절 및 재귀적 사용을 위한 setTimeout 변수
   const startTime = useRef<number | null>(null); // 시작 시간을 담은 ref요소
   const playTime = useRef<Date | null>(null); // play 눌렀을 때 설정된 시간을 담은 ref 요소
-  const alarm = useMemo(() => new Audio(Fin), []);
+  const alarm = useMemo(() => new Audio(Fin), []); // 오디오 요소
+  const lapDOM = useRef<HTMLDivElement | null>(null); // lapDOM을 담을 ref 요소
   const { timerAlarm } = useSelector((state: RootState) => state.soundReducer);
 
   // 마우스 클릭할 때 동작들
@@ -232,6 +233,12 @@ const useTimer = () => {
       setLap((prev) => [...prev, { hour, minute, second, ms }]);
   };
 
+  const downScroll = () => {
+    const refDOM = lapDOM.current;
+    if (!refDOM) return;
+    refDOM.scrollTop = refDOM.scrollHeight;
+  };
+
   const timePause = () => {
     setStatus("pause");
     if (status === "play") {
@@ -254,6 +261,12 @@ const useTimer = () => {
     alarm.play();
   }, [alarm]);
 
+  // lap이 변화할 때 스크롤 아래로 내려주기
+  useEffect(() => {
+    downScroll();
+  }, [lap]);
+
+  // 시간의 흐름
   useEffect(() => {
     if (!startTime.current) startTime.current = Date.now();
     if (!playTime.current) {
@@ -359,6 +372,7 @@ const useTimer = () => {
     lap,
     status,
     speed,
+    lapDOM,
     secondOnIncrease,
     secondOnDecrease,
     minuteOnIncrease,
