@@ -31,6 +31,7 @@ interface TimerProps {
     lap: LapState[];
     status: string;
     speed: React.MutableRefObject<number>;
+    lapDOM: React.MutableRefObject<HTMLDivElement | null>;
     secondOnIncrease: () => void;
     secondOnDecrease: () => void;
     minuteOnIncrease: () => void;
@@ -55,6 +56,7 @@ const Timer = (timerProps: TimerProps) => {
     lap,
     status,
     speed,
+    lapDOM,
     secondOnIncrease,
     secondOnDecrease,
     minuteOnIncrease,
@@ -151,7 +153,7 @@ const Timer = (timerProps: TimerProps) => {
       </div>
       <div css={lapContainer(theme)}>
         <h3>-- lap --</h3>
-        <div className="lap-items">
+        <div className="lap-items" ref={lapDOM}>
           {lap.map((elem, index) => (
             <p key={index}>
               {index + 1}. &nbsp;
@@ -316,6 +318,7 @@ const lapContainer = (theme: ThemeVariables) => css`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    word-wrap: break-word;
 
     p {
       margin: 0px;

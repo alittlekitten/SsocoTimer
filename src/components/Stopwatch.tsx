@@ -3,6 +3,7 @@ import { ReactComponent as Play } from "@images/play.svg";
 import { ReactComponent as Pause } from "@images/pause.svg";
 import { ReactComponent as Stop } from "@images/stop.svg";
 import { ReactComponent as Lap } from "@images/lap.svg";
+import React from "react";
 import { ThemeVariables } from "@styles/palette";
 
 interface ITime {
@@ -27,6 +28,7 @@ interface StopwatchProps {
     time: ITime;
     lap: LapState[];
     status: string;
+    lapDOM: React.MutableRefObject<HTMLDivElement | null>;
     timePlay: () => void;
     timeLap: () => void;
     timePause: () => void;
@@ -36,7 +38,7 @@ interface StopwatchProps {
 
 const Stopwatch = (stopwatchProps: StopwatchProps) => {
   document.title = "SsocoStopwatch"; // 탭 이름 변경
-  const { time, lap, status, timePlay, timeLap, timePause, timeReset } =
+  const { time, lap, status, lapDOM, timePlay, timeLap, timePause, timeReset } =
     stopwatchProps.props;
   const { ms, minute, second, hour } = time;
   const theme = useTheme() as ThemeVariables;
@@ -62,7 +64,7 @@ const Stopwatch = (stopwatchProps: StopwatchProps) => {
       </div>
       <div css={lapContainer(theme)}>
         <h3>-- lap --</h3>
-        <div className="lap-items">
+        <div className="lap-items" ref={lapDOM}>
           {lap.map((elem, index) => (
             <p key={index}>
               {index + 1}. &nbsp;
