@@ -35,11 +35,7 @@ const Header = () => {
   return (
     <div>
       <div css={main(theme)}>
-<<<<<<< HEAD
-        <span className="version">Ssoco Timer v1.5.0 </span>
-=======
         <span className="version">Ssoco Timer v1.5.1 </span>
->>>>>>> 65426d09ca1a5b2a4610620402a3ad1934168b4c
 
         <div className="icons">
           <span className="copyright">
