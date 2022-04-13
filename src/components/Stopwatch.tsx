@@ -5,6 +5,7 @@ import { ReactComponent as Stop } from "@images/stop.svg";
 import { ReactComponent as Lap } from "@images/lap.svg";
 import React from "react";
 import { ThemeVariables } from "@styles/palette";
+import { Helmet } from "react-helmet";
 
 interface ITime {
   ms: number;
@@ -37,46 +38,51 @@ interface StopwatchProps {
 }
 
 const Stopwatch = (stopwatchProps: StopwatchProps) => {
-  document.title = "SsocoStopwatch"; // 탭 이름 변경
   const { time, lap, status, lapDOM, timePlay, timeLap, timePause, timeReset } =
     stopwatchProps.props;
   const { ms, minute, second, hour } = time;
   const theme = useTheme() as ThemeVariables;
 
   return (
-    <div css={totalContainer}>
-      <div css={watchContainer(theme)}>
-        <p>
-          <span className="hour">{hour.toString().padStart(2, "0")}</span> :{" "}
-          <span className="minute">{minute.toString().padStart(2, "0")}</span> :{" "}
-          <span className="second">{second.toString().padStart(2, "0")}</span> :{" "}
-          <span className="ms">{ms.toString().padStart(3, "0")}</span>
-        </p>
-      </div>
-      <div css={playContainer({ status, theme })}>
-        {status === "play" ? (
-          <Pause onClick={timePause} className="pause" />
-        ) : (
-          <Play onClick={timePlay} className="play" />
-        )}
-        <Lap onClick={timeLap} className="lap" />
-        <Stop onClick={timeReset} className="stop" />
-      </div>
-      <div css={lapContainer(theme)}>
-        <h3>-- lap --</h3>
-        <div className="lap-items" ref={lapDOM}>
-          {lap.map((elem, index) => (
-            <p key={index}>
-              {index + 1}. &nbsp;
-              {elem.hour.toString().padStart(2, "0")} :{" "}
-              {elem.minute.toString().padStart(2, "0")} :{" "}
-              {elem.second.toString().padStart(2, "0")} :{" "}
-              {elem.ms.toString().padStart(3, "0")}
-            </p>
-          ))}
+    <>
+      <Helmet>
+        <title>SsocoStopwatch</title>
+      </Helmet>
+      <div css={totalContainer}>
+        <div css={watchContainer(theme)}>
+          <p>
+            <span className="hour">{hour.toString().padStart(2, "0")}</span> :{" "}
+            <span className="minute">{minute.toString().padStart(2, "0")}</span>{" "}
+            :{" "}
+            <span className="second">{second.toString().padStart(2, "0")}</span>{" "}
+            : <span className="ms">{ms.toString().padStart(3, "0")}</span>
+          </p>
+        </div>
+        <div css={playContainer({ status, theme })}>
+          {status === "play" ? (
+            <Pause onClick={timePause} className="pause" />
+          ) : (
+            <Play onClick={timePlay} className="play" />
+          )}
+          <Lap onClick={timeLap} className="lap" />
+          <Stop onClick={timeReset} className="stop" />
+        </div>
+        <div css={lapContainer(theme)}>
+          <h3>-- lap --</h3>
+          <div className="lap-items" ref={lapDOM}>
+            {lap.map((elem, index) => (
+              <p key={index}>
+                {index + 1}. &nbsp;
+                {elem.hour.toString().padStart(2, "0")} :{" "}
+                {elem.minute.toString().padStart(2, "0")} :{" "}
+                {elem.second.toString().padStart(2, "0")} :{" "}
+                {elem.ms.toString().padStart(3, "0")}
+              </p>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
