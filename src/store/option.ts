@@ -15,7 +15,7 @@ const initialState: OptionState = {
 const optionReducer = (
   state: OptionState = initialState,
   action: ActionState
-) => {
+): OptionState => {
   switch (action.type) {
     case "light":
       localStorage.setItem("themeState", "light");
