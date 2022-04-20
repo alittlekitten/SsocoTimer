@@ -1,7 +1,7 @@
 import { css, useTheme } from "@emotion/react";
 import { ThemeVariables } from "@styles/palette";
 import useClock from "@hooks/useClock";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 const Clock = () => {
   const clockProps = useClock();

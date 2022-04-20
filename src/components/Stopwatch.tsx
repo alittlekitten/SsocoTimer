@@ -5,7 +5,7 @@ import { ReactComponent as Stop } from "@images/stop.svg";
 import { ReactComponent as Lap } from "@images/lap.svg";
 import React from "react";
 import { ThemeVariables } from "@styles/palette";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 interface ITime {
   ms: number;
