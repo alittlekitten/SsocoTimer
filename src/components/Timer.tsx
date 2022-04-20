@@ -7,6 +7,7 @@ import { ReactComponent as Stop } from "@images/stop.svg";
 import { ReactComponent as Lap } from "@images/lap.svg";
 import React from "react";
 import { ThemeVariables } from "@styles/palette";
+import { Helmet } from "react-helmet-async";
 
 interface ITime {
   ms: number;
@@ -50,7 +51,6 @@ interface TimerProps {
 }
 
 const Timer = (timerProps: TimerProps) => {
-  document.title = "SsocoTimer"; // 탭 이름 변경
   const {
     time,
     lap,
@@ -76,96 +76,101 @@ const Timer = (timerProps: TimerProps) => {
   const theme = useTheme() as ThemeVariables;
 
   return (
-    <div css={totalContainer}>
-      <div css={watchContainer({ speed, hour, minute, second, ms, theme })}>
-        <div className="hours">
-          <Plus
-            onMouseDown={hourOnIncrease}
-            onMouseUp={offPress}
-            onMouseLeave={offPress}
-            className="plus"
-          />
-          <input
-            type="text"
-            value={hour.toString().padStart(2, "0")}
-            onChange={hourChange}
-          ></input>
-          <Minus
-            onMouseDown={hourOnDecrease}
-            onMouseUp={offPress}
-            onMouseLeave={offPress}
-            className="minus"
-          />
+    <>
+      <Helmet>
+        <title>SsocoTimer</title>
+      </Helmet>
+      <div css={totalContainer}>
+        <div css={watchContainer({ speed, hour, minute, second, ms, theme })}>
+          <div className="hours">
+            <Plus
+              onMouseDown={hourOnIncrease}
+              onMouseUp={offPress}
+              onMouseLeave={offPress}
+              className="plus"
+            />
+            <input
+              type="text"
+              value={hour.toString().padStart(2, "0")}
+              onChange={hourChange}
+            ></input>
+            <Minus
+              onMouseDown={hourOnDecrease}
+              onMouseUp={offPress}
+              onMouseLeave={offPress}
+              className="minus"
+            />
+          </div>
+          <span className="colon">&nbsp;:&nbsp;</span>
+          <div className="minutes">
+            <Plus
+              onMouseDown={minuteOnIncrease}
+              onMouseUp={offPress}
+              onMouseLeave={offPress}
+              className="plus"
+            />
+            <input
+              type="text"
+              value={minute.toString().padStart(2, "0")}
+              onChange={minuteChange}
+            ></input>
+            <Minus
+              onMouseDown={minuteOnDecrease}
+              onMouseUp={offPress}
+              onMouseLeave={offPress}
+              className="minus"
+            />
+          </div>
+          <span className="colon">&nbsp;:&nbsp;</span>
+          <div className="seconds">
+            <Plus
+              onMouseDown={secondOnIncrease}
+              onMouseUp={offPress}
+              onMouseLeave={offPress}
+              className="plus"
+            />
+            <input
+              type="text"
+              value={second.toString().padStart(2, "0")}
+              onChange={secondChange}
+            ></input>
+            <Minus
+              onMouseDown={secondOnDecrease}
+              onMouseUp={offPress}
+              onMouseLeave={offPress}
+              className="minus"
+            />
+          </div>
+          <span className="colon">&nbsp;:&nbsp;</span>
+          <div className="milliseconds">
+            <span className="ms">{ms.toString().padStart(3, "0")}</span>
+          </div>
         </div>
-        <span className="colon">&nbsp;:&nbsp;</span>
-        <div className="minutes">
-          <Plus
-            onMouseDown={minuteOnIncrease}
-            onMouseUp={offPress}
-            onMouseLeave={offPress}
-            className="plus"
-          />
-          <input
-            type="text"
-            value={minute.toString().padStart(2, "0")}
-            onChange={minuteChange}
-          ></input>
-          <Minus
-            onMouseDown={minuteOnDecrease}
-            onMouseUp={offPress}
-            onMouseLeave={offPress}
-            className="minus"
-          />
+        <div css={playContainer({ status, theme })}>
+          {status === "play" ? (
+            <Pause onClick={timePause} className="pause" />
+          ) : (
+            <Play onClick={timePlay} className="play" />
+          )}
+          <Lap onClick={timeLap} className="lap" />
+          <Stop onClick={timeReset} className="stop" />
         </div>
-        <span className="colon">&nbsp;:&nbsp;</span>
-        <div className="seconds">
-          <Plus
-            onMouseDown={secondOnIncrease}
-            onMouseUp={offPress}
-            onMouseLeave={offPress}
-            className="plus"
-          />
-          <input
-            type="text"
-            value={second.toString().padStart(2, "0")}
-            onChange={secondChange}
-          ></input>
-          <Minus
-            onMouseDown={secondOnDecrease}
-            onMouseUp={offPress}
-            onMouseLeave={offPress}
-            className="minus"
-          />
-        </div>
-        <span className="colon">&nbsp;:&nbsp;</span>
-        <div className="milliseconds">
-          <span className="ms">{ms.toString().padStart(3, "0")}</span>
+        <div css={lapContainer(theme)}>
+          <h3>-- lap --</h3>
+          <div className="lap-items" ref={lapDOM}>
+            {lap.map((elem, index) => (
+              <p key={index}>
+                {index + 1}. &nbsp;
+                {elem.hour.toString().padStart(2, "0")} :{" "}
+                {elem.minute.toString().padStart(2, "0")} :{" "}
+                {elem.second.toString().padStart(2, "0")} :{" "}
+                {elem.ms.toString().padStart(3, "0")}
+              </p>
+            ))}
+          </div>
         </div>
       </div>
-      <div css={playContainer({ status, theme })}>
-        {status === "play" ? (
-          <Pause onClick={timePause} className="pause" />
-        ) : (
-          <Play onClick={timePlay} className="play" />
-        )}
-        <Lap onClick={timeLap} className="lap" />
-        <Stop onClick={timeReset} className="stop" />
-      </div>
-      <div css={lapContainer(theme)}>
-        <h3>-- lap --</h3>
-        <div className="lap-items" ref={lapDOM}>
-          {lap.map((elem, index) => (
-            <p key={index}>
-              {index + 1}. &nbsp;
-              {elem.hour.toString().padStart(2, "0")} :{" "}
-              {elem.minute.toString().padStart(2, "0")} :{" "}
-              {elem.second.toString().padStart(2, "0")} :{" "}
-              {elem.ms.toString().padStart(3, "0")}
-            </p>
-          ))}
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 

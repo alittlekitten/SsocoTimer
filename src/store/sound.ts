@@ -6,7 +6,7 @@ interface ActionState {
   type: String;
 }
 
-const initialState = {
+const initialState: SoundState = {
   timerAlarm: false,
 };
 

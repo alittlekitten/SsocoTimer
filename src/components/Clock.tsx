@@ -1,43 +1,48 @@
 import { css, useTheme } from "@emotion/react";
 import { ThemeVariables } from "@styles/palette";
 import useClock from "@hooks/useClock";
+import { Helmet } from "react-helmet-async";
 
 const Clock = () => {
-  document.title = "SsocoClock"; // 탭 이름 변경
   const clockProps = useClock();
   const hour12 = clockProps.hour12;
   const { second, minute, hour, day, month, year } = clockProps.time;
   const theme = useTheme() as ThemeVariables;
 
   return (
-    <div css={clockContainer(theme)}>
-      <p className="ymd">
-        <span className="year">{year}</span> /{" "}
-        <span className="month">{month}</span> /{" "}
-        <span className="day">{day}</span>
-      </p>
-      <p className="hms">
-        {hour12 &&
-          (hour < 12 ? (
-            <span className="hour12am">AM </span>
-          ) : (
-            <span className="hour12pm">PM </span>
-          ))}
-        {hour12 &&
-          (hour < 13 ? (
+    <>
+      <Helmet>
+        <title>SsocoClock</title>
+      </Helmet>
+      <div css={clockContainer(theme)}>
+        <p className="ymd">
+          <span className="year">{year}</span> /{" "}
+          <span className="month">{month}</span> /{" "}
+          <span className="day">{day}</span>
+        </p>
+        <p className="hms">
+          {hour12 &&
+            (hour < 12 ? (
+              <span className="hour12am">AM </span>
+            ) : (
+              <span className="hour12pm">PM </span>
+            ))}
+          {hour12 &&
+            (hour < 13 ? (
+              <span className="hour">{hour.toString().padStart(2, "0")}</span>
+            ) : (
+              <span className="hour">
+                {hour - 12 >= 10 ? hour - 12 : "0" + (hour - 12)}
+              </span>
+            ))}
+          {!hour12 && (
             <span className="hour">{hour.toString().padStart(2, "0")}</span>
-          ) : (
-            <span className="hour">
-              {hour - 12 >= 10 ? hour - 12 : "0" + (hour - 12)}
-            </span>
-          ))}
-        {!hour12 && (
-          <span className="hour">{hour.toString().padStart(2, "0")}</span>
-        )}{" "}
-        : <span className="minute">{minute.toString().padStart(2, "0")}</span> :{" "}
-        <span className="second">{second.toString().padStart(2, "0")}</span>
-      </p>
-    </div>
+          )}{" "}
+          : <span className="minute">{minute.toString().padStart(2, "0")}</span>{" "}
+          : <span className="second">{second.toString().padStart(2, "0")}</span>
+        </p>
+      </div>
+    </>
   );
 };
 

@@ -1,3 +1,5 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Disallow: /
+Allow : /$
+
+Sitemap: https://alittlekitten.github.io/SsocoTimer/sitemap.xml
