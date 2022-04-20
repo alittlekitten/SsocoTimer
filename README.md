@@ -189,7 +189,8 @@
 
 - [x] 사이트맵 추가
 - [x] 오픈그래프 추가
-- [x] react-helmet-async 적용
+- [x] react-helmet을 react-helmet-async으로 변경
+- [x] MIT License 추가 
 
 <br />
 
