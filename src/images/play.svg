@@ -2,7 +2,8 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="50" height="50" viewBox="0 0 408.221 408.221" style="enable-background:new 0 0 408.221 408.221;"
-	 xml:space="preserve">
+	 xml:space="preserve" aria-labelledby="playTitle" role="img" >
+<title id="playTitle">play button</title>
 <g>
 	<g>
 		<path d="M204.11,0C91.388,0,0,91.388,0,204.111c0,112.725,91.388,204.11,204.11,204.11c112.729,0,204.11-91.385,204.11-204.11
