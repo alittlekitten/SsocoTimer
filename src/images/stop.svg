@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="50" height="50" viewBox="0 0 455 455" style="enable-background:new 0 0 455 455;" xml:space="preserve">
+	 width="50" height="50" viewBox="0 0 455 455" style="enable-background:new 0 0 455 455;" xml:space="preserve" aria-labelledby="stopTitle" role="img">
+<title id="stopTitle">stop button</title>
 <g>
 	<g>
 		<path d="M227.5,0C101.761,0,0,101.75,0,227.5C0,353.239,101.75,455,227.5,455C353.24,455,455,353.25,455,227.5

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="30" height="30" viewBox="0 0 525.153 525.153" style="enable-background:new 0 0 525.153 525.153;" xml:space="preserve">
+	 width="30" height="30" viewBox="0 0 525.153 525.153" style="enable-background:new 0 0 525.153 525.153;" xml:space="preserve" aria-labelledby="alarmTitle" role="img">
+<title id="alarmTitle">alarm button</title>
 <g>
 	<path d="M139.165,51.421l-35.776-35.864C43.413,61.202,3.742,132.185,0,212.402h50.174
 		C53.916,145.992,88.051,87.766,139.165,51.421z M474.979,212.402h50.174c-3.742-80.217-43.413-151.2-103.586-196.845
