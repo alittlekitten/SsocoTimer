@@ -94,6 +94,12 @@ const Buttons = (props: ButtonsProps) => css`
       ? props.theme.tapBtnActive
       : props.theme.tapBtn};
   }
+
+  .dday {
+    background-color: ${props.tap === "Dday"
+      ? props.theme.tapBtnActive
+      : props.theme.tapBtn};
+  }
 `;
 
 export default Nav;

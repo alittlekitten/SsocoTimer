@@ -117,7 +117,8 @@ const titleStyle = (props: titleProps) => css`
 
   .timer,
   .stopwatch,
-  .clock {
+  .clock,
+  .dday {
     transform: rotate(${props.tapClickCnt * 125}deg);
     transition: all ease 0.2s;
   }
@@ -132,6 +133,10 @@ const titleStyle = (props: titleProps) => css`
 
   .clock {
     color: ${props.theme.titleClock};
+  }
+
+  .dday {
+    color: ${props.theme.titleDday};
   }
 `;
 
