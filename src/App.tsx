@@ -7,6 +7,7 @@ import Nav from "@components/Nav";
 import Timer from "@components/Timer";
 import Stopwatch from "@components/Stopwatch";
 import Clock from "@components/Clock";
+import Dday from "@components/Dday";
 import Header from "@components/Header";
 import { RootState } from "@src/store";
 import useTimer from "@hooks/useTimer";
@@ -77,6 +78,9 @@ const App = () => {
                 )}
                 {tap === "Clock" && (
                   <Route path="/clock" element={<Clock />}></Route>
+                )}
+                {tap === "Dday" && (
+                  <Route path="/dday" element={<Dday />}></Route>
                 )}
               </Routes>
             </div>

@@ -12,6 +12,7 @@ const Nav = () => {
   const onClickTimer = () => dispatch({ type: "Timer" });
   const onClickStopwatch = () => dispatch({ type: "Stopwatch" });
   const onClickClock = () => dispatch({ type: "Clock" });
+  const onClickDday = () => dispatch({ type: "Dday" });
 
   return (
     <div css={Buttons({ tap, theme })}>
@@ -28,6 +29,11 @@ const Nav = () => {
       <Link to="/clock">
         <button className="clock" onClick={onClickClock}>
           시계
+        </button>
+      </Link>
+      <Link to="/dday">
+        <button className="dday" onClick={onClickDday}>
+          디데이
         </button>
       </Link>
     </div>
