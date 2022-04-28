@@ -57,6 +57,11 @@ const Title = () => {
         ) : (
           <Hour12 className="hour12" onClick={toggleClock}></Hour12>
         ))}
+      {tap === "Dday" && (
+        <span className="dday" onClick={tapClick}>
+          D-Day
+        </span>
+      )}
     </div>
   );
 };
