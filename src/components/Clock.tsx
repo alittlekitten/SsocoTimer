@@ -12,7 +12,7 @@ const Clock = () => {
   return (
     <>
       <Helmet>
-        <title>SsocoClock</title>
+        <title>Ssoco Clock</title>
       </Helmet>
       <div css={clockContainer(theme)}>
         <p className="ymd">

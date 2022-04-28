@@ -46,7 +46,7 @@ const Stopwatch = (stopwatchProps: StopwatchProps) => {
   return (
     <>
       <Helmet>
-        <title>SsocoStopwatch</title>
+        <title>Ssoco Stopwatch</title>
       </Helmet>
       <div css={totalContainer}>
         <div css={watchContainer(theme)}>
