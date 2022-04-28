@@ -78,7 +78,7 @@ const Timer = (timerProps: TimerProps) => {
   return (
     <>
       <Helmet>
-        <title>SsocoTimer</title>
+        <title>Ssoco Timer</title>
       </Helmet>
       <div css={totalContainer}>
         <div css={watchContainer({ speed, hour, minute, second, ms, theme })}>
