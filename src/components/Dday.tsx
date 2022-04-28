@@ -8,10 +8,8 @@ const Dday = () => {
   const [year, setYear] = useState<number>(nowTime.getFullYear());
   const [month, setMonth] = useState<number>(nowTime.getMonth() + 1);
   const [day, setDay] = useState<number>(nowTime.getDate());
-  const [calDay, setCalDay] = useState<number>(0);
   const [msg, setMsg] = useState<string>("");
   const theme = useTheme() as ThemeVariables;
-  let resultHTML = "";
 
   const yearOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nowYear = new Date().getFullYear();
