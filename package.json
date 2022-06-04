@@ -1,6 +1,6 @@
 {
   "name": "ssocotimer",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "private": true,
   "dependencies": {
     "@babel/preset-react": "^7.16.7",
