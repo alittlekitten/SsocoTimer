@@ -40,6 +40,8 @@ const Dday = () => {
   useEffect(() => {
     const today = new Date();
     const dday = new Date(year, month - 1, day);
+    const maxDay = new Date(year, month, 0).getDate();
+    if (day > maxDay) setDay(maxDay);
     const calGetTime = today.getTime() - dday.getTime();
     const result = Math.floor(calGetTime / (1000 * 60 * 60 * 24));
     if (year < 1970 || year > 2099 || month === 0 || day === 0) {
