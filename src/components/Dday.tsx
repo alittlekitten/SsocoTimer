@@ -4,8 +4,15 @@ import { ThemeVariables } from "@styles/palette";
 import { Helmet } from "react-helmet-async";
 
 const Dday = () => {
-  const { year, month, day, msg, yearOnChange, monthOnChange, dayOnChange } =
-    useDday();
+  const {
+    year,
+    month,
+    day,
+    ddayCal,
+    yearOnChange,
+    monthOnChange,
+    dayOnChange,
+  } = useDday();
   const theme = useTheme() as ThemeVariables;
 
   return (
@@ -39,7 +46,21 @@ const Dday = () => {
         </p>
       </div>
       <div css={resultContainer(theme)}>
-        <p>{msg}</p>
+        {ddayCal === null ? (
+          <p>유효하지 않은 날짜입니다!</p>
+        ) : ddayCal === 0 ? (
+          <p>
+            오늘이 바로 <span>D-day</span>!!
+          </p>
+        ) : ddayCal > 0 ? (
+          <p>
+            오늘로부터 <span>{ddayCal}</span>일 지났습니다!!
+          </p>
+        ) : (
+          <p>
+            앞으로 <span>{Math.abs(ddayCal)}</span>일 남았습니다!!
+          </p>
+        )}
       </div>
     </>
   );
@@ -92,6 +113,10 @@ const resultContainer = (theme: ThemeVariables) => css`
     line-height: 50px;
     vertical-align: middle;
     color: ${theme.text1};
+
+    span {
+      color: ${theme.highlightText};
+    }
   }
 `;
 

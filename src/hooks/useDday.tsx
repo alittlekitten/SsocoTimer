@@ -5,7 +5,7 @@ const useDday = () => {
   const [year, setYear] = useState<number>(nowTime.getFullYear());
   const [month, setMonth] = useState<number>(nowTime.getMonth() + 1);
   const [day, setDay] = useState<number>(nowTime.getDate());
-  const [msg, setMsg] = useState<string>("");
+  const [ddayCal, setDdayCal] = useState<number | null>(0);
 
   const yearOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nowYear = new Date().getFullYear();
@@ -41,15 +41,21 @@ const useDday = () => {
     const calGetTime = today.getTime() - dday.getTime();
     const result = Math.floor(calGetTime / (1000 * 60 * 60 * 24));
     if (year < 1970 || year > 2099 || month === 0 || day === 0) {
-      setMsg("유효하지 않은 날짜입니다!");
+      setDdayCal(null);
     } else {
-      if (result === 0) setMsg(`오늘이 바로 D-Day!`);
-      else if (result > 0) setMsg(`오늘로부터 ${result}일 지났습니다!!`);
-      else setMsg(`앞으로 ${Math.abs(result)}일 남았습니다!!!`);
+      setDdayCal(result);
     }
   }, [year, month, day]);
 
-  return { year, month, day, msg, yearOnChange, monthOnChange, dayOnChange };
+  return {
+    year,
+    month,
+    day,
+    ddayCal,
+    yearOnChange,
+    monthOnChange,
+    dayOnChange,
+  };
 };
 
 export default useDday;
