@@ -8,6 +8,9 @@ const Nav = () => {
   const { tap } = useSelector((state: RootState) => state.tapReducer);
   const dispatch = useDispatch(); // store의 reducer를 부름 -> reducer를 통해 새로운 action을 넘겨줌으로써 state를 변경함
   const theme = useTheme() as ThemeVariables;
+  const { themeStatus } = useSelector(
+    (state: RootState) => state.optionReducer
+  );
 
   const onClickTimer = () => dispatch({ type: "Timer" });
   const onClickStopwatch = () => dispatch({ type: "Stopwatch" });
@@ -15,7 +18,7 @@ const Nav = () => {
   const onClickDday = () => dispatch({ type: "Dday" });
 
   return (
-    <div css={Buttons({ tap, theme })}>
+    <div css={Buttons({ tap, theme, themeStatus })}>
       <Link to="/">
         <button className="timer" onClick={onClickTimer}>
           타이머
@@ -43,6 +46,7 @@ const Nav = () => {
 interface ButtonsProps {
   tap: String;
   theme: ThemeVariables;
+  themeStatus: String;
 }
 
 const Buttons = (props: ButtonsProps) => css`
@@ -64,8 +68,11 @@ const Buttons = (props: ButtonsProps) => css`
     border: none;
     border-radius: 4px;
 
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow: ${props.themeStatus === "light"
+      ? `0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);`
+      : `0 4px 6px -1px rgba(255, 255, 255, 0.5),
+      0 2px 4px -1px rgba(255, 255, 255, 0.3);`};
 
     cursor: pointer;
 
