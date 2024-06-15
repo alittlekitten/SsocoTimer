@@ -35,11 +35,11 @@ const Header = () => {
   return (
     <div>
       <div css={main(theme)}>
-        <span className="version">Ssoco Timer v1.6.1 </span>
+        <span className="version">Ssoco Timer v1.6.2 </span>
 
         <div className="icons">
           <span className="copyright">
-            Copyright 2022. by <span className="github-id">alittlekitten</span>
+            Copyright 2024. by <span className="github-id">alittlekitten</span>
           </span>
           {themeStatus == "dark" ? (
             <Moon className="moon" onClick={toggleTheme} />

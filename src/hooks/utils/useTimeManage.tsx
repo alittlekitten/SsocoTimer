@@ -1,5 +1,8 @@
 import { useState, useRef } from "react";
 
+// 변수 초기화를 위해 전역에 Date 객체를 사용
+const now = new Date(Date.now());
+
 interface ITime {
   ms: number;
   second: number;
@@ -11,13 +14,13 @@ interface ITime {
 }
 
 const initState: ITime = {
-  ms: 0,
-  second: 0,
-  minute: 0,
-  hour: 0,
-  day: 0,
-  month: 0,
-  year: 0,
+  ms: now.getMilliseconds(),
+  second: now.getSeconds(),
+  minute: now.getMinutes(),
+  hour: now.getHours(),
+  day: now.getDate(),
+  month: now.getMonth() + 1,
+  year: now.getFullYear(),
 };
 
 const useTimeManage = () => {
