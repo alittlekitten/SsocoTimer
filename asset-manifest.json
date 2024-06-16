@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/SsocoTimer/static/css/main.42420379.css",
-    "main.js": "/SsocoTimer/static/js/main.ff1619f4.js",
+    "main.js": "/SsocoTimer/static/js/main.b248536f.js",
     "static/js/787.a019b9f5.chunk.js": "/SsocoTimer/static/js/787.a019b9f5.chunk.js",
     "static/media/hour12.svg": "/SsocoTimer/static/media/hour12.31dbc2926a7eeab2af2cc759f90d790a.svg",
     "static/media/hour24.svg": "/SsocoTimer/static/media/hour24.73037e021c298f72ca8f4d1a5a30039e.svg",
@@ -20,11 +20,11 @@
     "static/media/minus.svg": "/SsocoTimer/static/media/minus.8a35f395a5d2248e8b02609a7cbd5826.svg",
     "static/media/tistory.svg": "/SsocoTimer/static/media/tistory.4476a0cb8fc39367ba239571f36241a1.svg",
     "main.42420379.css.map": "/SsocoTimer/static/css/main.42420379.css.map",
-    "main.ff1619f4.js.map": "/SsocoTimer/static/js/main.ff1619f4.js.map",
+    "main.b248536f.js.map": "/SsocoTimer/static/js/main.b248536f.js.map",
     "787.a019b9f5.chunk.js.map": "/SsocoTimer/static/js/787.a019b9f5.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.42420379.css",
-    "static/js/main.ff1619f4.js"
+    "static/js/main.b248536f.js"
   ]
 }
