@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import useTimeManage from "./utils/useTimeManage";
 import { useSelector } from "react-redux";
 import { RootState } from "@src/store";
@@ -7,7 +7,7 @@ const useClock = () => {
   const { time, setTime, playTimeout } = useTimeManage();
   const { hour12 } = useSelector((state: RootState) => state.clockReducer);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const now = new Date(Date.now());
     playTimeout.current = setTimeout(() => {
       setTime({
